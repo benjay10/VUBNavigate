@@ -7,12 +7,63 @@
 		<meta name="author" content="Group 7" />
 		<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1" />
 		<!--Stylesheets-->
-		<link rel="stylesheet" href="./css/MDL/material.min.css" />
+		<link rel="stylesheet" href="./css/MDL/material-indigo-orange.min.css" />
+		<!--<link rel="stylesheet" href="./css/MDL/material.min.css" />-->
 		<link rel="stylesheet" href="./css/fonts.css" />
 		<link rel="stylesheet" href="./css/mdlCorrections.css" />
+		<link rel="stylesheet" href="./css/structure.css" />
 		<!--Scripts-->
 		<script src="./js/MDL/material.min.js" async="async"></script>
+		<script src="./js/pageNavigation.js" async="asyns"></script>
 	</head>
 	<body>
+		<!-- Always shows a header, even in smaller screens. -->
+		<div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
+			<header class="mdl-layout__header">
+				<div class="mdl-layout__header-row">
+					<!-- Title -->
+					<img class="vubn-header-logo" src="./img/VUBNavigate.svg" alt="Logo" />
+					<span class="mdl-layout-title">VUB Navigate</span>
+					<!-- Add spacer, to align navigation to the right -->
+					<div class="mdl-layout-spacer"></div>
+					<!-- Navigation. We hide it in small screens. -->
+					<nav class="mdl-navigation mdl-layout--large-screen-only">
+						<a class="mdl-navigation__link vubn-navigate-link" href="#localisation"><i class="material-icons">my_location</i> Localisation</a>
+						<a class="mdl-navigation__link vubn-navigate-link" href="#navigate"><i class="material-icons">navigation</i> Navigate</a>
+						<a class="mdl-navigation__link vubn-navigate-link" href="#discover"><i class="material-icons">explore</i> Discover</a>
+						<a class="mdl-navigation__link vubn-navigate-link" href="#settings"><i class="material-icons">settings</i> Settings</a>
+						<a class="mdl-navigation__link vubn-navigate-link" href="#about"><i class="material-icons">feedback</i> About</a>
+					</nav>
+				</div>
+			</header>
+			<div class="mdl-layout__drawer">
+				<span class="mdl-layout-title"><img class="vubn-drawer-logo" src="./img/VUBNavigate.svg" alt="Logo" />VUB Navigate</span>
+				<nav class="mdl-navigation">
+					<a class="mdl-navigation__link vubn-navigate-link" href="#localisation"><i class="material-icons">my_location</i> Localisation</a>
+					<a class="mdl-navigation__link vubn-navigate-link" href="#navigate"><i class="material-icons">navigation</i> Navigate</a>
+					<a class="mdl-navigation__link vubn-navigate-link" href="#discover"><i class="material-icons">explore</i> Discover</a>
+					<a class="mdl-navigation__link vubn-navigate-link" href="#settings"><i class="material-icons">settings</i> Settings</a>
+					<a class="mdl-navigation__link vubn-navigate-link" href="#about"><i class="material-icons">feedback</i> About</a>
+				</nav>
+			</div>
+			<main class="mdl-layout__content">
+				<!-- De inhoud van de app -->
+				<section class="vubn-page vubn-startpage" id="localisation">
+					<p>Page: localisation</p>
+				</section>
+				<section class="vubn-page" id="navigate">
+					<p>Page: navigate</p>
+				</section>
+				<section class="vubn-page" id="discover">
+					<p>Page: discover</p>
+				</section>
+				<section class="vubn-page" id="settings">
+					<p>Page: settings</p>
+				</section>
+				<section class="vubn-page" id="about">
+					<p>Page: about</p>
+				</section>
+			</main>
+		</div>
 	</body>
 </html>

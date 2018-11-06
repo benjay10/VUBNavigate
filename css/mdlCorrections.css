@@ -2,3 +2,20 @@ html, body {
 	font-family: "Roboto", "Helvetica", "Arial", sans-serif;
 }
 
+/* Why is the text half transparant and light grey? */
+
+html {
+	color: rgba(0,0,0,1) !important;
+}
+
+.mdl-layout__drawer {
+	color: rgba(0,0,0,1) !important;
+}
+
+.mdl-layout__drawer .mdl-navigation .mdl-navigation__link {
+	color: rgba(0,0,0,1);
+}
+
+.mdl-navigation__link {
+	opacity: 1 !important;
+}
