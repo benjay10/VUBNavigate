@@ -1,4 +1,12 @@
 /******************************************************************************
+ *  Page
+ *****************************************************************************/
+
+html {
+	font-size: 120%;
+}
+
+/******************************************************************************
  *  Header
  *****************************************************************************/
 
@@ -13,6 +21,67 @@
 	width: 1.5em;
 	margin-right: .5em;
 	vertical-align: text-bottom;
+}
+
+/******************************************************************************
+ *  Pages
+ *****************************************************************************/
+
+#vubn-pagecontainer {
+	position: relative;
+}
+
+.vubn-page {
+	height: 300em;
+	position: relative;
+	top: 0;
+	will-change: transform, opacity;
+}
+
+.vubn-page-anim-in {
+	animation-name: vubn-page-anim-in-frames;
+	animation-duration: 1s;
+	animation-timing-function: cubic-bezier(0, .8, .2, 1);
+	animation-delay: 0s;
+	animation-iteration-count: 1;
+	animation-direction: normal;
+	animation-fill-mode: forwards;
+	animation-play-state: running;
+}
+
+.vubn-page-anim-out {
+	position: absolute;
+	width: 100%;
+	animation-name: vubn-page-anim-out-frames;
+	animation-duration: 1s;
+	animation-timing-function: cubic-bezier(0, .8, .2, 1);
+	animation-delay: 0s;
+	animation-iteration-count: 1;
+	animation-direction: normal;
+	animation-fill-mode: forwards;
+	animation-play-state: running;
+}
+
+@keyframes vubn-page-anim-in-frames {
+	from {
+		opacity: 0;
+		transform: translateY(5em);
+	}
+	to {
+		opacity: 1;
+		transform: none;
+	}
+}
+
+@keyframes vubn-page-anim-out-frames {
+	from {
+		opacity: 1;
+		transform: none;
+	}
+	to {
+		opacity: 0;
+		transform: translateY(5em);
+	}
 }
 
 /******************************************************************************

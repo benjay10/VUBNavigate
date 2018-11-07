@@ -14,6 +14,7 @@
 
 [Grote opslag voor gestructureerdde data](https://developer.mozilla.org/nl/docs/IndexedDB)
 [Opslag voor kleine data, niet zo snel](https://www.w3schools.com/html/html5_webstorage.asp)
+[Iets over opslag in Cordova (beetje herhaling)](https://cordova.apache.org/docs/en/latest/cordova/storage/storage.html)
 
 ## Web libraries
 

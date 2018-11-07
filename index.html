@@ -5,16 +5,23 @@
 		<meta name="description" content="This is the webapp for navigating through the VUB." />
 		<meta name="keywords" content="navigate, vub, webapp" />
 		<meta name="author" content="Group 7" />
-		<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1" />
+		<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=2" />
 		<!--Stylesheets-->
 		<link rel="stylesheet" href="./css/MDL/material-indigo-orange.min.css" />
 		<!--<link rel="stylesheet" href="./css/MDL/material.min.css" />-->
 		<link rel="stylesheet" href="./css/fonts.css" />
 		<link rel="stylesheet" href="./css/mdlCorrections.css" />
 		<link rel="stylesheet" href="./css/structure.css" />
+		<link rel="stylesheet" href="./css/localisation.css" />
+		<link rel="stylesheet" href="./css/navigate.css" />
+		<link rel="stylesheet" href="./css/discover.css" />
+		<link rel="stylesheet" href="./css/settings.css" />
+		<link rel="stylesheet" href="./css/about.css" />
 		<!--Scripts-->
 		<script src="./js/MDL/material.min.js" async="async"></script>
+		<script src="./js/Animator.js" async="async"></script>
 		<script src="./js/pageNavigation.js" async="asyns"></script>
+		<script src="./js/startup.js" async="async"></script>
 	</head>
 	<body>
 		<!-- Always shows a header, even in smaller screens. -->
@@ -46,21 +53,21 @@
 					<a class="mdl-navigation__link vubn-navigate-link" href="#about"><i class="material-icons">feedback</i> About</a>
 				</nav>
 			</div>
-			<main class="mdl-layout__content">
+			<main id="vubn-pagecontainer" class="mdl-layout__content hidden">
 				<!-- De inhoud van de app -->
-				<section class="vubn-page vubn-startpage" id="localisation">
+				<section class="vubn-page vubn-startpage localisation-page" id="localisation">
 					<p>Page: localisation</p>
 				</section>
-				<section class="vubn-page" id="navigate">
+				<section class="vubn-page navigate-page" id="navigate">
 					<p>Page: navigate</p>
 				</section>
-				<section class="vubn-page" id="discover">
+				<section class="vubn-page discover-page" id="discover">
 					<p>Page: discover</p>
 				</section>
-				<section class="vubn-page" id="settings">
+				<section class="vubn-page settings-page" id="settings">
 					<p>Page: settings</p>
 				</section>
-				<section class="vubn-page" id="about">
+				<section class="vubn-page about-page" id="about">
 					<p>Page: about</p>
 				</section>
 			</main>
