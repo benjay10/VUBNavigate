@@ -8,7 +8,8 @@ var vubn = {
 		MOBILE: 1
 	},
 	environment: 0,
-	pageNavigation: null
+	pageNavigation: null,
+	useAnimations: false
 }
 
 // All global modules should be created here in order

@@ -84,6 +84,23 @@ html {
 	}
 }
 
+.vubn-page-title, .vubn-page-subtitle {
+	display: block;
+}
+
+.vubn-page-title {
+	font-size: 200%;
+	line-height: 120%;
+	font-variant: small-caps;
+}
+
+.vubn-page-subtitle {
+	font-size: 150%;
+	line-height: 120%;
+	margin-bottom: 0.5em;
+	font-variant: small-caps;
+}
+
 /******************************************************************************
  *  Extra
  *****************************************************************************/

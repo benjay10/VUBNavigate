@@ -15,8 +15,11 @@ function PageNavigation() {
 	this.animator = null;
 	this.pagecontainer = null;
 	this.currentPage = null;
+	this.useAnimations = vubn.useAnimations;
+	this.pageOpenEventer = null;
+	this.pageLeaveEventer = null;
 
-	// Protype functions
+	// Prototype functions
 	
 	this.navigatelinkOnClick = function (event) {
 		// Get the target for every link (minus the '#' at the beginning)
@@ -38,6 +41,8 @@ function PageNavigation() {
 	};
 
 	this.hidePreviousPage = function () {
+		let pageid = this.currentPage.getAttribute("id");
+		this.pageLeaveEventer.fire(pageid);
 		this.animator.setObject(this.currentPage).hide();
 	};
 
@@ -56,6 +61,8 @@ function PageNavigation() {
 	};
 
 	this.showPage = function (pageDomObject) {
+		let pageid = pageDomObject.getAttribute("id");
+		this.pageOpenEventer.fire(pageid);
 		this.currentPage = pageDomObject;
 		this.animator.setObject(pageDomObject).show();
 		this.pagecontainer.scrollTop = 0;
@@ -68,7 +75,11 @@ function PageNavigation() {
 		return new Promise((resolve, reject) => {
 
 			// Prepare the animators
-			this.animator = new Animator("vubn-page-anim-in", "vubn-page-anim-out", this.classes.hidden, true, false, false);
+			this.animator = new Animator("vubn-page-anim-in", "vubn-page-anim-out", this.classes.hidden, true, false, this.useAnimations);
+
+			// Prepare the eventer
+			this.pageOpenEventer = new Eventer();
+			this.pageLeaveEventer = new Eventer();
 			
 			// Get the pages and turn into array
 			this.pages = document.getElementsByClassName(this.classes.page);
@@ -104,7 +115,7 @@ function PageNavigation() {
 			let drawerlinks = document.querySelectorAll(".mdl-layout__drawer .vubn-navigate-link");
 			let drawer = document.getElementsByClassName("mdl-layout")[0];
 
-			// The links in the drawer should make the drawer dissapear when clicked.
+			// The links in the drawer should make the drawer disappear when clicked.
 			for (let i = 0; i < drawerlinks.length; i++) {
 				drawerlinks[i].addEventListener("click", (event) => {
 					drawer.MaterialLayout.toggleDrawer();
@@ -126,6 +137,6 @@ function PageNavigation() {
 	};
 
 	// Optional constructor code
-	
+
 }
 

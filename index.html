@@ -5,7 +5,8 @@
 		<meta name="description" content="This is the webapp for navigating through the VUB." />
 		<meta name="keywords" content="navigate, vub, webapp" />
 		<meta name="author" content="Group 7" />
-		<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=2" />
+		<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1" />
+		<link rel="shortcut icon" type="image/x-icon" href="./img/favicon.png" />
 		<!--Stylesheets-->
 		<link rel="stylesheet" href="./css/MDL/material-indigo-orange.min.css" />
 		<!--<link rel="stylesheet" href="./css/MDL/material.min.css" />-->
@@ -19,6 +20,7 @@
 		<link rel="stylesheet" href="./css/about.css" />
 		<!--Scripts-->
 		<script src="./js/MDL/material.min.js" async="async"></script>
+		<script src="./js/Eventer.js" async="async"></script>
 		<script src="./js/Animator.js" async="async"></script>
 		<script src="./js/pageNavigation.js" async="asyns"></script>
 		<script src="./js/startup.js" async="async"></script>
@@ -55,11 +57,47 @@
 			</div>
 			<main id="vubn-pagecontainer" class="mdl-layout__content hidden">
 				<!-- De inhoud van de app -->
-				<section class="vubn-page vubn-startpage localisation-page" id="localisation">
+				<section class="vubn-page localisation-page" id="localisation">
 					<p>Page: localisation</p>
 				</section>
-				<section class="vubn-page navigate-page" id="navigate">
-					<p>Page: navigate</p>
+				<section class="vubn-page vubn-startpage navigate-page" id="navigate">
+					<div class="mdl-grid">
+						<div class="mdl-cell mdl-cell--12-col">
+							<span class="vubn-page-title">Navigate</span>
+						</div>
+					</div>
+					<div class="mdl-grid">
+						<div class="mdl-cell mdl-cell--6-col">
+							<span class="vubn-page-subtitle">Search</span>
+							<form action="#">
+								<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+									<input class="mdl-textfield__input" type="text" id="vubn-room-search">
+									<label class="mdl-textfield__label" for="vubn-room-search">
+										<i class="material-icons">search</i> Typ to search for classroom...
+									</label>
+								</div>
+							</form>
+						</div>
+						<div class="mdl-cell mdl-cell--6-col">
+							<span class="vubn-page-subtitle">Select</span>
+							<div class="vubn-building-buttons">
+								<button class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored">D</button>
+								<button class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored">E</button>
+								<button class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored">F</button>
+							</div>
+							<div class="vubn-room-buttons">
+								<button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">D.0.07</button>
+								<button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">D.0.08</button>
+								<button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">D.0.05</button>
+							</div>
+						</div>
+						<div class="mdl-cell mdl-cell--12-col vubn-navigatebutton-container">
+							<button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored vubn-navigatebutton">
+								<i class="material-icons">directions</i>
+								Go
+							</button>
+						</div>
+					</div>
 				</section>
 				<section class="vubn-page discover-page" id="discover">
 					<p>Page: discover</p>

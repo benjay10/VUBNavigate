@@ -1,4 +1,21 @@
 .navigate-page {
-	background-color: yellow;
+	/*background-color: yellow;*/
 }
 
+.vubn-navigatebutton-container {
+	text-align: center;
+}
+
+.vubn-navigatebutton {
+	max-width: 100%;
+	width: 30em;
+	height: 4em;
+}
+
+.vubn-building-buttons, .vubn-room-buttons {
+	margin-bottom: 1em;
+}
+
+.vubn-building-buttons button, .vubn-room-buttons button {
+	margin-right: 0.5em;
+}
