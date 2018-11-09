@@ -8,7 +8,9 @@ var vubn = {
 		MOBILE: 1
 	},
 	environment: 0,
+	drawerToggler: null,
 	pageNavigation: null,
+	subpageNavigate: null,
 	useAnimations: false
 }
 
@@ -19,4 +21,15 @@ window.addEventListener("load", (event) => {
 
 	vubn.pageNavigation = new PageNavigation();
 	vubn.pageNavigation.init();
+
+	vubn.drawerToggler = new DrawerToggler();
+	vubn.drawerToggler.init();
+
+	vubn.subpageNavigation = new PageNavigation({
+		page: "vubn-subpage-navigate",
+		startpage: "vubn-subpage-navigate-startpage",
+		pagecontainer: "navigate",
+		navigationlink: "vubn-subpage-navigate-link"
+	});
+	vubn.subpageNavigation.init();
 });

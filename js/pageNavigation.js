@@ -1,17 +1,20 @@
 "use strict";
 
-function PageNavigation() {
+function PageNavigation(classDefinitions) {
 
 	// Prototype variables
 	
+	if (! classDefinitions) {
+		classDefinitions = {};
+	}
+	classDefinitions.hidden = classDefinitions.hidden || "hidden";
+	classDefinitions.page = classDefinitions.page || "vubn-page";
+	classDefinitions.startpage = classDefinitions.startpage || "vubn-startpage";
+	classDefinitions.pagecontainer = classDefinitions.pagecontainer || "vubn-pagecontainer";
+	classDefinitions.navigationlink = classDefinitions.navigationlink || "vubn-navigate-link";
+	
 	this.pages = null;
-	this.classes = {
-		hidden: "hidden",
-		page: "vubn-page",
-		startpage: "vubn-startpage",
-		pagecontainer: "vubn-pagecontainer",
-		navigationlink: "vubn-navigate-link"
-	};
+	this.classes = classDefinitions;
 	this.animator = null;
 	this.pagecontainer = null;
 	this.currentPage = null;
@@ -24,6 +27,9 @@ function PageNavigation() {
 	this.navigatelinkOnClick = function (event) {
 		// Get the target for every link (minus the '#' at the beginning)
 		let link = event.currentTarget.getAttribute("href");
+		if (!link || link === "") {
+			link = event.currentTarget.getAttribute("data-href");
+		}
 		link = link.substring(1, link.length);
 
 		let foundPage  = false;
@@ -53,11 +59,12 @@ function PageNavigation() {
 	};
 
 	this.showStartPage = function () {
-		this.pages.forEach((page, index) => {
-			if (page.classList.contains(this.classes.startpage)) {
-				this.showPage(page);
+		for (let i = 0; i < this.pages.length; i++) {
+			if (this.pages[i].classList.contains(this.classes.startpage)) {
+				this.showPage(this.pages[i]);
+				break;
 			}
-		});
+		}
 	};
 
 	this.showPage = function (pageDomObject) {
@@ -112,26 +119,7 @@ function PageNavigation() {
 				}
 			}
 
-			let drawerlinks = document.querySelectorAll(".mdl-layout__drawer .vubn-navigate-link");
-			let drawer = document.getElementsByClassName("mdl-layout")[0];
-
-			// The links in the drawer should make the drawer disappear when clicked.
-			for (let i = 0; i < drawerlinks.length; i++) {
-				drawerlinks[i].addEventListener("click", (event) => {
-					drawer.MaterialLayout.toggleDrawer();
-				});
-			}
-
-			// Use the 'm' to toggle the drawer.
-			document.addEventListener("keyup", (event) => {
-				event.stopPropagation();
-				if (event.keyCode === 77) {
-					//m, M
-					drawer.MaterialLayout.toggleDrawer();
-				}
-			});
-
-			resolve(true);
+			resolve();
 		});
 		
 	};

@@ -23,6 +23,7 @@
 		<script src="./js/Eventer.js" async="async"></script>
 		<script src="./js/Animator.js" async="async"></script>
 		<script src="./js/pageNavigation.js" async="asyns"></script>
+		<script src="./js/drawerToggler.js" async="asyns"></script>
 		<script src="./js/startup.js" async="async"></script>
 	</head>
 	<body>
@@ -61,41 +62,124 @@
 					<p>Page: localisation</p>
 				</section>
 				<section class="vubn-page vubn-startpage navigate-page" id="navigate">
-					<div class="mdl-grid">
-						<div class="mdl-cell mdl-cell--12-col">
-							<span class="vubn-page-title">Navigate</span>
+					<!-- Navigate Intro -->
+					<div id="vubn-navigate-intro" class="vubn-subpage vubn-subpage-navigate vubn-subpage-navigate-startpage">
+						<div class="mdl-grid">
+							<div class="mdl-cell mdl-cell--12-col">
+								<span class="vubn-page-title">Navigate</span>
+							</div>
+						</div>
+						<div class="mdl-grid">
+							<div class="mdl-cell mdl-cell--12-col">
+								<p>Choose how to select your destination.</p>
+							</div>
+							<div class="mdl-cell mdl-cell--12-col">
+								<button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent vubn-navigate-intro-button vubn-subpage-navigate-link" data-href="#vubn-navigate-search">
+									<i class="material-icons">search</i>
+									Search
+								</button>
+							</div>
+							<div class="mdl-cell mdl-cell--12-col">
+								<button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent vubn-navigate-intro-button vubn-subpage-navigate-link" data-href="#vubn-navigate-select">
+									<i class="material-icons">filter_list</i>
+									Select
+								</button>
+							</div>
+							<div class="mdl-cell mdl-cell--12-col">
+								<button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent vubn-navigate-intro-button vubn-subpage-navigate-link" data-href="#vubn-navigate-calendar">
+									<i class="material-icons">event</i>
+									Calendar
+								</button>
+							</div>
 						</div>
 					</div>
-					<div class="mdl-grid">
-						<div class="mdl-cell mdl-cell--6-col">
-							<span class="vubn-page-subtitle">Search</span>
-							<form action="#">
-								<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-									<input class="mdl-textfield__input" type="text" id="vubn-room-search">
-									<label class="mdl-textfield__label" for="vubn-room-search">
-										<i class="material-icons">search</i> Typ to search for classroom...
-									</label>
+					<!-- Navigate Search -->
+					<div id="vubn-navigate-search" class="vubn-subpage vubn-subpage-navigate">
+						<div class="mdl-grid">
+							<div class="mdl-cell mdl-cell--12-col">
+								<button class="mdl-button mdl-js-button mdl-js-ripple-effect vubn-subpage-navigate-link vubn-subpage-back" data-href="#vubn-navigate-intro">
+									<i class="material-icons">keyboard_backspace</i>
+								</button>
+								<span class="vubn-page-title">Navigate</span>
+							</div>
+						</div>
+						<div class="mdl-grid">
+							<div class="mdl-cell mdl-cell--12-col">
+								<span class="vubn-page-subtitle">Search</span>
+							</div>
+							<div class="mdl-cell mdl-cell--12-col">
+								<form action="#">
+									<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+										<input class="mdl-textfield__input" type="text" id="vubn-room-search">
+										<label class="mdl-textfield__label" for="vubn-room-search">
+											<i class="material-icons">search</i> Typ to search for classroom...
+										</label>
+									</div>
+								</form>
+							</div>
+							<div class="mdl-cell mdl-cell--12-col">
+								<div class="vubn-room-buttons">
+									<button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">D.0.07</button>
+									<button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">D.0.08</button>
+									<button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">D.0.05</button>
 								</div>
-							</form>
-						</div>
-						<div class="mdl-cell mdl-cell--6-col">
-							<span class="vubn-page-subtitle">Select</span>
-							<div class="vubn-building-buttons">
-								<button class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored">D</button>
-								<button class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored">E</button>
-								<button class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored">F</button>
 							</div>
-							<div class="vubn-room-buttons">
-								<button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">D.0.07</button>
-								<button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">D.0.08</button>
-								<button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">D.0.05</button>
+							<div class="mdl-cell mdl-cell--12-col vubn-navigatebutton-container">
+								<button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored vubn-navigatebutton">
+									<i class="material-icons">directions</i>
+									Go
+								</button>
 							</div>
 						</div>
-						<div class="mdl-cell mdl-cell--12-col vubn-navigatebutton-container">
-							<button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored vubn-navigatebutton">
-								<i class="material-icons">directions</i>
-								Go
-							</button>
+					</div>
+					<!-- Navigate Select -->
+					<div id="vubn-navigate-select" class="vubn-subpage vubn-subpage-navigate">
+						<div class="mdl-grid">
+							<div class="mdl-cell mdl-cell--12-col">
+								<button class="mdl-button mdl-js-button mdl-js-ripple-effect vubn-subpage-navigate-link vubn-subpage-back" data-href="#vubn-navigate-intro">
+									<i class="material-icons">keyboard_backspace</i>
+								</button>
+								<span class="vubn-page-title">Navigate</span>
+							</div>
+						</div>
+						<div class="mdl-grid">
+							<div class="mdl-cell mdl-cell--12-col">
+								<span class="vubn-page-subtitle">Select</span>
+							</div>
+							<div class="mdl-cell mdl-cell--12-col">
+								<div class="vubn-building-buttons">
+									<button class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored">D</button>
+									<button class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored">E</button>
+									<button class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored">F</button>
+								</div>
+								<div class="vubn-room-buttons">
+									<button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">D.0.07</button>
+									<button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">D.0.08</button>
+									<button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">D.0.05</button>
+								</div>
+							</div>
+							<div class="mdl-cell mdl-cell--12-col vubn-navigatebutton-container">
+								<button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored vubn-navigatebutton">
+									<i class="material-icons">directions</i>
+									Go
+								</button>
+							</div>
+						</div>	
+					</div>
+					<!-- Navigate Navigate -->
+					<div id="vubn-navigate-navigate" class="vubn-subpage vubn-subpage-navigate">
+						<div class="mdl-grid">
+							<div class="mdl-cell mdl-cell--12-col">
+								<button class="mdl-button mdl-js-button mdl-js-ripple-effect vubn-subpage-navigate-link vubn-subpage-back" data-href="#vubn-navigate-intro">
+									<i class="material-icons">keyboard_backspace</i>
+								</button>
+								<span class="vubn-page-title">Navigate</span>
+							</div>
+						</div>
+						<div class="mdl-grid">
+							<div class="mdl-cell mdl-cell--12-col">
+								<p>Something about the navigations</p>
+							</div>
 						</div>
 					</div>
 				</section>

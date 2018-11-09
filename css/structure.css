@@ -36,6 +36,8 @@ html {
 	position: relative;
 	top: 0;
 	will-change: transform, opacity;
+	max-width: 60em;
+	margin: 0 auto;
 }
 
 .vubn-page-anim-in {
@@ -85,7 +87,7 @@ html {
 }
 
 .vubn-page-title, .vubn-page-subtitle {
-	display: block;
+	/*display: block;*/
 }
 
 .vubn-page-title {
@@ -99,6 +101,15 @@ html {
 	line-height: 120%;
 	margin-bottom: 0.5em;
 	font-variant: small-caps;
+}
+
+
+/******************************************************************************
+ *  Subpages
+ *****************************************************************************/
+
+.vubn-subpage-back {
+	vertical-align: bottom;
 }
 
 /******************************************************************************
