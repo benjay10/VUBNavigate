@@ -1,6 +1,6 @@
 "use strict";
 
-function PageNavigation(classDefinitions) {
+function PageNavigation(classDefinitions, isTouch) {
 
 	// Prototype variables
 	
@@ -12,6 +12,10 @@ function PageNavigation(classDefinitions) {
 	classDefinitions.startpage = classDefinitions.startpage || "vubn-startpage";
 	classDefinitions.pagecontainer = classDefinitions.pagecontainer || "vubn-pagecontainer";
 	classDefinitions.navigationlink = classDefinitions.navigationlink || "vubn-navigate-link";
+	classDefinitions.animIn = classDefinitions.animIn || "vubn-page-anim-in";
+	classDefinitions.animOut = classDefinitions.animOut || "vubn-page-anim-out";
+
+	isTouch = (isTouch === undefined) ? false : isTouch;
 	
 	this.pages = null;
 	this.classes = classDefinitions;
@@ -82,7 +86,7 @@ function PageNavigation(classDefinitions) {
 		return new Promise((resolve, reject) => {
 
 			// Prepare the animators
-			this.animator = new Animator("vubn-page-anim-in", "vubn-page-anim-out", this.classes.hidden, true, false, this.useAnimations);
+			this.animator = new Animator(classDefinitions.animIn, classDefinitions.animOut, this.classes.hidden, true, false, this.useAnimations);
 
 			// Prepare the eventer
 			this.pageOpenEventer = new Eventer();
@@ -105,18 +109,12 @@ function PageNavigation(classDefinitions) {
 			let me = this;
 
 			// Use eventlisteners on every navigation link to make navigation work
+			let eventType = (isTouch) ? "touchend" : "click";
 			for (let i = 0; i < pagelinks.length; i++) {
-				if (vubn.environment === vubn.const.BROWSER) {
-					pagelinks[i].addEventListener("click", (event) => {
-						event.stopPropagation();
-						me.navigatelinkOnClick(event);
-					});
-				} else {
-					pagelinks[i].addEventListener("touchend", (event) => {
-						event.stopPropagation();
-						me.navigatelinkOnClick(event);
-					});
-				}
+				pagelinks[i].addEventListener(eventType, (event) => {
+					event.stopPropagation();
+					me.navigatelinkOnClick(event);
+				});
 			}
 
 			resolve();

@@ -41,6 +41,21 @@
 
 .vubn-building-buttons button, .vubn-room-buttons button {
 	margin-right: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.vubn-building-buttons .mdl-button {
+	font-size: 2em;
+	height: 2em;
+	width: 2em;
+}
+
+.vubn-floor-buttons .button-right {
+	text-align: right;
+}
+
+.vubn-floor-buttons .button-left {
+	text-align: left;
 }
 
 /******************************************************************************
