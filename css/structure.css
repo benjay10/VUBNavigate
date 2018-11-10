@@ -87,7 +87,7 @@ html {
 }
 
 .vubn-page-title, .vubn-page-subtitle {
-	/*display: block;*/
+	display: inline-block;
 }
 
 .vubn-page-title {

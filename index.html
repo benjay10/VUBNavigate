@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="nl">
 	<head>
-		<meta charset="utf-8">
+		<meta charset="utf-8" />
 		<meta name="description" content="This is the webapp for navigating through the VUB." />
 		<meta name="keywords" content="navigate, vub, webapp" />
 		<meta name="author" content="Group 7" />
@@ -20,9 +20,9 @@
 		<link rel="stylesheet" href="./css/about.css" />
 		<!--Scripts-->
 		<script src="./js/MDL/material.min.js" async="async"></script>
-		<script src="./js/Eventer.js" async="async"></script>
-		<script src="./js/Animator.js" async="async"></script>
-		<script src="./js/pageNavigation.js" async="asyns"></script>
+		<script src="./js/lib/Eventer.js" async="async"></script>
+		<script src="./js/lib/Animator.js" async="async"></script>
+		<script src="./js/lib/PageNavigation.js" async="asyns"></script>
 		<script src="./js/drawerToggler.js" async="asyns"></script>
 		<script src="./js/startup.js" async="async"></script>
 	</head>
@@ -58,9 +58,22 @@
 			</div>
 			<main id="vubn-pagecontainer" class="mdl-layout__content hidden">
 				<!-- De inhoud van de app -->
+			<!--
+				Localisation page
+			-->
 				<section class="vubn-page localisation-page" id="localisation">
 					<p>Page: localisation</p>
+					<p>This page will show more information on your current location.</p>
+					<ul>
+						<li>Nearby vending machines</li>
+						<li>Nearby toilets</li>
+						<li>Water fountains</li>
+						<li>...</li>
+					</ul>
 				</section>
+			<!--
+				Start navigation page
+			-->
 				<section class="vubn-page vubn-startpage navigate-page" id="navigate">
 					<!-- Navigate Intro -->
 					<div id="vubn-navigate-intro" class="vubn-subpage vubn-subpage-navigate vubn-subpage-navigate-startpage">
@@ -110,7 +123,7 @@
 							<div class="mdl-cell mdl-cell--12-col">
 								<form action="#">
 									<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-										<input class="mdl-textfield__input" type="text" id="vubn-room-search">
+										<input class="mdl-textfield__input" type="text" id="vubn-room-search" />
 										<label class="mdl-textfield__label" for="vubn-room-search">
 											<i class="material-icons">search</i> Typ to search for classroom...
 										</label>
@@ -125,7 +138,7 @@
 								</div>
 							</div>
 							<div class="mdl-cell mdl-cell--12-col vubn-navigatebutton-container">
-								<button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored vubn-navigatebutton">
+								<button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored vubn-navigatebutton vubn-subpage-navigate-link" data-href="#vubn-navigate-navigate">
 									<i class="material-icons">directions</i>
 									Go
 								</button>
@@ -143,15 +156,88 @@
 							</div>
 						</div>
 						<div class="mdl-grid">
-							<div class="mdl-cell mdl-cell--12-col">
-								<span class="vubn-page-subtitle">Select</span>
+							<div class="mdl-cell mdl-cell--6-col mdl-cell--4-col-tablet">
+								<span class="vubn-page-subtitle">Select building</span>
+								<div class="vubn-building-buttons">
+									<button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">B</button>
+									<button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">C</button>
+									<button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">D</button>
+									<button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">E</button>
+									<button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">F</button>
+									<button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">G</button>
+									<button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">M</button>
+									<button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">T</button>
+									<button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">K</button>
+									<button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">L</button>
+									<button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">Y</button>
+									<button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">Y'</button>
+									<button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">Z</button>
+								</div>
+							</div>
+							<div class="mdl-cell mdl-cell--6-col mdl-cell--4-col-tablet">
+								<span class="vubn-page-subtitle">Select floor</span>
+								<div class="vubn-floor-buttons">
+									<div class="mdl-grid">
+										<div class="mdl-cell mdl-cell--6-col mdl-cell--2-col-phone mdl-cell--4-col-tablet button-right">
+											<button class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--accent">10</button>
+										</div>
+										<div class="mdl-cell mdl-cell--6-col mdl-cell--2-col-phone mdl-cell--4-col-tablet">
+										</div>
+										<div class="mdl-cell mdl-cell--6-col mdl-cell--2-col-phone mdl-cell--4-col-tablet">
+										</div>
+										<div class="mdl-cell mdl-cell--6-col mdl-cell--2-col-phone mdl-cell--4-col-tablet button-left">
+											<button class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--accent">9</button>
+										</div>
+										<div class="mdl-cell mdl-cell--6-col mdl-cell--2-col-phone mdl-cell--4-col-tablet button-right">
+											<button class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--accent">8</button>
+										</div>
+										<div class="mdl-cell mdl-cell--6-col mdl-cell--2-col-phone mdl-cell--4-col-tablet">
+										</div>
+										<div class="mdl-cell mdl-cell--6-col mdl-cell--2-col-phone mdl-cell--4-col-tablet">
+										</div>
+										<div class="mdl-cell mdl-cell--6-col mdl-cell--2-col-phone mdl-cell--4-col-tablet button-left">
+											<button class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--accent">7</button>
+										</div>
+										<div class="mdl-cell mdl-cell--6-col mdl-cell--2-col-phone mdl-cell--4-col-tablet button-right">
+											<button class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--accent">6</button>
+										</div>
+										<div class="mdl-cell mdl-cell--6-col mdl-cell--2-col-phone mdl-cell--4-col-tablet">
+										</div>
+										<div class="mdl-cell mdl-cell--6-col mdl-cell--2-col-phone mdl-cell--4-col-tablet">
+										</div>
+										<div class="mdl-cell mdl-cell--6-col mdl-cell--2-col-phone mdl-cell--4-col-tablet button-left">
+											<button class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--accent">5</button>
+										</div>
+										<div class="mdl-cell mdl-cell--6-col mdl-cell--2-col-phone mdl-cell--4-col-tablet button-right">
+											<button class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--accent">4</button>
+										</div>
+										<div class="mdl-cell mdl-cell--6-col mdl-cell--2-col-phone mdl-cell--4-col-tablet">
+										</div>
+										<div class="mdl-cell mdl-cell--6-col mdl-cell--2-col-phone mdl-cell--4-col-tablet">
+										</div>
+										<div class="mdl-cell mdl-cell--6-col mdl-cell--2-col-phone mdl-cell--4-col-tablet button-left">
+											<button class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--accent">3</button>
+										</div>
+										<div class="mdl-cell mdl-cell--6-col mdl-cell--2-col-phone mdl-cell--4-col-tablet button-right">
+											<button class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--accent">2</button>
+										</div>
+										<div class="mdl-cell mdl-cell--6-col mdl-cell--2-col-phone mdl-cell--4-col-tablet">
+										</div>
+										<div class="mdl-cell mdl-cell--6-col mdl-cell--2-col-phone mdl-cell--4-col-tablet">
+										</div>
+										<div class="mdl-cell mdl-cell--6-col mdl-cell--2-col-phone mdl-cell--4-col-tablet button-left">
+											<button class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--accent">1</button>
+										</div>
+										<div class="mdl-cell mdl-cell--6-col mdl-cell--2-col-phone mdl-cell--4-col-tablet button-right">
+											<button class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--accent">0</button>
+										</div>
+										<div class="mdl-cell mdl-cell--6-col mdl-cell--2-col-phone mdl-cell--4-col-tablet">
+										</div>
+									</div>
+								</div>
 							</div>
 							<div class="mdl-cell mdl-cell--12-col">
-								<div class="vubn-building-buttons">
-									<button class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored">D</button>
-									<button class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored">E</button>
-									<button class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored">F</button>
-								</div>
+								<span class="vubn-page-subtitle">Select room</span>
 								<div class="vubn-room-buttons">
 									<button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">D.0.07</button>
 									<button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">D.0.08</button>
@@ -159,7 +245,32 @@
 								</div>
 							</div>
 							<div class="mdl-cell mdl-cell--12-col vubn-navigatebutton-container">
-								<button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored vubn-navigatebutton">
+								<button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored vubn-navigatebutton vubn-subpage-navigate-link" data-href="#vubn-navigate-navigate">
+									<i class="material-icons">directions</i>
+									Go
+								</button>
+							</div>
+						</div>	
+					</div>
+					<!-- Navigate Calendar -->
+					<div id="vubn-navigate-calendar" class="vubn-subpage vubn-subpage-navigate">
+						<div class="mdl-grid">
+							<div class="mdl-cell mdl-cell--12-col">
+								<button class="mdl-button mdl-js-button mdl-js-ripple-effect vubn-subpage-navigate-link vubn-subpage-back" data-href="#vubn-navigate-intro">
+									<i class="material-icons">keyboard_backspace</i>
+								</button>
+								<span class="vubn-page-title">Navigate</span>
+							</div>
+						</div>
+						<div class="mdl-grid">
+							<div class="mdl-cell mdl-cell--12-col">
+								<span class="vubn-page-subtitle">Calendar</span>
+							</div>
+							<div class="mdl-cell mdl-cell--12-col">
+								<p>Select a room based on your school calendar. These are your upcoming classes for today. Select the class you want to navigate to.</p>
+							</div>
+							<div class="mdl-cell mdl-cell--12-col vubn-navigatebutton-container">
+								<button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored vubn-navigatebutton vubn-subpage-navigate-link" data-href="#vubn-navigate-navigate">
 									<i class="material-icons">directions</i>
 									Go
 								</button>
@@ -183,14 +294,56 @@
 						</div>
 					</div>
 				</section>
+			<!--
+				Discover page
+			-->
 				<section class="vubn-page discover-page" id="discover">
 					<p>Page: discover</p>
+					<p>This page will show options to navigate to, for example the nearest toilets, restaurant, coffee machine, other vending machines, ...</p>
 				</section>
+			<!--
+				Settings page
+			-->
 				<section class="vubn-page settings-page" id="settings">
 					<p>Page: settings</p>
+					<p>This page shows which modules are working (Wi-Fi, Sound, ...) and provide some basic settings for:</p>
+					<ul>
+						<li>Speech enabled</li>
+						<li>Show pictures</li>
+						<li>Import Calendar</li>
+						<li>Enable modules or disable</li>
+						<li>Toilet preferences?</li>
+						<li>Use animations? pff</li>
+						<li>...</li>
+					</ul>
 				</section>
+			<!--
+				About page
+			-->
 				<section class="vubn-page about-page" id="about">
-					<p>Page: about</p>
+					<div class="mdl-grid">
+						<div class="mdl-cell mdl-cell--12-col vubn-about-logo-container">
+							<img class="vubn-about-logo" src="./img/VUBNavigate.svg" alt="Logo" />
+						</div>
+						<div class="mdl-cell mdl-cell--12-col">
+							<span class="vubn-about-title">VUB Navigate</span>
+						</div>
+						<div class="mdl-cell mdl-cell--12-col">
+							<p>
+								This app was developed as an asignment for &ldquo;Next Generation User Interfaces&rdquo;. The goal is to make a user friendly app with a new type of user interaction, in this case indirect interaction with the environment using sound and Wi-Fi signals. It uses the <a href="https://getmdl.io/index.html">Google Material Design Lite</a> framework for the lay-out and <a href="https://github.com/quiet/quiet-js">Quiet.js</a> for ultrasonic communication. It was built with <a href="https://cordova.apache.org/">Cordova</a> for browser and Android.
+							</p>
+							<p>
+								Help us make the app better! Report issues to <a href="https://github.com/benjay10/VUBNavigate/issues">the Github Issues page</a>.
+							<p>
+								Kind regard,
+							</p>
+							<p class="vubn-about-names">
+								Ben Behaeghe<br />
+								Thibaut Deweert<br />
+								Badreddine Hachoumi<br />
+							</p>
+						</div>
+					</div>
 				</section>
 			</main>
 		</div>

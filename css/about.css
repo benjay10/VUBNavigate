@@ -1,4 +1,27 @@
 .about-page {
-	background-color: red;
+	/*background-color: red;*/
 }
 
+.vubn-about-logo-container {
+	text-align: center;
+}
+
+.vubn-about-logo {
+	width: 15em;
+	max-width: 70%;
+	margin: 2em 0;
+}
+
+.vubn-about-title {
+	display: block;
+	font-size: 300%;
+	font-weight: bold;
+	text-align: center;
+	line-height: 120%;
+	margin-bottom: 0.7em;
+}
+
+.vubn-about-names {
+	text-align: center;
+	font-style: italic;
+}

@@ -19,7 +19,9 @@ var vubn = {
 window.addEventListener("load", (event) => {
 	event.stopPropagation();
 
-	vubn.pageNavigation = new PageNavigation();
+	let isTouch = (vubn.environment === vubn.const.MOBILE);
+
+	vubn.pageNavigation = new PageNavigation({}, isTouch);
 	vubn.pageNavigation.init();
 
 	vubn.drawerToggler = new DrawerToggler();
@@ -29,7 +31,9 @@ window.addEventListener("load", (event) => {
 		page: "vubn-subpage-navigate",
 		startpage: "vubn-subpage-navigate-startpage",
 		pagecontainer: "navigate",
-		navigationlink: "vubn-subpage-navigate-link"
-	});
+		navigationlink: "vubn-subpage-navigate-link",
+		animIn: "vubn-page-anim-in",
+		animOut: "vubn-page-anim-out"
+	}, isTouch);
 	vubn.subpageNavigation.init();
 });
