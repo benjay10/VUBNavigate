@@ -1,0 +1,119 @@
+{
+  "rooms": {
+    "10F711": {
+      "building_level": "10F",
+      "neigh": [0, "10F716"],
+      "position": "R",
+      "info": "TODO: who's here?"
+    },
+    "10F716": {
+      "building_level": "10F",
+      "neigh": ["10F711", "10F719"],
+      "position": "R",
+      "info": "TODO: who's here?"
+    },
+    "10F719": {
+      "building_level": "10F",
+      "neigh": ["10F716", "10F722"],
+      "position": "R",
+      "info": "TODO: who's here?"
+    },
+    "10F722": {
+      "building_level": "10F",
+      "neigh": ["10F719", "10F724"],
+      "position": "R",
+      "info": "TODO: who's here?"
+    },
+    "10F724": {
+      "building_level": "10F",
+      "neigh": ["10F722", "10F728"],
+      "position": "R",
+      "info": "TODO: who's here?"
+    },
+    "10F728": {
+      "building_level": "10F",
+      "neigh": ["10F724", "10F731"],
+      "position": "R",
+      "info": "TODO: who's here?"
+    },
+    "10F731": {
+      "building_level": "10F",
+      "neigh": ["10F728", "10F733"],
+      "position": "R",
+      "info": "TODO: who's here?"
+    },
+    "10F733": {
+      "building_level": "10F",
+      "neigh": ["10F731", "10F736"],
+      "position": "R",
+      "info": "TODO: who's here?"
+    },
+    "10F736": {
+      "building_level": "10F",
+      "neigh": ["10F733", "10F738"],
+      "position": "R",
+      "info": "TODO: who's here?"
+    },
+    "10F738": {
+      "building_level": "10F",
+      "neigh": ["10F736", "1OF740"],
+      "position": "R",
+      "info": "TODO: who's here?"
+    },
+    "10F740": {
+      "building_level": "10F",
+      "neigh": ["10F738", "10F742"],
+      "position": "R",
+      "info": "TODO: who's here?"
+    },
+    "10F742": {
+      "building_level": "10F",
+      "neigh": ["10F740", "10F744"],
+      "position": "R",
+      "info": "TODO: who's here?"
+    },
+    "10F744": {
+      "building_level": "10F",
+      "neigh": ["10F742", "10F746"],
+      "position": "R",
+      "info": "TODO: who's here?"
+    },
+    "10F746": {
+      "building_level": "10F",
+      "neigh": ["10F744", 4],
+      "position": "R",
+      "info": "TODO: who's here?"
+    },
+
+		"5F207": {
+      "building_level": "5F",
+      "neigh": [0, "5F206"],
+      "position": "L",
+      "info": "TODO: who's here?"
+    },
+		"5F206": {
+      "building_level": "5F",
+      "neigh": ["5F207", "5F204A"],
+      "position": "L",
+      "info": "TODO: who's here?"
+    },
+		"5F204A": {
+      "building_level": "5F",
+      "neigh": ["5F206", "5F204"],
+      "position": "L",
+      "info": "TODO: who's here?"
+    },
+		"5F204": {
+      "building_level": "5F",
+      "neigh": ["5F204A", "5F203"],
+      "position": "L",
+      "info": "TODO: who's here?"
+    },
+		"5F203": {
+      "building_level": "5F",
+      "neigh": ["5F204", 5],
+      "position": "L",
+      "info": "TODO: who's here?"
+    }
+  }
+}
