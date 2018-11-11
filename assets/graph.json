@@ -52,14 +52,12 @@
 
 	"building_level":{
 		"5F":{
-			"level":5,
-			"rotule":[5]
+			"floor":5,
+      "rotule":[5]
 		},
 		"10F":{
-			"level":10,
-			"rotule":[4,5]
+			"floor":10,
+      "rotule":[4,5]
 		},
-	},
-
-  "rooms":
+	}
 }
