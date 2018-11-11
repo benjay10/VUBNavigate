@@ -23,7 +23,11 @@
 		<script src="./js/lib/Eventer.js" async="async"></script>
 		<script src="./js/lib/Animator.js" async="async"></script>
 		<script src="./js/lib/PageNavigation.js" async="asyns"></script>
+		<script src="./js/lib/Templator.js" async="asyns"></script>
+		<script src="./js/Model/Room.js" async="asyns"></script>
+		<script src="./js/Services/RoomService.js" async="asyns"></script>
 		<script src="./js/drawerToggler.js" async="asyns"></script>
+		<script src="./js/navigateView.js" async="asyns"></script>
 		<script src="./js/startup.js" async="async"></script>
 	</head>
 	<body>
@@ -159,19 +163,19 @@
 							<div class="mdl-cell mdl-cell--6-col mdl-cell--4-col-tablet">
 								<span class="vubn-page-subtitle">Select building</span>
 								<div class="vubn-building-buttons">
-									<button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">B</button>
-									<button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">C</button>
-									<button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">D</button>
-									<button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">E</button>
-									<button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">F</button>
-									<button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">G</button>
-									<button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">M</button>
-									<button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">T</button>
-									<button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">K</button>
-									<button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">L</button>
-									<button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">Y</button>
-									<button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">Y'</button>
-									<button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">Z</button>
+									<button data-vubn-select-building="B" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent vubn-building-button">B</button>
+									<button data-vubn-select-building="C" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent vubn-building-button">C</button>
+									<button data-vubn-select-building="D" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent vubn-building-button">D</button>
+									<button data-vubn-select-building="E" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent vubn-building-button">E</button>
+									<button data-vubn-select-building="F" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent vubn-building-button">F</button>
+									<button data-vubn-select-building="G" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent vubn-building-button">G</button>
+									<button data-vubn-select-building="M" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent vubn-building-button">M</button>
+									<button data-vubn-select-building="T" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent vubn-building-button">T</button>
+									<button data-vubn-select-building="K" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent vubn-building-button">K</button>
+									<button data-vubn-select-building="L" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent vubn-building-button">L</button>
+									<button data-vubn-select-building="Y" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent vubn-building-button">Y</button>
+									<button data-vubn-select-building="Y'" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent vubn-building-button">Y'</button>
+									<button data-vubn-select-building="Z" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent vubn-building-button">Z</button>
 								</div>
 							</div>
 							<div class="mdl-cell mdl-cell--6-col mdl-cell--4-col-tablet">
@@ -179,57 +183,57 @@
 								<div class="vubn-floor-buttons">
 									<div class="mdl-grid">
 										<div class="mdl-cell mdl-cell--6-col mdl-cell--2-col-phone mdl-cell--4-col-tablet button-right">
-											<button class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--accent">10</button>
+											<button data-vubn-select-floor="10" class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--accent vubn-floor-button">10</button>
 										</div>
 										<div class="mdl-cell mdl-cell--6-col mdl-cell--2-col-phone mdl-cell--4-col-tablet">
 										</div>
 										<div class="mdl-cell mdl-cell--6-col mdl-cell--2-col-phone mdl-cell--4-col-tablet">
 										</div>
 										<div class="mdl-cell mdl-cell--6-col mdl-cell--2-col-phone mdl-cell--4-col-tablet button-left">
-											<button class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--accent">9</button>
+											<button data-vubn-select-floor="9" class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--accent vubn-floor-button">9</button>
 										</div>
 										<div class="mdl-cell mdl-cell--6-col mdl-cell--2-col-phone mdl-cell--4-col-tablet button-right">
-											<button class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--accent">8</button>
+											<button data-vubn-select-floor="8" class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--accent vubn-floor-button">8</button>
 										</div>
 										<div class="mdl-cell mdl-cell--6-col mdl-cell--2-col-phone mdl-cell--4-col-tablet">
 										</div>
 										<div class="mdl-cell mdl-cell--6-col mdl-cell--2-col-phone mdl-cell--4-col-tablet">
 										</div>
 										<div class="mdl-cell mdl-cell--6-col mdl-cell--2-col-phone mdl-cell--4-col-tablet button-left">
-											<button class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--accent">7</button>
+											<button data-vubn-select-floor="7" class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--accent vubn-floor-button">7</button>
 										</div>
 										<div class="mdl-cell mdl-cell--6-col mdl-cell--2-col-phone mdl-cell--4-col-tablet button-right">
-											<button class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--accent">6</button>
+											<button data-vubn-select-floor="6" class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--accent vubn-floor-button">6</button>
 										</div>
 										<div class="mdl-cell mdl-cell--6-col mdl-cell--2-col-phone mdl-cell--4-col-tablet">
 										</div>
 										<div class="mdl-cell mdl-cell--6-col mdl-cell--2-col-phone mdl-cell--4-col-tablet">
 										</div>
 										<div class="mdl-cell mdl-cell--6-col mdl-cell--2-col-phone mdl-cell--4-col-tablet button-left">
-											<button class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--accent">5</button>
+											<button data-vubn-select-floor="5" class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--accent vubn-floor-button">5</button>
 										</div>
 										<div class="mdl-cell mdl-cell--6-col mdl-cell--2-col-phone mdl-cell--4-col-tablet button-right">
-											<button class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--accent">4</button>
+											<button data-vubn-select-floor="4" class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--accent vubn-floor-button">4</button>
 										</div>
 										<div class="mdl-cell mdl-cell--6-col mdl-cell--2-col-phone mdl-cell--4-col-tablet">
 										</div>
 										<div class="mdl-cell mdl-cell--6-col mdl-cell--2-col-phone mdl-cell--4-col-tablet">
 										</div>
 										<div class="mdl-cell mdl-cell--6-col mdl-cell--2-col-phone mdl-cell--4-col-tablet button-left">
-											<button class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--accent">3</button>
+											<button data-vubn-select-floor="3" class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--accent vubn-floor-button">3</button>
 										</div>
 										<div class="mdl-cell mdl-cell--6-col mdl-cell--2-col-phone mdl-cell--4-col-tablet button-right">
-											<button class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--accent">2</button>
+											<button data-vubn-select-floor="2" class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--accent vubn-floor-button">2</button>
 										</div>
 										<div class="mdl-cell mdl-cell--6-col mdl-cell--2-col-phone mdl-cell--4-col-tablet">
 										</div>
 										<div class="mdl-cell mdl-cell--6-col mdl-cell--2-col-phone mdl-cell--4-col-tablet">
 										</div>
 										<div class="mdl-cell mdl-cell--6-col mdl-cell--2-col-phone mdl-cell--4-col-tablet button-left">
-											<button class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--accent">1</button>
+											<button data-vubn-select-floor="1" class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--accent vubn-floor-button">1</button>
 										</div>
 										<div class="mdl-cell mdl-cell--6-col mdl-cell--2-col-phone mdl-cell--4-col-tablet button-right">
-											<button class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--accent">0</button>
+											<button data-vubn-select-floor="0" class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--accent vubn-floor-button">0</button>
 										</div>
 										<div class="mdl-cell mdl-cell--6-col mdl-cell--2-col-phone mdl-cell--4-col-tablet">
 										</div>
@@ -238,10 +242,8 @@
 							</div>
 							<div class="mdl-cell mdl-cell--12-col">
 								<span class="vubn-page-subtitle">Select room</span>
-								<div class="vubn-room-buttons">
-									<button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">D.0.07</button>
-									<button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">D.0.08</button>
-									<button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">D.0.05</button>
+								<div id="vubn-room-buttons" class="vubn-room-buttons">
+									<button id="vubn-room-button-template" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent vubn-room-button">D.0.07</button>
 								</div>
 							</div>
 							<div class="mdl-cell mdl-cell--12-col vubn-navigatebutton-container">
@@ -334,8 +336,6 @@
 							</p>
 							<p>
 								Help us make the app better! Report issues to <a href="https://github.com/benjay10/VUBNavigate/issues">the Github Issues page</a>.
-							<p>
-								Kind regard,
 							</p>
 							<p class="vubn-about-names">
 								Ben Behaeghe<br />
