@@ -12,9 +12,12 @@ function NavigateView(isTouch, roomService) {
 		normalButtonStyle: "mdl-button--accent",
 		roomSelectButtonsContainer: "vubn-select-room-buttons",
 		roomSelectButtonTemplate: "vubn-select-room-button-template",
+		roomSelectSpinner: "vubn-navigate-select-busyspinner",
 		roomSearchButtonsContainer: "vubn-search-room-buttons",
 		roomSearchButtonTemplate: "vubn-search-room-button-template",
-		roomSearchInput: "vubn-room-search"
+		roomSearchSpinner: "vubn-navigate-search-busyspinner",
+		roomSearchInput: "vubn-room-search",
+		hidden: "hidden"
 	};
 	this.dataDefinitions = {
 		building: "data-vubn-select-building",
@@ -30,10 +33,10 @@ function NavigateView(isTouch, roomService) {
 	// Other
 
 	this.roomSelectTemplator = null;
-	this.roomSelectButtonsContainer = null;
 	this.roomSearchTemplator = null;
-	this.roomSearchButtonContainer = null;
 	this.roomSearchInput = null;
+	this.roomSearchSpinner = null;
+	this.roomSelectSpinner = null;
 
 	// Methods
 
@@ -59,11 +62,64 @@ function NavigateView(isTouch, roomService) {
 		me.doHighlight(event.currentTarget, allRoomButtons, me);
 	};
 
+	this.showSelectSpinner = function () {
+		this.roomSelectSpinner.classList.remove(this.classDefinitions.hiddden);
+	};
+	this.hideSelectSpinner = function () {
+		this.roomSelectSpinner.classList.add(this.classDefinitions.hiddden);
+	};
+
+	// Search
+
 	this.onRoomSearchInput = function (event, me) {
 		event.stopPropagation();
-		console.log("OnRoomSearchInput");
-		// TODO
+		//TODO: finalise
+		return new Promise((resolve, reject) => {
+			let input = event.target.value;
+			if (input.length > 1) {
+				resolve(input);
+			}
+		})
+		.then((inputString) => {
+			// Clear previous results
+			me.clearPreviousSearchResults();
+			// Show spinner
+			me.showSearchSpinner();
+			return inputString;
+		})
+		.then((inputString) => {
+			// Start the search
+			return roomService.searchRooms(inputString);
+		})
+		.then((resultRooms) => {
+			// form the results on screen
+			// TODO
+			return;
+		})
+		.then(() => {
+			// Hide the spinner
+			me.hideSearchSpinner();
+		});
 	};
+
+	this.clearPreviousSearchResults = function () {
+		this.roomSearchButtonsContainer.innerHTML = "";
+	};
+
+	this.showSearchSpinner = function () {
+		this.roomSearchSpinner.classList.remove(this.classDefinitions.hidden);
+	};
+	this.hideSearchSpinner = function () {
+		this.roomSearchSpinner.classList.add(this.classDefinitions.hidden);
+	};
+
+	this.onRoomSearchButtonClick = function (event, me) {
+		event.stopProgation();
+		console.log("OnRoomSearchButtonClick");
+		//TODO
+	};
+
+	// Rest
 
 	this.doHighlight = function (target, all, me) {
 		all.forEach((button, index) => {
@@ -130,6 +186,9 @@ function NavigateView(isTouch, roomService) {
 			// Search for the container of the room buttons
 			this.roomSelectButtonsContainer = document.getElementById(this.classDefinitions.roomSelectButtonsContainer);
 			this.roomSearchButtonsContainer = document.getElementById(this.classDefinitions.roomSearchButtonsContainer);
+			
+			this.roomSelectSpinner = document.getElementById(this.classDefinitions.roomSelectSpinner);
+			this.roomSearchSpinner = document.getElementById(this.classDefinitions.roomSearchSpinner);
 
 			resolve();
 		});

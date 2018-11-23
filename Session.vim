@@ -2,10 +2,10 @@ let SessionLoad = 1
 if &cp | set nocp | endif
 let s:cpo_save=&cpo
 set cpo&vim
-inoremap <expr> <Down> pumvisible() ? "\" : "\<Down>"
-inoremap <expr> <S-Tab> pumvisible() ? "\" : "\<S-Tab>"
-inoremap <expr> <Up> pumvisible() ? "\" : "\<Up>"
 imap <Nul> <C-Space>
+inoremap <expr> <Up> pumvisible() ? "\" : "\<Up>"
+inoremap <expr> <S-Tab> pumvisible() ? "\" : "\<S-Tab>"
+inoremap <expr> <Down> pumvisible() ? "\" : "\<Down>"
 inoremap <C-Down> 
 inoremap <C-Up> 
 nnoremap \d :YcmShowDetailedDiagnostic
@@ -46,7 +46,7 @@ set softtabstop=4
 set splitbelow
 set splitright
 set tabstop=4
-set window=54
+set window=52
 let s:so_save = &so | let s:siso_save = &siso | set so=0 siso=0
 let v:this_session=expand("<sfile>:p")
 silent only
@@ -56,14 +56,14 @@ if expand('%') == '' && !&modified && line('$') <= 1 && getline(1) == ''
   let s:wipebuf = bufnr('%')
 endif
 set shortmess=aoO
-badd +300 index.html
-badd +1 js/navigateView.js
+badd +251 index.html
+badd +102 js/navigateView.js
 badd +39 js/lib/PageNavigation.js
 badd +84 css/navigate.css
 badd +1 js/navigate.css
 badd +41 css/structure.css
 badd +10 js/Services/RoomService.js
-badd +0 js/startup.js
+badd +63 js/startup.js
 argglobal
 silent! argdel *
 $argadd index.html
@@ -72,7 +72,7 @@ tabnew
 tabnew
 tabnew
 tabnext -3
-edit NetrwTreeListing\ 7
+edit NetrwTreeListing\ 2
 set splitbelow splitright
 wincmd _ | wincmd |
 vsplit
@@ -215,11 +215,11 @@ setlocal nowinfixwidth
 setlocal nowrap
 setlocal wrapmargin=0
 silent! normal! zE
-let s:l = 8 - ((7 * winheight(0) + 26) / 52)
+let s:l = 1 - ((0 * winheight(0) + 25) / 50)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-8
+1
 normal! 0
 lcd ~/Dropbox/School/Ma\ Computerwetenschappen\ -\ Software\ Languages\ and\ Software\ Engineering\ 2/Next\ Generation\ User\ Interfaces/Project/VUBNavigate
 wincmd w
@@ -344,17 +344,18 @@ setlocal nowinfixwidth
 setlocal wrap
 setlocal wrapmargin=0
 silent! normal! zE
-let s:l = 251 - ((9 * winheight(0) + 26) / 52)
+let s:l = 250 - ((21 * winheight(0) + 25) / 50)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-251
-normal! 0228|
+250
+normal! 060|
 wincmd w
+2wincmd w
 exe 'vert 1resize ' . ((&columns * 42 + 105) / 211)
 exe 'vert 2resize ' . ((&columns * 168 + 105) / 211)
 tabnext
-edit ~/Dropbox/School/Ma\ Computerwetenschappen\ -\ Software\ Languages\ and\ Software\ Engineering\ 2/Next\ Generation\ User\ Interfaces/Project/VUBNavigate/js/navigateView.js
+edit ~/Dropbox/School/Ma\ Computerwetenschappen\ -\ Software\ Languages\ and\ Software\ Engineering\ 2/Next\ Generation\ User\ Interfaces/Project/VUBNavigate/NetrwTreeListing\ 1
 set splitbelow splitright
 wincmd _ | wincmd |
 vsplit
@@ -368,7 +369,6 @@ set winwidth=1
 exe 'vert 1resize ' . ((&columns * 42 + 105) / 211)
 exe 'vert 2resize ' . ((&columns * 168 + 105) / 211)
 argglobal
-enew
 let s:cpo_save=&cpo
 set cpo&vim
 nmap <buffer>  <Plug>NetrwHideEdit
@@ -497,9 +497,17 @@ setlocal nowinfixheight
 setlocal nowinfixwidth
 setlocal nowrap
 setlocal wrapmargin=0
+silent! normal! zE
+let s:l = 1 - ((0 * winheight(0) + 25) / 50)
+if s:l < 1 | let s:l = 1 | endif
+exe s:l
+normal! zt
+1
+normal! 0
 lcd ~/Dropbox/School/Ma\ Computerwetenschappen\ -\ Software\ Languages\ and\ Software\ Engineering\ 2/Next\ Generation\ User\ Interfaces/Project/VUBNavigate
 wincmd w
 argglobal
+if bufexists('~/Dropbox/School/Ma\ Computerwetenschappen\ -\ Software\ Languages\ and\ Software\ Engineering\ 2/Next\ Generation\ User\ Interfaces/Project/VUBNavigate/js/navigateView.js') | buffer ~/Dropbox/School/Ma\ Computerwetenschappen\ -\ Software\ Languages\ and\ Software\ Engineering\ 2/Next\ Generation\ User\ Interfaces/Project/VUBNavigate/js/navigateView.js | else | edit ~/Dropbox/School/Ma\ Computerwetenschappen\ -\ Software\ Languages\ and\ Software\ Engineering\ 2/Next\ Generation\ User\ Interfaces/Project/VUBNavigate/js/navigateView.js | endif
 setlocal keymap=
 setlocal noarabic
 setlocal autoindent
@@ -619,15 +627,14 @@ setlocal nowinfixwidth
 setlocal wrap
 setlocal wrapmargin=0
 silent! normal! zE
-let s:l = 12 - ((11 * winheight(0) + 26) / 52)
+let s:l = 66 - ((35 * winheight(0) + 25) / 50)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-12
-normal! 013|
+66
+normal! 06|
 lcd ~/Dropbox/School/Ma\ Computerwetenschappen\ -\ Software\ Languages\ and\ Software\ Engineering\ 2/Next\ Generation\ User\ Interfaces/Project/VUBNavigate
 wincmd w
-2wincmd w
 exe 'vert 1resize ' . ((&columns * 42 + 105) / 211)
 exe 'vert 2resize ' . ((&columns * 168 + 105) / 211)
 tabnext
@@ -649,10 +656,10 @@ let s:cpo_save=&cpo
 set cpo&vim
 nmap <buffer>  <Plug>NetrwHideEdit
 nmap <buffer>  <Plug>NetrwRefresh
-nnoremap <buffer> <F1> :he netrw-quickhelp
-nmap <buffer> <nowait> <silent> <S-CR> <Plug>NetrwTreeSqueeze
-nnoremap <buffer> <silent> <S-Up> :Pexplore
 nnoremap <buffer> <silent> <S-Down> :Nexplore
+nnoremap <buffer> <silent> <S-Up> :Pexplore
+nmap <buffer> <nowait> <silent> <S-CR> <Plug>NetrwTreeSqueeze
+nnoremap <buffer> <F1> :he netrw-quickhelp
 let &cpo=s:cpo_save
 unlet s:cpo_save
 setlocal keymap=
@@ -774,11 +781,11 @@ setlocal nowinfixwidth
 setlocal nowrap
 setlocal wrapmargin=0
 silent! normal! zE
-let s:l = 12 - ((11 * winheight(0) + 26) / 52)
+let s:l = 1 - ((0 * winheight(0) + 25) / 50)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-12
+1
 normal! 0
 lcd ~/Dropbox/School/Ma\ Computerwetenschappen\ -\ Software\ Languages\ and\ Software\ Engineering\ 2/Next\ Generation\ User\ Interfaces/Project/VUBNavigate
 wincmd w
@@ -903,7 +910,7 @@ setlocal nowinfixwidth
 setlocal wrap
 setlocal wrapmargin=0
 silent! normal! zE
-let s:l = 10 - ((9 * winheight(0) + 26) / 52)
+let s:l = 10 - ((9 * winheight(0) + 25) / 50)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
@@ -914,7 +921,7 @@ wincmd w
 exe 'vert 1resize ' . ((&columns * 42 + 105) / 211)
 exe 'vert 2resize ' . ((&columns * 168 + 105) / 211)
 tabnext
-edit ~/Dropbox/School/Ma\ Computerwetenschappen\ -\ Software\ Languages\ and\ Software\ Engineering\ 2/Next\ Generation\ User\ Interfaces/Project/VUBNavigate/NetrwTreeListing\ 9
+edit ~/Dropbox/School/Ma\ Computerwetenschappen\ -\ Software\ Languages\ and\ Software\ Engineering\ 2/Next\ Generation\ User\ Interfaces/Project/VUBNavigate/NetrwTreeListing\ 5
 set splitbelow splitright
 wincmd _ | wincmd |
 vsplit
@@ -925,9 +932,7 @@ set winminheight=0
 set winheight=1
 set winminwidth=0
 set winwidth=1
-exe '1resize ' . ((&lines * 50 + 27) / 55)
 exe 'vert 1resize ' . ((&columns * 42 + 105) / 211)
-exe '2resize ' . ((&lines * 50 + 27) / 55)
 exe 'vert 2resize ' . ((&columns * 168 + 105) / 211)
 argglobal
 let s:cpo_save=&cpo
@@ -1059,16 +1064,16 @@ setlocal nowinfixwidth
 setlocal nowrap
 setlocal wrapmargin=0
 silent! normal! zE
-let s:l = 24 - ((23 * winheight(0) + 25) / 50)
+let s:l = 12 - ((11 * winheight(0) + 25) / 50)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-24
+12
 normal! 0
 lcd ~/Dropbox/School/Ma\ Computerwetenschappen\ -\ Software\ Languages\ and\ Software\ Engineering\ 2/Next\ Generation\ User\ Interfaces/Project/VUBNavigate
 wincmd w
 argglobal
-if bufexists('~/Dropbox/School/Ma\ Computerwetenschappen\ -\ Software\ Languages\ and\ Software\ Engineering\ 2/Next\ Generation\ User\ Interfaces/Project/VUBNavigate/js/startup.js') | buffer ~/Dropbox/School/Ma\ Computerwetenschappen\ -\ Software\ Languages\ and\ Software\ Engineering\ 2/Next\ Generation\ User\ Interfaces/Project/VUBNavigate/js/startup.js | else | edit ~/Dropbox/School/Ma\ Computerwetenschappen\ -\ Software\ Languages\ and\ Software\ Engineering\ 2/Next\ Generation\ User\ Interfaces/Project/VUBNavigate/js/startup.js | endif
+if bufexists('~/Dropbox/School/Ma\ Computerwetenschappen\ -\ Software\ Languages\ and\ Software\ Engineering\ 2/Next\ Generation\ User\ Interfaces/Project/VUBNavigate/css/navigate.css') | buffer ~/Dropbox/School/Ma\ Computerwetenschappen\ -\ Software\ Languages\ and\ Software\ Engineering\ 2/Next\ Generation\ User\ Interfaces/Project/VUBNavigate/css/navigate.css | else | edit ~/Dropbox/School/Ma\ Computerwetenschappen\ -\ Software\ Languages\ and\ Software\ Engineering\ 2/Next\ Generation\ User\ Interfaces/Project/VUBNavigate/css/navigate.css | endif
 setlocal keymap=
 setlocal noarabic
 setlocal autoindent
@@ -1086,8 +1091,8 @@ setlocal cinkeys=0{,0},0),:,0#,!^F,o,O,e
 setlocal cinoptions=
 setlocal cinwords=if,else,while,do,for,switch
 setlocal colorcolumn=
-setlocal comments=sO:*\ -,mO:*\ \ ,exO:*/,s1:/*,mb:*,ex:*/,://
-setlocal commentstring=//%s
+setlocal comments=s1:/*,mb:*,ex:*/
+setlocal commentstring=/*%s*/
 setlocal complete=.,w,b,u,t,i
 setlocal concealcursor=
 setlocal conceallevel=0
@@ -1103,8 +1108,8 @@ setlocal nodiff
 setlocal equalprg=
 setlocal errorformat=
 setlocal noexpandtab
-if &filetype != 'javascript'
-setlocal filetype=javascript
+if &filetype != 'css'
+setlocal filetype=css
 endif
 setlocal fixendofline
 setlocal foldcolumn=0
@@ -1124,10 +1129,10 @@ setlocal formatprg=
 setlocal grepprg=
 setlocal iminsert=0
 setlocal imsearch=-1
-setlocal include=
+setlocal include=^\\s*@import\\s\\+\\%(url(\\)\\=
 setlocal includeexpr=
-setlocal indentexpr=GetJavascriptIndent()
-setlocal indentkeys=0{,0},:,0#,!^F,o,O,e,0],0)
+setlocal indentexpr=GetCSSIndent()
+setlocal indentkeys=0{,0},!^F,o,O
 setlocal noinfercase
 setlocal iskeyword=@,48-57,_,192-255
 setlocal keywordprg=
@@ -1145,7 +1150,7 @@ setlocal nrformats=bin,octal,hex
 set number
 setlocal number
 setlocal numberwidth=4
-setlocal omnifunc=javascriptcomplete#CompleteJS
+setlocal omnifunc=csscomplete#CompleteCSS
 setlocal path=
 setlocal nopreserveindent
 setlocal nopreviewwindow
@@ -1168,8 +1173,8 @@ setlocal statusline=
 setlocal suffixesadd=
 setlocal swapfile
 setlocal synmaxcol=3000
-if &syntax != 'javascript'
-setlocal syntax=javascript
+if &syntax != 'css'
+setlocal syntax=css
 endif
 setlocal tabstop=4
 setlocal tagcase=
@@ -1188,19 +1193,17 @@ setlocal nowinfixwidth
 setlocal wrap
 setlocal wrapmargin=0
 silent! normal! zE
-let s:l = 63 - ((49 * winheight(0) + 25) / 50)
+let s:l = 47 - ((34 * winheight(0) + 25) / 50)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-63
+47
 normal! 0
 lcd ~/Dropbox/School/Ma\ Computerwetenschappen\ -\ Software\ Languages\ and\ Software\ Engineering\ 2/Next\ Generation\ User\ Interfaces/Project/VUBNavigate
 wincmd w
-exe '1resize ' . ((&lines * 50 + 27) / 55)
 exe 'vert 1resize ' . ((&columns * 42 + 105) / 211)
-exe '2resize ' . ((&lines * 50 + 27) / 55)
 exe 'vert 2resize ' . ((&columns * 168 + 105) / 211)
-tabnext 2
+tabnext 1
 set stal=1
 if exists('s:wipebuf') && len(win_findbuf(s:wipebuf)) == 0
   silent exe 'bwipe ' . s:wipebuf

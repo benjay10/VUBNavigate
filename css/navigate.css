@@ -10,7 +10,9 @@
  *  Search
  *****************************************************************************/
 
-
+.vubn-navigate-search-busyspinner {
+	text-align: center;
+}
 
 /******************************************************************************
  *  Select
@@ -60,6 +62,10 @@
 
 .vubn-floor-buttons .button-left button {
 	margin-left: 0.5em;
+}
+
+.vubn-navigate-select-busyspinner {
+	text-align: center;
 }
 
 /******************************************************************************
