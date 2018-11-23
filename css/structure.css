@@ -35,7 +35,8 @@ html {
 	height: 300em;
 	position: relative;
 	top: 0;
-	will-change: transform, opacity;
+	/* This option seems nice to have for better animation performance, but rather overkill and messes with the position: fixed; */
+	/*will-change: transform, opacity;*/ 
 	max-width: 60em;
 	margin: 0 auto;
 }
@@ -113,10 +114,38 @@ html {
 }
 
 /******************************************************************************
+ *  Buttons
+ *****************************************************************************/
+
+.vubn-button-full-width, .vubn-button-30-center {
+	display: block;
+	height: 4em;
+	max-width: 100%;
+}
+
+.vubn-button-full-width {
+	width: 100%;
+}
+
+.vubn-button-30-center {
+	width: 30em;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+/******************************************************************************
  *  Extra
  *****************************************************************************/
 
 .hidden {
 	display: none;
+}
+
+.text-right {
+	text-align: right;
+}
+
+.text-center {
+	text-align: center;
 }
 

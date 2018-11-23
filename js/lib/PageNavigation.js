@@ -36,7 +36,12 @@ function PageNavigation(classDefinitions, isTouch) {
 		}
 		link = link.substring(1, link.length);
 
-		let foundPage  = false;
+		// Already on the correct page -> do nothing, also no leave or enter events
+		if (this.currentPage.getAttribute("id") === link) {
+			return;
+		}
+
+		let foundPage = false;
 		for (let i = 0; i < this.pages.length; i++) {
 			if (this.pages[i].getAttribute("id") === link) {
 				this.hidePreviousPage();
@@ -51,9 +56,7 @@ function PageNavigation(classDefinitions, isTouch) {
 	};
 
 	this.hidePreviousPage = function () {
-		let pageid = this.currentPage.getAttribute("id");
-		this.pageLeaveEventer.fire(pageid);
-		this.animator.setObject(this.currentPage).hide();
+		this.hidePage(this.currentPage);
 	};
 
 	this.hideAllPages = function () {
@@ -70,6 +73,12 @@ function PageNavigation(classDefinitions, isTouch) {
 			}
 		}
 	};
+
+	this.hidePage = function (pageDomObject) {
+		let pageid = pageDomObject.getAttribute("id");
+		this.pageLeaveEventer.fire(pageid);
+		this.animator.setObject(pageDomObject).hide();
+	}
 
 	this.showPage = function (pageDomObject) {
 		let pageid = pageDomObject.getAttribute("id");

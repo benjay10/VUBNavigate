@@ -2,23 +2,40 @@
 
 function NavigateView(isTouch, roomService) {
 	
+	// Fields and definitions
+
 	this.buildingButtons = null;
 	this.floorButtons = null;
 	this.classDefinitions = {
 		buildingButton: "vubn-building-button",
 		floorButton: "vubn-floor-button",
 		normalButtonStyle: "mdl-button--accent",
-		roomButtonsContainer: "vubn-room-buttons",
-		roomButtonTemplate: "vubn-room-button-template",
-		roomButton: "vubn-room-button"
+		roomSelectButtonsContainer: "vubn-select-room-buttons",
+		roomSelectButtonTemplate: "vubn-select-room-button-template",
+		roomSearchButtonsContainer: "vubn-search-room-buttons",
+		roomSearchButtonTemplate: "vubn-search-room-button-template",
+		roomSearchInput: "vubn-room-search"
 	};
 	this.dataDefinitions = {
 		building: "data-vubn-select-building",
 		floor: "data-vubn-select-floor",
 		room: "data-vubn-select-room"
 	};
-	this.roomTemplator = null;
-	this.roomButtonsContainer = null;
+
+	// Containers
+	
+	this.roomSelectButtonsContainer = null;
+	this.roomSearchButtonsContainer = null;
+	
+	// Other
+
+	this.roomSelectTemplator = null;
+	this.roomSelectButtonsContainer = null;
+	this.roomSearchTemplator = null;
+	this.roomSearchButtonContainer = null;
+	this.roomSearchInput = null;
+
+	// Methods
 
 	this.onBuildingButtonClick = function (event, me) {
 		event.stopPropagation();
@@ -34,11 +51,18 @@ function NavigateView(isTouch, roomService) {
 		this.makeRandomRooms();
 	};
 	
-	this.onRoomButtonClick = function (event, me) {
+	// For the selection part (clicking on the room buttons)
+	this.onRoomSelectButtonClick = function (event, me) {
 		event.stopPropagation();
-		let allRoomButtons = document.getElementsByClassName(this.classDefinitions.roomButton);
+		let allRoomButtons = this.roomSelectButtonsContainer.childNodes;
 		allRoomButtons = [].slice.call(allRoomButtons);
 		me.doHighlight(event.currentTarget, allRoomButtons, me);
+	};
+
+	this.onRoomSearchInput = function (event, me) {
+		event.stopPropagation();
+		console.log("OnRoomSearchInput");
+		// TODO
 	};
 
 	this.doHighlight = function (target, all, me) {
@@ -48,26 +72,28 @@ function NavigateView(isTouch, roomService) {
 		target.classList.add(me.classDefinitions.normalButtonStyle);
 	};
 
+	// Stupid method, be gone in the future please
 	this.makeRandomRooms = function () {
 		let me = this;
-		this.roomButtonsContainer.innerHTML = "";
+		this.roomSelectButtonsContainer.innerHTML = "";
 		let rooms = roomService.searchRooms("abc");
 		let roomButtons = [];
 		for (let i = 0; i < rooms.length; i++) {
-			roomButtons[i] = this.roomTemplator.getObject();
+			roomButtons[i] = this.roomSelectTemplator.getObject();
 		}
-		console.log(roomButtons);
 		Promise.all(roomButtons).then((values) => {
 			for (let i = 0; i < rooms.length; i++) {
 				values[i].innerHTML = rooms[i].legalName;
-				me.roomButtonsContainer.appendChild(values[i]);
+				me.roomSelectButtonsContainer.appendChild(values[i]);
 			}
 			componentHandler.upgradeAllRegistered();
-			[].slice.call(this.roomButtonsContainer.childNodes).forEach((button, index) => {
-				button.addEventListener("click", (event) => this.onRoomButtonClick(event, me));
+			[].slice.call(this.roomSelectButtonsContainer.childNodes).forEach((button, index) => {
+				button.addEventListener("click", (event) => this.onRoomSelectButtonClick(event, me));
 			});
 		});
 	};
+
+	// Initialisation
 
 	this.init = function () {
 		return new Promise((resolve, reject) => {
@@ -75,11 +101,18 @@ function NavigateView(isTouch, roomService) {
 			// Type of click event
 			let clickOrTouchEnd = isTouch ? "touchend" : "click";
 
+			//Search containers
+			this.roomSelectButtonsContainer = document.getElementById(this.classDefinitions.roomSelectButtonsContainer);
+			this.roomSearchButtonsContainer = document.getElementById(this.classDefinitions.roomSearchButtonsContainer);
+
 			// Search all the buttons
 			this.buildingButtons = document.getElementsByClassName(this.classDefinitions.buildingButton);
 			this.floorButtons = document.getElementsByClassName(this.classDefinitions.floorButton);
 			this.buildingButtons = [].slice.call(this.buildingButtons);
 			this.floorButtons = [].slice.call(this.floorButtons);
+			
+			// Search for the input box
+			this.roomSearchInput = document.getElementById(this.classDefinitions.roomSearchInput);
 			
 			// Add event listeners
 			this.buildingButtons.forEach((button, index) => {
@@ -88,12 +121,15 @@ function NavigateView(isTouch, roomService) {
 			this.floorButtons.forEach((button, index) => {
 				button.addEventListener(clickOrTouchEnd, (event) => this.onFloorButtonClick(event, this));
 			});
+			this.roomSearchInput.addEventListener("input", (event) => this.onRoomSearchInput(event, this));
 
 			// Creates a templator and remove the template from the page
-			this.roomTemplator = new Templator(this.classDefinitions.roomButtonTemplate);
+			this.roomSelectTemplator = new Templator(this.classDefinitions.roomSelectButtonTemplate);
+			this.roomSearchTemplator = new Templator(this.classDefinitions.roomSearchButtonTemplate);
 
 			// Search for the container of the room buttons
-			this.roomButtonsContainer = document.getElementById(this.classDefinitions.roomButtonsContainer);
+			this.roomSelectButtonsContainer = document.getElementById(this.classDefinitions.roomSelectButtonsContainer);
+			this.roomSearchButtonsContainer = document.getElementById(this.classDefinitions.roomSearchButtonsContainer);
 
 			resolve();
 		});
