@@ -30,8 +30,11 @@ window.addEventListener("load", (event) => {
 
 		// Initialisation of all the services
 
-		vubn.services.rooms = new RoomService();
-		//vubn.services.database = new DatabaseService();
+		vubn.services.rooms = new RoomService2();
+		vubn.services.rooms.init();
+		vubn.services.database = new DatabaseService();
+		vubn.services.database.init();
+
 		//Other services
 		
 		resolve(vubn);
