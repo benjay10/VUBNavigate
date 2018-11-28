@@ -1,0 +1,104 @@
+{
+	"rooms": [
+		{
+			"id": 1,
+			"legalName": "10F701",
+			"uniformName": "F.10.701",
+			"building": "F",
+			"floor": 10,
+			"type": "maintenance",
+			"info": "",
+			"outsideAvailable": ["fire extinguisher", "fire alarm"]
+		},
+		{
+			"id": 2,
+			"legalName": "10F702",
+			"uniformName": "F.10.702",
+			"building": "F",
+			"floor": 10,
+			"type": "maintenance",
+			"info": "",
+			"outsideAvailable": []
+		},
+		{
+			"id": 3,
+			"legalName": "10F703",
+			"uniformName": "F.10.703",
+			"building": "F",
+			"floor": 10,
+			"type": "office",
+			"info": "",
+			"outsideAvailable": []
+		},
+		{
+			"id": 4,
+			"legalName": "10F704",
+			"uniformName": "F.10.704",
+			"building": "F",
+			"floor": 10,
+			"type": "office",
+			"info": "",
+			"outsideAvailable": []
+		},
+		{
+			"id": 5,
+			"legalName": "10F705",
+			"uniformName": "F.10.705",
+			"building": "F",
+			"floor": 10,
+			"type": "office",
+			"info": "",
+			"outsideAvailable": []
+		},
+		{
+			"id": 6,
+			"legalName": "10F706",
+			"uniformName": "F.10.706",
+			"building": "F",
+			"floor": 10,
+			"type": "office",
+			"info": "",
+			"outsideAvailable": []
+		},
+		{
+			"id": 7,
+			"legalName": "10F707",
+			"uniformName": "F.10.707",
+			"building": "F",
+			"floor": 10,
+			"type": "office",
+			"info": "",
+			"outsideAvailable": []
+		},
+		{
+			"id": 8,
+			"legalName": "10F709",
+			"uniformName": "F.10.709",
+			"building": "F",
+			"floor": 10,
+			"type": "office",
+			"info": "",
+			"outsideAvailable": []
+		},
+		{
+			"id": 9,
+			"legalName": "10F710",
+			"uniformName": "F.10.710",
+			"building": "F",
+			"floor": 10,
+			"type": "office",
+			"info": "",
+			"outsideAvailable": []
+		},
+		{
+			"id": 10,
+			"legalName": "10F711",
+			"uniformName": "F.10.711",
+			"building": "F",
+			"floor": 10,
+			"type": "maintenance",
+			"info": "",
+			"outsideAvailable": []
+		}
+	]
+}

@@ -1,0 +1,40 @@
+{
+	"rooms": [
+		{
+			"id": 1,	// :: Integer
+			"legalName": "10F701",	// :: String
+			"uniformName": "F.10.701",	// :: String
+			"building": "F",	// :: String
+			"floor": 10,	// :: String
+			"type": "maintenance""office""stairs""toilets""classroom""lift""landing""sluice",	// :: String
+			"info": "",	// :: String
+			"outsideAvailable": ["fire extinguisher", "water fountain", "food dispenser", "drinks dispenser", "fire alarm", "..."]	// :: [ String ]
+		},
+		...
+	]
+}
+
+{
+	"edges": [
+		{
+			"id": 1,	// :: Integer
+			"from": 2,	// :: Integer (foreign key)
+			"to": 3,	// :: Integer (foreign key)
+			"type": "corridor""stairs""outside path"	// :: String
+			"info": ""	// :: String
+		},
+		...
+	]
+}
+
+{
+	"buildings": [
+		{
+			"id": 1,	// :: Integer
+			"name": "F",	// :: Integer
+			"minFloor": -1,	// :: Integer
+			"maxFloor": 10	// :: Integer
+		},
+		...
+	]
+}
