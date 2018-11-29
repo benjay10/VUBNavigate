@@ -11,8 +11,110 @@ function DatabaseService() {
 		edges: "assets/edges.json"
 	}
 	this.database = null;
+
+	// Important API methods
 	
-	// Methods
+	this.getRoom = function(roomId) {
+		let me = this;
+		return new Promise((resolve, reject) => {
+			let transaction = me.database.transaction(["rooms"], "readonly");
+			let objectStore = transaction.objectStore("rooms");
+			let request = objectStore.get(roomId);
+			request.onerror = (event) => reject(event);
+			request.onsuccess = (event) => { 
+				// Still need to make a distinction here, because even if the object is not found, the request is succesful
+				if (event.target.result) {
+					resolve(event.target.result);
+				} else {
+					reject("The room with ID '" + roomId + "' does not exist in the database.");
+				}
+			};
+		});
+	};
+
+	this.searchRooms = function(searchString) {
+		let me = this;
+		return new Promise((resolve, reject) => {
+			let results = [];
+			searchString = searchString.toLowerCase();
+			let predicate = (room) => {
+				return (room.legalName.toLowerCase().includes(searchString) ||
+					room.uniformName.toLowerCase().includes(searchString));
+			};
+
+			let transaction = me.database.transaction(["rooms"], "readonly");
+			let objectStore = transaction.objectStore("rooms");
+			let cursor = objectStore.openCursor();
+			cursor.onerror = (error) => reject(error);
+			cursor.onsuccess = (event) => {
+				let cursor = event.target.result;
+				if (cursor) {
+					let room = cursor.value;
+					if (predicate(room)) {
+						results.push(room);
+					}
+					cursor.continue();
+				} else {
+					if (results.length > 0) {
+						resolve(results);
+					} else {
+						reject("No results found for search with text \"" + searchString + "\".");
+					}
+				}
+			};
+		});
+	};
+
+	this.getBuilding = function(name) {
+		let me = this;
+		return new Promise((resolve, reject) => {
+			let transaction = me.database.transaction(["buildings"], "readonly");
+			let objectStore = transaction.objectStore("buildings");
+			let request = objectStore.get(name.toUpperCase());
+			request.onerror = (event) => reject(event);
+			request.onsuccess = (event) => { 
+				// Still need to make a distinction here, because even if the object is not found, the request is succesful
+				if (event.target.result) {
+					resolve(event.target.result);
+				} else {
+					reject("The building with name '" + name + "' does not exist in the database.");
+				}
+			};
+		});
+	};
+
+	this.getRoomsInBuildingFloor = function(buildingName, floorNumber) {
+		let me = this;
+		return new Promise((resolve, reject) => {
+			let results = [];
+			buildingName = buildingName.toUpperCase();
+
+			let transaction = me.database.transaction(["rooms"], "readonly");
+			let roomStore = transaction.objectStore("rooms");
+			let buildingIndex = roomStore.index("building");
+			let buildingRange = IDBKeyRange.only(buildingName);
+			let buildingCursor = buildingIndex.openCursor(buildingRange);
+			buildingCursor.onerror = (error) => reject(error);
+			buildingCursor.onsuccess = (event) => {
+				let cursor = event.target.result;
+				if (cursor) {
+					let room = cursor.value;
+					if (room.floor == floorNumber) {
+						results.push(room);
+					}
+					cursor.continue();
+				} else {
+					if (results.length > 1) {
+						resolve(results);
+					} else {
+						reject("No results found for the combination of building '" + buildingName + "' and floor '" + floorNumber.toString() + "'.");
+					}
+				}
+			};
+		});
+	};
+	
+	// Extra methods
 	
 	this.getJson = function(url) {
 		return new Promise((resolve, reject) => {
@@ -60,10 +162,10 @@ function DatabaseService() {
 		})
 		.then((db) => {
 			//	Events bubble, this is the top for the error events.
-			console.log("Now putting an error event listener on the database");
+			//console.log("Now putting an error event listener on the database");
 			db.onerror = (event) => {
 				// General error on the database or a transaction
-				console.error(event);
+				console.error("Performing an action on the database resulted in an error.", event);
 			};
 		})
 		.catch((error) => {
@@ -71,50 +173,71 @@ function DatabaseService() {
 		});
 	};
 
-	this.initialiseDatabase = function (db, oldVersion, newVersion) {
-		let me = this;
-		let dbcreate = new Promise((resolve, reject) => {
-			
+	this.createSchema = function (db, oldVersion, newVersion) {
+		return new Promise((resolve, reject) => {
+
 			// Delete older versions of the data
 			if (oldVersion > 0) {
-				console.log("Old version of the database detected.");
 				db.deleteObjectStore("rooms");
+				db.deleteObjectStore("buildings");
 			}
 
-			// Create the new room data
+			// Create the new room schema
 			let roomStore = db.createObjectStore("rooms", { keyPath: "id" });
-			console.log("Object store created, now starting with indexes.");
 			roomStore.createIndex("legalName", "legalName", { unique: false });
 			roomStore.createIndex("uniformName", "uniformName", { unique: false });
 			roomStore.createIndex("building", "building", { unique: false });
 			roomStore.createIndex("floor", "floor", { unique: false });
 			roomStore.createIndex("type", "type", { unique: false });
 			
+			// Create the new building schema
+			let buildingStore = db.createObjectStore("buildings", { keyPath: "name" });
+			
+			roomStore.transaction.onabort = (event) => {
+				reject(event);
+			};
 			roomStore.transaction.oncomplete = (event) => {
-				console.log("Objectstore fully created");
 				resolve(db);
 			};
 			roomStore.transaction.onerror = (event) => {
 				reject(db);
 			};
 		});
-		let roomretreive = me.getJson(me.files.rooms);
+	};
 
-		return Promise.all([dbcreate, roomretreive]).then((values) => {
+	this.initialiseDatabase = function (db, oldVersion, newVersion) {
+		let me = this;
+		let schemaCreate = me.createSchema(db, oldVersion, newVersion);
+		//let buildingSchemaCreate = me.createBuildingSchema(db, oldVersion, newVersion);
+		let roomRetreive = me.getJson(me.files.rooms);
+		let buildingRetreive = me.getJson(me.files.buildings);
+
+		let roomPopulate = Promise.all([schemaCreate, roomRetreive]).then((values) => {
 			let db = values[0];
-			console.log("Start creating a transaction");
-			let roomStoreTransaction = db.transaction("rooms", "readwrite").objectStore("rooms");
-			console.log("Transaction created");
 			let roomdata = values[1];
+			let roomStoreTransaction = db.transaction(["rooms"], "readwrite");
+			let roomStore = roomStoreTransaction.objectStore("rooms");
 
 			roomdata.rooms.forEach((room, index) => {
-				console.log("Putting object in the database");
-				roomStoreTransaction.add(room);
+				let request = roomStore.add(room);
 			});
-		})
-		.catch((error) => {
-			console.error("Initialisation of the database failed.", error);
+			return db;
 		});
+
+		let buildingPopulate = Promise.all([schemaCreate, buildingRetreive]).then((values) => {
+			let db = values[0];
+			let buildingdata = values[1];
+			let buildingStoreTransaction = db.transaction(["buildings"], "readwrite");
+			let buildingStore = buildingStoreTransaction.objectStore("buildings");
+
+			buildingdata.buildings.forEach((building, index) => {
+				let request = buildingStore.add(building);
+			});
+			return db;
+		});
+
+		//return Promise.all([roomPopulate, buildingPopulate]).then((values) => { return values[0]; });
+		return Promise.all([roomPopulate]).then((values) => { return values[0]; });
 	};
 
 	// Init
@@ -124,7 +247,9 @@ function DatabaseService() {
 		//window.IDBTransaction = window.IDBTransaction || window.webkitIDBTransaction || window.msIDBTransaction || {READ_WRITE: "readwrite"};
 		//window.IDBKeyRange = window.IDBKeyRange || window.webkitIDBKeyRange || window.msIDBKeyRange;
 
-		this.startDatabase();
+		return new Promise((resolve, reject) => {
+			this.startDatabase();
+		});
 	};
 
 }

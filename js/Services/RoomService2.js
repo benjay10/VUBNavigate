@@ -1,20 +1,21 @@
 "use strict";
 
-function RoomService2() {
+function RoomService2(databaseService) {
 
 	// Fields
 	
 	// Methods
 	
 	this.searchRooms = function (searchString, maxResultCount = 10) {
-		let me = this;
-		return new Promise((resolve, reject) => {
-			let rooms = [];
-			for(let i = 0; i < maxResultCount; i++) {
-				rooms.push(new Room(i, searchString + i, searchString + i, 4, "R"));
-			}
-			resolve(rooms);
-		});
+		return databaseService.searchRooms(searchString);
+	};
+
+	this.getRoomsInBuildingFloor = function (building, floor) {
+		return databaseService.getRoomsInBuildingFloor(building, floor);
+	};
+
+	this.getBuilding = function (buildingName) {
+		return databaseService.getBuilding(buildingName);
 	};
 
 	// Init

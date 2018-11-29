@@ -6,9 +6,9 @@
 			"uniformName": "F.10.701",	// :: String
 			"building": "F",	// :: String
 			"floor": 10,	// :: String
-			"type": "maintenance""office""stairs""toilets""classroom""lift""landing""sluice",	// :: String
+			"type": "maintenance""office""stairs""toilets""classroom""lift""landing""sluice""server room""printer room""dining room""laboratory""study room""library""meeting room",	// :: String
 			"info": "",	// :: String
-			"outsideAvailable": ["fire extinguisher", "water fountain", "food dispenser", "drinks dispenser", "fire alarm", "..."]	// :: [ String ]
+			"outsideAvailable": ["fire extinguisher", "water fountain", "food dispenser", "drinks dispenser", "fire alarm", "fire exit", "fire hose reel", "..."]	// :: [ String ]
 		},
 		...
 	]
@@ -30,7 +30,6 @@
 {
 	"buildings": [
 		{
-			"id": 1,	// :: Integer
 			"name": "F",	// :: Integer
 			"minFloor": -1,	// :: Integer
 			"maxFloor": 10	// :: Integer

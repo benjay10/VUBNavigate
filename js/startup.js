@@ -28,18 +28,23 @@ window.addEventListener("load", (event) => {
 
 	return (new Promise((resolve, reject) => {
 
-		// Initialisation of all the services
+		// Initialisation of the database service first
 
-		vubn.services.rooms = new RoomService2();
-		vubn.services.rooms.init();
 		vubn.services.database = new DatabaseService();
 		vubn.services.database.init();
 
-		//Other services
-		
-		resolve(vubn);
+		resolve(vubn.services.database);
 
-	})).then((notImportant) => {
+	})).then((dbService) => {
+
+		// Initialisation of other, dependent services (better way of doing this?)
+		
+		vubn.services.rooms = new RoomService2(dbService);
+		vubn.services.rooms.init();
+		
+		return vubn;
+
+	}).then((notImportant) => {
 
 		// Initialisation of the viewmodels and UI code
 
