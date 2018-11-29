@@ -10,14 +10,20 @@ function NavigateView(isTouch, roomService) {
 		buildingButton: "vubn-building-button",
 		floorButton: "vubn-floor-button",
 		normalButtonStyle: "mdl-button--accent",
-		roomSelectButtonsContainer: "vubn-select-room-buttons",
-		roomSelectButtonTemplate: "vubn-select-room-button-template",
-		roomSelectSpinner: "vubn-navigate-select-busyspinner",
-		roomSearchButtonsContainer: "vubn-search-room-buttons",
-		roomSearchButtonTemplate: "vubn-search-room-button-template",
-		roomSearchSpinner: "vubn-navigate-search-busyspinner",
-		roomSearchInput: "vubn-room-search",
 		hidden: "hidden"
+	};
+	this.idDefinitions = {
+		searchNothingFound: "vubn-navigate-search-nothingfound",
+		searchNothingFoundText: "vubn-navigate-search-nothingfound-text",
+		selectNothingFound: "vubn-navigate-select-nothingfound",
+		selectNothingFoundText: "vubn-navigate-select-nothingfound-text",
+		roomSelectButtonTemplate: "vubn-select-room-button-template",
+		roomSearchButtonTemplate: "vubn-search-room-button-template",
+		roomSelectButtonsContainer: "vubn-select-room-buttons",
+		roomSearchButtonsContainer: "vubn-search-room-buttons",
+		roomSelectSpinner: "vubn-navigate-select-busyspinner",
+		roomSearchSpinner: "vubn-navigate-search-busyspinner",
+		roomSearchInput: "vubn-room-search"
 	};
 	this.dataDefinitions = {
 		building: "data-vubn-select-building",
@@ -45,6 +51,8 @@ function NavigateView(isTouch, roomService) {
 	this.roomSearchInput = null;
 	this.roomSearchSpinner = null;
 	this.roomSelectSpinner = null;
+	this.searchNothingFound = null;
+	this.selectNothingFound = null;
 
 	// Methods
 	
@@ -84,11 +92,13 @@ function NavigateView(isTouch, roomService) {
 			} else {
 				me.clearPreviousSelectResults();
 				me.hideSearchSpinner();
+				me.hideSelectNothingFound();
 			}
 		})
 		.then(() => {
 			me.clearPreviousSelectResults();
 			me.showSelectSpinner();
+			me.hideSelectNothingFound();
 		})
 		.then(() => {
 			// Do actual search
@@ -110,6 +120,7 @@ function NavigateView(isTouch, roomService) {
 			me.clearPreviousSelectResults();
 			me.hideSearchSpinner();
 			console.error(error);
+			me.showSelectNothingFound(error);
 		});
 	};
 	
@@ -127,6 +138,14 @@ function NavigateView(isTouch, roomService) {
 	};
 	this.hideSelectSpinner = function () {
 		this.roomSelectSpinner.classList.add(this.classDefinitions.hiddden);
+	};
+
+	this.showSelectNothingFound = function (text) {
+		this.selectNothingFound.classList.remove(this.classDefinitions.hidden);
+		document.getElementById(this.idDefinitions.selectNothingFoundText).innerHTML = text;
+	};
+	this.hideSelectNothingFound = function () {
+		this.selectNothingFound.classList.add(this.classDefinitions.hidden);
 	};
 
 	this.clearPreviousSelectResults = function () {
@@ -153,11 +172,14 @@ function NavigateView(isTouch, roomService) {
 			} else {
 				// Input is too short or input was removed
 				me.clearPreviousSearchResults();
+				me.hideSearchSpinner();
+				me.hideSearchNothingFound();
 			}
 		})
 		.then((inputString) => {
 			// Clear previous results
 			me.clearPreviousSearchResults();
+			me.hideSearchNothingFound();
 			// Show spinner
 			me.showSearchSpinner();
 			return inputString;
@@ -183,6 +205,7 @@ function NavigateView(isTouch, roomService) {
 			me.clearPreviousSearchResults();
 			me.hideSearchSpinner();
 			console.error(error);
+			me.showSearchNothingFound(error);
 		});
 	};
 
@@ -191,6 +214,7 @@ function NavigateView(isTouch, roomService) {
 	};
 
 	this.addSearchResult = function (room) {
+		let me = this;
 		return this.roomSearchTemplator.getObject().then((roomButton) => {
 			roomButton.innerHTML = room.legalName;
 			roomButton.setAttribute(me.dataDefinitions.roomid, room.id);
@@ -204,6 +228,14 @@ function NavigateView(isTouch, roomService) {
 	};
 	this.hideSearchSpinner = function () {
 		this.roomSearchSpinner.classList.add(this.classDefinitions.hidden);
+	};
+
+	this.showSearchNothingFound = function (text) {
+		this.searchNothingFound.classList.remove(this.classDefinitions.hidden);
+		document.getElementById(this.idDefinitions.searchNothingFoundText).innerHTML = text;
+	};
+	this.hideSearchNothingFound = function () {
+		this.searchNothingFound.classList.add(this.classDefinitions.hidden);
 	};
 
 	this.onRoomSearchButtonClick = function (event, me) {
@@ -229,35 +261,14 @@ function NavigateView(isTouch, roomService) {
 		});
 	};
 
-	// Stupid method, be gone in the future please
-	//this.makeRandomRooms = function () {
-	//	let me = this;
-	//	this.roomSelectButtonsContainer.innerHTML = "";
-	//	let rooms = roomService.searchRooms("abc");
-	//	let roomButtons = [];
-	//	for (let i = 0; i < rooms.length; i++) {
-	//		roomButtons[i] = this.roomSelectTemplator.getObject();
-	//	}
-	//	Promise.all(roomButtons).then((values) => {
-	//		for (let i = 0; i < rooms.length; i++) {
-	//			values[i].innerHTML = rooms[i].legalName;
-	//			me.roomSelectButtonsContainer.appendChild(values[i]);
-	//		}
-	//		componentHandler.upgradeAllRegistered();
-	//		[].slice.call(this.roomSelectButtonsContainer.childNodes).forEach((button, index) => {
-	//			button.addEventListener("click", (event) => this.onRoomSelectButtonClick(event, me));
-	//		});
-	//	});
-	//};
-
 	// Initialisation
 
 	this.init = function () {
 		return new Promise((resolve, reject) => {
 			
 			//Search containers
-			this.roomSelectButtonsContainer = document.getElementById(this.classDefinitions.roomSelectButtonsContainer);
-			this.roomSearchButtonsContainer = document.getElementById(this.classDefinitions.roomSearchButtonsContainer);
+			this.roomSelectButtonsContainer = document.getElementById(this.idDefinitions.roomSelectButtonsContainer);
+			this.roomSearchButtonsContainer = document.getElementById(this.idDefinitions.roomSearchButtonsContainer);
 
 			// Search all the buttons
 			this.buildingButtons = document.getElementsByClassName(this.classDefinitions.buildingButton);
@@ -266,7 +277,7 @@ function NavigateView(isTouch, roomService) {
 			this.floorButtons = [].slice.call(this.floorButtons);
 			
 			// Search for the input box
-			this.roomSearchInput = document.getElementById(this.classDefinitions.roomSearchInput);
+			this.roomSearchInput = document.getElementById(this.idDefinitions.roomSearchInput);
 			
 			// Add event listeners
 			this.buildingButtons.forEach((button, index) => {
@@ -278,15 +289,14 @@ function NavigateView(isTouch, roomService) {
 			this.roomSearchInput.addEventListener("input", (event) => this.onRoomSearchInput(event, this));
 
 			// Creates a templator and remove the template from the page
-			this.roomSelectTemplator = new Templator(this.classDefinitions.roomSelectButtonTemplate);
-			this.roomSearchTemplator = new Templator(this.classDefinitions.roomSearchButtonTemplate);
+			this.roomSelectTemplator = new Templator(this.idDefinitions.roomSelectButtonTemplate);
+			this.roomSearchTemplator = new Templator(this.idDefinitions.roomSearchButtonTemplate);
 
-			// Search for the container of the room buttons
-			this.roomSelectButtonsContainer = document.getElementById(this.classDefinitions.roomSelectButtonsContainer);
-			this.roomSearchButtonsContainer = document.getElementById(this.classDefinitions.roomSearchButtonsContainer);
-			
-			this.roomSelectSpinner = document.getElementById(this.classDefinitions.roomSelectSpinner);
-			this.roomSearchSpinner = document.getElementById(this.classDefinitions.roomSearchSpinner);
+			this.roomSelectSpinner = document.getElementById(this.idDefinitions.roomSelectSpinner);
+			this.roomSearchSpinner = document.getElementById(this.idDefinitions.roomSearchSpinner);
+
+			this.searchNothingFound = document.getElementById(this.idDefinitions.searchNothingFound);
+			this.selectNothingFound = document.getElementById(this.idDefinitions.selectNothingFound);
 
 			resolve();
 		});
