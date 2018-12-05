@@ -17,10 +17,10 @@
 {
 	"edges": [
 		{
-			"id": 1,	// :: Integer
-			"from": 2,	// :: Integer (foreign key)
-			"to": 3,	// :: Integer (foreign key)
-			"type": "corridor""stairs""outside path"	// :: String
+			"id": 1,	// :: Integer, auto increment because we will never use the id for physical purposes
+			"from": 2,	// :: Integer (foreign key to rooms)
+			"to": 3,	// :: Integer (foreign key to rooms)
+			"type": "corridor""stairs""outside path""lift"	// :: String
 			"info": ""	// :: String
 		},
 		...
@@ -30,7 +30,7 @@
 {
 	"buildings": [
 		{
-			"name": "F",	// :: Integer
+			"name": "F",	// :: String
 			"minFloor": -1,	// :: Integer
 			"maxFloor": 10	// :: Integer
 		},

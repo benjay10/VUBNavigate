@@ -1,0 +1,370 @@
+{
+	"edges": [
+		{
+			"from": 48,
+			"to": 49,
+			"type": "corridor",
+			"info": "Access to toilets (male)"
+		},
+		{
+			"from": 48,
+			"to": 50,
+			"type": "corridor",
+			"info": "Access to toilets (female)"
+		},
+		{
+			"from": 48,
+			"to": 51,
+			"type": "corridor",
+			"info": "Access to lifts"
+		},
+		{
+			"from": 48,
+			"to": 52,
+			"type": "corridor",
+			"info": "Entrance to 10F"
+		},
+		{
+			"from": 52,
+			"to": 1,
+			"type": "corridor",
+			"info": ""
+		},
+		{
+			"from": 1,
+			"to": 4,
+			"type": "corridor",
+			"info": ""
+		},
+		{
+			"from": 4,
+			"to": 6,
+			"type": "corridor",
+			"info": ""
+		},
+		{
+			"from": 6,
+			"to": 9,
+			"type": "corridor",
+			"info": ""
+		},
+		{
+			"from": 9,
+			"to": 12,
+			"type": "corridor",
+			"info": ""
+		},
+		{
+			"from": 12,
+			"to": 11,
+			"type": "corridor",
+			"info": ""
+		},
+		{
+			"from": 11,
+			"to": 10,
+			"type": "corridor",
+			"info": ""
+		},
+		{
+			"from": 10,
+			"to": 15,
+			"type": "corridor",
+			"info": ""
+		},
+		{
+			"from": 15,
+			"to": 16,
+			"type": "corridor",
+			"info": ""
+		},
+		{
+			"from": 16,
+			"to": 18,
+			"type": "corridor",
+			"info": ""
+		},
+		{
+			"from": 18,
+			"to": 19,
+			"type": "corridor",
+			"info": ""
+		},
+		{
+			"from": 19,
+			"to": 21,
+			"type": "corridor",
+			"info": ""
+		},
+		{
+			"from": 21,
+			"to": 23,
+			"type": "corridor",
+			"info": ""
+		},
+		{
+			"from": 23,
+			"to": 25,
+			"type": "corridor",
+			"info": ""
+		},
+		{
+			"from": 25,
+			"to": 27,
+			"type": "corridor",
+			"info": ""
+		},
+		{
+			"from": 27,
+			"to": 30,
+			"type": "corridor",
+			"info": ""
+		},
+		{
+			"from": 30,
+			"to": 28,
+			"type": "corridor",
+			"info": ""
+		},
+		{
+			"from": 28,
+			"to": 32,
+			"type": "corridor",
+			"info": ""
+		},
+		{
+			"from": 32,
+			"to": 33,
+			"type": "corridor",
+			"info": ""
+		},
+		{
+			"from": 33,
+			"to": 35,
+			"type": "corridor",
+			"info": ""
+		},
+		{
+			"from": 35,
+			"to": 37,
+			"type": "corridor",
+			"info": ""
+		},
+		{
+			"from": 37,
+			"to": 39,
+			"type": "corridor",
+			"info": ""
+		},
+		{
+			"from": 39,
+			"to": 41,
+			"type": "corridor",
+			"info": ""
+		},
+		{
+			"from": 41,
+			"to": 43,
+			"type": "corridor",
+			"info": ""
+		},
+		{
+			"from": 43,
+			"to": 48,
+			"type": "corridor",
+			"info": ""
+		},
+		{
+			"from": 48,
+			"to": 57,
+			"type": "corridor",
+			"info": ""
+		},
+		{
+			"from": 52,
+			"to": 2,
+			"type": "corridor",
+			"info": ""
+		},
+		{
+			"from": 2,
+			"to": 3,
+			"type": "corridor",
+			"info": ""
+		},
+		{
+			"from": 3,
+			"to": 5,
+			"type": "corridor",
+			"info": ""
+		},
+		{
+			"from": 5,
+			"to": 7,
+			"type": "corridor",
+			"info": ""
+		},
+		{
+			"from": 7,
+			"to": 8,
+			"type": "corridor",
+			"info": ""
+		},
+		{
+			"from": 8,
+			"to": 13,
+			"type": "corridor",
+			"info": ""
+		},
+		{
+			"from": 13,
+			"to": 14,
+			"type": "corridor",
+			"info": ""
+		},
+		{
+			"from": 14,
+			"to": 17,
+			"type": "corridor",
+			"info": ""
+		},
+		{
+			"from": 17,
+			"to": 16,
+			"type": "corridor",
+			"info": ""
+		},
+		{
+			"from": 16,
+			"to": 20,
+			"type": "corridor",
+			"info": ""
+		},
+		{
+			"from": 20,
+			"to": 19,
+			"type": "corridor",
+			"info": ""
+		},
+		{
+			"from": 19,
+			"to": 22,
+			"type": "corridor",
+			"info": ""
+		},
+		{
+			"from": 22,
+			"to": 24,
+			"type": "corridor",
+			"info": ""
+		},
+		{
+			"from": 24,
+			"to": 26,
+			"type": "corridor",
+			"info": ""
+		},
+		{
+			"from": 26,
+			"to": 29,
+			"type": "corridor",
+			"info": ""
+		},
+		{
+			"from": 29,
+			"to": 31,
+			"type": "corridor",
+			"info": ""
+		},
+		{
+			"from": 31,
+			"to": 28,
+			"type": "corridor",
+			"info": ""
+		},
+		{
+			"from": 28,
+			"to": 34,
+			"type": "corridor",
+			"info": ""
+		},
+		{
+			"from": 34,
+			"to": 33,
+			"type": "corridor",
+			"info": ""
+		},
+		{
+			"from": 33,
+			"to": 36,
+			"type": "corridor",
+			"info": ""
+		},
+		{
+			"from": 36,
+			"to": 38,
+			"type": "corridor",
+			"info": ""
+		},
+		{
+			"from": 38,
+			"to": 40,
+			"type": "corridor",
+			"info": ""
+		},
+		{
+			"from": 40,
+			"to": 42,
+			"type": "corridor",
+			"info": ""
+		},
+		{
+			"from": 42,
+			"to": 44,
+			"type": "corridor",
+			"info": ""
+		},
+		{
+			"from": 44,
+			"to": 45,
+			"type": "corridor",
+			"info": ""
+		},
+		{
+			"from": 45,
+			"to": 49,
+			"type": "corridor",
+			"info": ""
+		},
+		{
+			"from": 49,
+			"to": 57,
+			"type": "corridor",
+			"info": ""
+		},
+		{
+			"from": 53,
+			"to": 57,
+			"type": "corridor",
+			"info": "Entrance to 10F"
+		},
+		{
+			"from": 53,
+			"to": 54,
+			"type": "corridor",
+			"info": "Access to toilets (female)"
+		},
+		{
+			"from": 53,
+			"to": 55,
+			"type": "corridor",
+			"info": "Access to toilets (male)"
+		},
+		{
+			"from": 53,
+			"to": 56,
+			"type": "corridor",
+			"info": "Access to lifts"
+		}
+	]
+}

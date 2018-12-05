@@ -6,6 +6,7 @@
 		<meta name="keywords" content="navigate, vub, webapp" />
 		<meta name="author" content="Group 7" />
 		<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1" />
+		<title>VUBNavigate</title>
 		<link rel="shortcut icon" type="image/x-icon" href="./img/favicon.png" />
 		<!--Stylesheets-->
 		<link rel="stylesheet" href="./css/MDL/material-indigo-orange.min.css" />
@@ -30,6 +31,7 @@
 		<script src="./js/Services/DatabaseService.js" async="asyns"></script>
 		<script src="./js/drawerToggler.js" async="asyns"></script>
 		<script src="./js/navigateView.js" async="asyns"></script>
+		<script src="./js/directionsView.js" async="asyns"></script>
 		<script src="./js/startup.js" async="async"></script>
 	</head>
 	<body>
@@ -61,6 +63,33 @@
 					<a class="mdl-navigation__link vubn-navigate-link" href="#settings"><i class="material-icons">settings</i> Settings</a>
 					<a class="mdl-navigation__link vubn-navigate-link" href="#about"><i class="material-icons">feedback</i> About</a>
 				</nav>
+				<div class="mdl-grid">
+					<div class="mdl-cell mdl-cell--12-col vubn-navigate-sidebar-card-container">
+						<div class="mdl-card mdl-shadow--2dp vubn-navigate-sidebar-card">
+							<div class="mdl-card__title">
+								<h2 class="mdl-card__title-text">Navigating&hellip;</h2>
+							</div>
+							<div class="mdl-card__supporting-text">
+								Currently navigating to <span id="vubn-navigate-sidebar-card-roomtext" class="vubn-navigate-sidebar-card-roomtext">D.0.0.7</span>
+							</div>
+							<div class="mdl-card__actions mdl-card--border">
+								<button id="vubn-drawer-show-navigation" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored vubn-subpage-navigate-link" data-href="#vubn-navigate-navigate">
+									Show <i class="material-icons">chevron_right</i>
+								</button>
+							</div>
+							<div class="mdl-card__menu">
+								<button class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-button--colored mdl-js-ripple-effect">
+									<i class="material-icons">close</i>
+								</button>
+								<!--
+								<button class="mdl-button mdl-js-button mdl-button--icon mdl-button--accented">
+									<i class="material-icons">cancel</i>
+								</button>
+								-->
+							</div>
+						</div>
+					</div>
+				</div>
 			</div>
 			<main id="vubn-pagecontainer" class="mdl-layout__content hidden">
 				<!-- De inhoud van de app -->

@@ -38,8 +38,17 @@ function DatabaseService() {
 			let results = [];
 			searchString = searchString.toLowerCase();
 			let predicate = (room) => {
-				return (room.legalName.toLowerCase().includes(searchString) ||
-					room.uniformName.toLowerCase().includes(searchString));
+				return (
+					((room.legalName && room.legalName.toLowerCase().includes(searchString)) ||
+					(room.uniformName && room.uniformName.toLowerCase().includes(searchString))) //&&  // Uncomment the following for a more natural search
+					//(room.type && (room.type.includes("classroom") ||
+					//			   room.type.includes("office") ||
+					//			   room.type.includes("study room") ||
+					//			   room.type.includes("meeting room") ||
+					//			   room.type.includes("laboratory") ||
+					//			   room.type.includes("dining room") ||
+					//			   room.type.includes("library")))
+				);
 			};
 
 			let transaction = me.database.transaction(["rooms"], "readonly");
@@ -180,6 +189,7 @@ function DatabaseService() {
 			if (oldVersion > 0) {
 				db.deleteObjectStore("rooms");
 				db.deleteObjectStore("buildings");
+				db.deleteObjectStore("edges");
 			}
 
 			// Create the new room schema
@@ -192,6 +202,11 @@ function DatabaseService() {
 			
 			// Create the new building schema
 			let buildingStore = db.createObjectStore("buildings", { keyPath: "name" });
+
+			// Create the schema for storing edges between rooms
+			let edgeStore = db.createObjectStore("edges", { keyPath: "id", autoIncrement: true });
+			edgeStore.createIndex("from", "from", { unique : false });
+			edgeStore.createIndex("to", "to", { unique : false });
 			
 			roomStore.transaction.onabort = (event) => {
 				reject(event);
@@ -208,9 +223,9 @@ function DatabaseService() {
 	this.initialiseDatabase = function (db, oldVersion, newVersion) {
 		let me = this;
 		let schemaCreate = me.createSchema(db, oldVersion, newVersion);
-		//let buildingSchemaCreate = me.createBuildingSchema(db, oldVersion, newVersion);
 		let roomRetreive = me.getJson(me.files.rooms);
 		let buildingRetreive = me.getJson(me.files.buildings);
+		let edgeRetreive = me.getJson(me.files.edges);
 
 		let roomPopulate = Promise.all([schemaCreate, roomRetreive]).then((values) => {
 			let db = values[0];
@@ -219,7 +234,7 @@ function DatabaseService() {
 			let roomStore = roomStoreTransaction.objectStore("rooms");
 
 			roomdata.rooms.forEach((room, index) => {
-				let request = roomStore.add(room);
+				/*let request =*/ roomStore.add(room);
 			});
 			return db;
 		});
@@ -231,13 +246,24 @@ function DatabaseService() {
 			let buildingStore = buildingStoreTransaction.objectStore("buildings");
 
 			buildingdata.buildings.forEach((building, index) => {
-				let request = buildingStore.add(building);
+				/*let request =*/ buildingStore.add(building);
 			});
 			return db;
 		});
+		
+		let edgePopulate = Promise.all([schemaCreate, edgeRetreive]).then((values) => {
+			let db = values[0];
+			let edgedata = values[1];
+			let edgeStoreTransaction = db.transaction(["edges"], "readwrite");
+			let edgeStore = edgeStoreTransaction.objectStore("edges");
 
-		//return Promise.all([roomPopulate, buildingPopulate]).then((values) => { return values[0]; });
-		return Promise.all([roomPopulate]).then((values) => { return values[0]; });
+			edgedata.edges.forEach((edge, index) => {
+				/*let request =*/ edgeStore.add(edge);
+			});
+		});
+
+		return Promise.all([roomPopulate, buildingPopulate, edgePopulate]).then((values) => { return values[0]; });
+		//return Promise.all([roomPopulate]).then((values) => { return values[0]; });
 	};
 
 	// Init

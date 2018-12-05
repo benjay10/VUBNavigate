@@ -3,8 +3,26 @@
 }
 
 /******************************************************************************
- *  Intro
+ *  Sidebar card
  *****************************************************************************/
+
+.vubn-navigate-sidebar-card {
+	width: 100%;
+}
+
+.vubn-navigate-sidebar-card-container {
+	max-width: 100%;
+}
+
+.vubn-navigate-sidebar-card .mdl-card__title {
+	height: 7em;
+	background-color: #e0e0e0;
+}
+
+.vubn-navigate-sidebar-card .mdl-card__supporting-text {
+	font-size: inherit;
+	color: rgba(0, 0, 0, 1);
+}
 
 /******************************************************************************
  *  Search

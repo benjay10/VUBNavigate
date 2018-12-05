@@ -16,7 +16,8 @@ var vubn = {
 	pageNavigation: null,
 	subpageNavigate: null,
 	useAnimations: false,
-	navigateView: null
+	navigateView: null,
+	DirectionsView: null
 }
 
 // All global modules should be created here in order
@@ -66,6 +67,9 @@ window.addEventListener("load", (event) => {
 
 		vubn.navigateView = new NavigateView(isTouch, vubn.services.rooms);
 		vubn.navigateView.init();
+
+		vubn.directionsView = new DirectionsView(isTouch, vubn.navigateView);
+		vubn.directionsView.init();
 	});
 });
 

@@ -469,6 +469,56 @@
 			"type": "study room",
 			"info": "",
 			"outsideAvailable": ["fire extinguisher", "fire alarm"]
+		},
+		{
+			"id": 48,
+			"legalName": "R5.10.03",
+			"uniformName": "R5.10.03",
+			"building": "F",
+			"floor": 10,
+			"type": "landing",
+			"info": "Rotule 5 landing",
+			"outsideAvailable": ["fire extinguisher", "fire alarm", "fire hose reel"]
+		},
+		{
+			"id": 49,
+			"legalName": "R5.10.SM",
+			"uniformName": "R5.10.SM",
+			"building": "F",
+			"floor": 10,
+			"type": "landing",
+			"info": "Toilets (men)",
+			"outsideAvailable": []
+		},
+		{
+			"id": 50,
+			"legalName": "R5.10.SF",
+			"uniformName": "R5.10.SF",
+			"building": "F",
+			"floor": 10,
+			"type": "landing",
+			"info": "Toilets (female)",
+			"outsideAvailable": []
+		},
+		{
+			"id": 51,
+			"legalName": "R5.10.GL",
+			"uniformName": "R5.10.GL",
+			"building": "F",
+			"floor": 10,
+			"type": "lift",
+			"info": "Lifts",
+			"outsideAvailable": []
+		},
+		{
+			"id": 52,
+			"legalName": "R5.10.GF1",
+			"uniformName": "R5.10.GF1",
+			"building": "F",
+			"floor": 10,
+			"type": "sluice",
+			"info": "Small room between Rotule 5 and building F on floor 10",
+			"outsideAvailable": []
 		}
 	]
 }

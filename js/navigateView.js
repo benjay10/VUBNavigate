@@ -1,6 +1,6 @@
 "use strict";
 
-function NavigateView(isTouch, roomService) {
+function NavigateView(isTouch, roomService, directionsView) {
 	
 	// Fields and definitions
 
