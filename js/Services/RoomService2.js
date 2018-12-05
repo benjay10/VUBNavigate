@@ -4,6 +4,8 @@ function RoomService2(databaseService) {
 
 	// Fields
 	
+	let me = this;
+	
 	// Methods
 	
 	// This adapted method return safely parsed room, no field is left undefined (this is possible in the DB)
@@ -28,7 +30,7 @@ function RoomService2(databaseService) {
 	// Parsing
 	
 	this.parseRoom = function (roomResult) {
-		return this.parseRooms([roomResult]).then((rooms) => rooms[0]);
+		return me.parseRooms([roomResult]).then((rooms) => rooms[0]);
 	};
 	
 	this.parseRooms = function (roomResults) {

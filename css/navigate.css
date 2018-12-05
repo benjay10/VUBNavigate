@@ -24,13 +24,17 @@
 	color: rgba(0, 0, 0, 1);
 }
 
+#vubn-drawer-show-navigation {
+	width: 100%;
+}
+
+.vubn-navigate-sidebar-card-roomtext {
+	/*font-weight: bold;*/
+}
+
 /******************************************************************************
  *  Search
  *****************************************************************************/
-
-.vubn-navigate-search-busyspinner {
-	text-align: center;
-}
 
 .vubn-navigate-nothingfound {
 	color: red;
@@ -91,10 +95,6 @@
 	margin-left: 0.5em;
 }
 
-.vubn-navigate-select-busyspinner {
-	text-align: center;
-}
-
 /******************************************************************************
  *  Navigate
  *****************************************************************************/
@@ -117,11 +117,15 @@
 	height: 4em;
 }
 
-.vubn-navigate-stop {
+.vubn-navigate-stop-fixed {
 	position: fixed;
 	bottom: 1em;
 	max-width: 90%;
 	left: 50%;
 	transform: translateX(-50%);
 	height: 3em;
+}
+
+.vubn-navigate-mylocation, .vubn-navigate-destination {
+	font-weight: bold;
 }

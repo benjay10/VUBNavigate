@@ -70,7 +70,7 @@
 								<h2 class="mdl-card__title-text">Navigating&hellip;</h2>
 							</div>
 							<div class="mdl-card__supporting-text">
-								Currently navigating to <span id="vubn-navigate-sidebar-card-roomtext" class="vubn-navigate-sidebar-card-roomtext">D.0.0.7</span>
+								Currently navigating to <span id="vubn-navigate-sidebar-card-roomtext" class="vubn-navigate-destination vubn-navigate-sidebar-card-roomtext">D.0.0.7</span>
 							</div>
 							<div class="mdl-card__actions mdl-card--border">
 								<button id="vubn-drawer-show-navigation" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored vubn-subpage-navigate-link" data-href="#vubn-navigate-navigate">
@@ -78,7 +78,7 @@
 								</button>
 							</div>
 							<div class="mdl-card__menu">
-								<button class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-button--colored mdl-js-ripple-effect">
+								<button class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-button--colored mdl-js-ripple-effect vubn-navigate-stop">
 									<i class="material-icons">close</i>
 								</button>
 								<!--
@@ -160,12 +160,12 @@
 									<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
 										<input class="mdl-textfield__input" type="text" id="vubn-room-search" />
 										<label class="mdl-textfield__label" for="vubn-room-search">
-											<i class="material-icons">search</i> Typ to search for classroom...
+											<i class="material-icons">search</i> Typ to search for classroom&hellip;
 										</label>
 									</div>
 								</form>
 							</div>
-							<div id="vubn-navigate-search-busyspinner" class="mdl-cell mdl-cell--12-col vubn-navigate-search-busyspinner hidden">
+							<div id="vubn-navigate-search-busyspinner" class="mdl-cell mdl-cell--12-col vubn-navigate-busyspinner hidden">
 								<div class="mdl-spinner mdl-js-spinner is-active"></div>
 							</div>
 							<div id="vubn-navigate-search-nothingfound" class="mdl-cell mdl-cell--12-col vubn-navigate-nothingfound hidden">
@@ -179,7 +179,7 @@
 								</div>
 							</div>
 							<div class="mdl-cell mdl-cell--12-col vubn-navigatebutton-container">
-								<button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored vubn-button-30-center vubn-subpage-navigate-link" data-href="#vubn-navigate-navigate">
+								<button disabled="disabled" id="vubn-navigate-search-start-navigation" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored vubn-button-30-center vubn-subpage-navigate-link vubn-navigate-start" data-href="#vubn-navigate-navigate">
 									<i class="material-icons">directions</i>
 									Go
 								</button>
@@ -289,7 +289,7 @@
 								<i class="material-icons">sentiment_very_dissatisfied</i>
 								<span id="vubn-navigate-select-nothingfound-text"></span>
 							</div>
-							<div id="vubn-navigate-select-busyspinner" class="mdl-cell mdl-cell--12-col vubn-navigate-select-busyspinner hidden">
+							<div id="vubn-navigate-select-busyspinner" class="mdl-cell mdl-cell--12-col vubn-navigate-busyspinner hidden">
 								<div class="mdl-spinner mdl-js-spinner is-active"></div>
 							</div>
 							<div class="mdl-cell mdl-cell--12-col">
@@ -299,7 +299,7 @@
 								</div>
 							</div>
 							<div class="mdl-cell mdl-cell--12-col vubn-navigatebutton-container">
-								<button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored vubn-button-30-center vubn-subpage-navigate-link" data-href="#vubn-navigate-navigate">
+								<button disabled="disabled" id="vubn-navigate-select-start-navigation" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored vubn-button-30-center vubn-subpage-navigate-link vubn-navigate-start" data-href="#vubn-navigate-navigate">
 									<i class="material-icons">directions</i>
 									Go
 								</button>
@@ -324,7 +324,7 @@
 								<p>Select a room based on your school calendar. These are your upcoming classes for today. Select the class you want to navigate to.</p>
 							</div>
 							<div class="mdl-cell mdl-cell--12-col vubn-navigatebutton-container">
-								<button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored vubn-navigatebutton vubn-subpage-navigate-link" data-href="#vubn-navigate-navigate">
+								<button disabled="disabled" id="vubn-navigate-calendar-start-navigation" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored vubn-button-30-center vubn-subpage-navigate-link vubn-navigate-start" data-href="#vubn-navigate-navigate">
 									<i class="material-icons">directions</i>
 									Go
 								</button>
@@ -355,7 +355,7 @@
 								Dit is wat je moet doen om er te geraken.
 							</div>
 							<div class="mdl-cell mdl-cell--12-col">
-								<button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent vubn-button-30-center vubn-navigate-stop">
+								<button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent vubn-button-30-center vubn-navigate-stop-fixed vubn-navigate-stop vubn-subpage-navigate-link" data-href="#vubn-navigate-intro">
 									<i class="material-icons">cancel</i> Stop navigation
 								</button>
 							</div>

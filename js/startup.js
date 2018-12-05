@@ -68,7 +68,7 @@ window.addEventListener("load", (event) => {
 		vubn.navigateView = new NavigateView(isTouch, vubn.services.rooms);
 		vubn.navigateView.init();
 
-		vubn.directionsView = new DirectionsView(isTouch, vubn.navigateView);
+		vubn.directionsView = new DirectionsView(isTouch, vubn.services.rooms, vubn.navigateView);
 		vubn.directionsView.init();
 	});
 });

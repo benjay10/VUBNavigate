@@ -23,7 +23,10 @@ function NavigateView(isTouch, roomService, directionsView) {
 		roomSearchButtonsContainer: "vubn-search-room-buttons",
 		roomSelectSpinner: "vubn-navigate-select-busyspinner",
 		roomSearchSpinner: "vubn-navigate-search-busyspinner",
-		roomSearchInput: "vubn-room-search"
+		roomSearchInput: "vubn-room-search",
+		searchStartNavigationButton: "vubn-navigate-search-start-navigation",
+		selectStartNavigationButton: "vubn-navigate-select-start-navigation",
+		calendarStartNavigationButton: "vubn-navigate-calendar-start-navigation"
 	};
 	this.dataDefinitions = {
 		building: "data-vubn-select-building",
@@ -53,6 +56,9 @@ function NavigateView(isTouch, roomService, directionsView) {
 	this.roomSelectSpinner = null;
 	this.searchNothingFound = null;
 	this.selectNothingFound = null;
+	this.searchStartNavigationButton = null;
+	this.selectStartNavigationButton = null;
+	this.calendarStartNavigationButton = null;
 
 	// Methods
 	
@@ -75,6 +81,8 @@ function NavigateView(isTouch, roomService, directionsView) {
 			});
 		});
 		let filterer = me.filterRooms(me);
+		// Also disable the start navigation button
+		me.disableSelectStartNavigationButton();
 		return Promise.all([disabler, filterer]).then((values) => { return values[1]; });
 	};
 
@@ -127,10 +135,11 @@ function NavigateView(isTouch, roomService, directionsView) {
 	// For the selection part (clicking on the room buttons)
 	this.onRoomSelectButtonClick = function (event, me) {
 		event.stopPropagation();
-		me.selectedRoomId = event.currentTarget.getAttribute(me.dataDefinitions.roomid);
+		me.selectedRoomId = parseInt(event.currentTarget.getAttribute(me.dataDefinitions.roomid));
 		let allRoomButtons = this.roomSelectButtonsContainer.childNodes;
 		allRoomButtons = [].slice.call(allRoomButtons);
 		me.doHighlight(event.currentTarget, allRoomButtons, me);
+		me.enableSelectStartNavigationButton();
 	};
 
 	this.showSelectSpinner = function () {
@@ -138,6 +147,13 @@ function NavigateView(isTouch, roomService, directionsView) {
 	};
 	this.hideSelectSpinner = function () {
 		this.roomSelectSpinner.classList.add(this.classDefinitions.hiddden);
+	};
+
+	this.disableSelectStartNavigationButton = function () {
+		this.selectStartNavigationButton.setAttribute("disabled", "disabled");
+	};
+	this.enableSelectStartNavigationButton = function () {
+		this.selectStartNavigationButton.removeAttribute("disabled");
 	};
 
 	this.showSelectNothingFound = function (text) {
@@ -166,7 +182,13 @@ function NavigateView(isTouch, roomService, directionsView) {
 	this.onRoomSearchInput = function (event, me) {
 		event.stopPropagation();
 		return new Promise((resolve, reject) => {
+			// Take the input and trim spaces of the ends
 			let input = event.target.value;
+			input = input.trim();
+			
+			// Disable the button because every input change triggers a different set of results
+			me.disableSearchStartNavigationButton();
+		
 			if (input.length > 2) {
 				resolve(input);
 			} else {
@@ -222,6 +244,13 @@ function NavigateView(isTouch, roomService, directionsView) {
 			roomButton.addEventListener(this.clickEvent, (event) => this.onRoomSearchButtonClick(event, this));
 		});
 	};
+	
+	this.disableSearchStartNavigationButton = function () {
+		this.searchStartNavigationButton.setAttribute("disabled", "disabled");
+	};
+	this.enableSearchStartNavigationButton = function () {
+		this.searchStartNavigationButton.removeAttribute("disabled");
+	};
 
 	this.showSearchSpinner = function () {
 		this.roomSearchSpinner.classList.remove(this.classDefinitions.hidden);
@@ -240,10 +269,11 @@ function NavigateView(isTouch, roomService, directionsView) {
 
 	this.onRoomSearchButtonClick = function (event, me) {
 		event.stopPropagation();
-		me.selectedRoomId = event.currentTarget.getAttribute(me.dataDefinitions.roomid);
+		me.selectedRoomId = parseInt(event.currentTarget.getAttribute(me.dataDefinitions.roomid));
 		let allRoomButtons = this.roomSearchButtonsContainer.childNodes;
 		allRoomButtons = [].slice.call(allRoomButtons);
 		me.doHighlight(event.currentTarget, allRoomButtons, me);
+		me.enableSearchStartNavigationButton();
 	};
 
 	// Rest
@@ -297,6 +327,10 @@ function NavigateView(isTouch, roomService, directionsView) {
 
 			this.searchNothingFound = document.getElementById(this.idDefinitions.searchNothingFound);
 			this.selectNothingFound = document.getElementById(this.idDefinitions.selectNothingFound);
+
+			this.searchStartNavigationButton = document.getElementById(this.idDefinitions.searchStartNavigationButton);
+			this.selectStartNavigationButton = document.getElementById(this.idDefinitions.selectStartNavigationButton);
+			this.calendarStartNavigationButton = document.getElementById(this.idDefinitions.calendarStartNavigationButton);
 
 			resolve();
 		});
