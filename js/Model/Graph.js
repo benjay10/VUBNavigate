@@ -1,13 +1,15 @@
 "use strict";
 
-function Node() {
-
+function VubnVertex() {
+	this.room = null;
+	this.distance = Infinity;
+	this.visited = false;
 }
 
-function Edge() {
-
+function VubnEdge() {
+	this.walk = null;
 }
 
-function Graph() {
+function VubnGraph() {
 
 }

@@ -15,7 +15,7 @@
 }
 
 {
-	"edges": [
+	"walks": [
 		{
 			"id": 1,	// :: Integer, auto increment because we will never use the id for physical purposes
 			"from": 2,	// :: Integer (foreign key to rooms)

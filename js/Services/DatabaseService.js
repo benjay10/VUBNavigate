@@ -8,7 +8,7 @@ function DatabaseService() {
 		meta: "assets/databaseMeta.json",
 		buildings: "assets/buildings.json",
 		rooms: "assets/rooms2.json",
-		edges: "assets/edges.json"
+		walks: "assets/walks.json"
 	}
 	this.database = null;
 
@@ -189,7 +189,7 @@ function DatabaseService() {
 			if (oldVersion > 0) {
 				db.deleteObjectStore("rooms");
 				db.deleteObjectStore("buildings");
-				db.deleteObjectStore("edges");
+				db.deleteObjectStore("walks");
 			}
 
 			// Create the new room schema
@@ -203,10 +203,10 @@ function DatabaseService() {
 			// Create the new building schema
 			let buildingStore = db.createObjectStore("buildings", { keyPath: "name" });
 
-			// Create the schema for storing edges between rooms
-			let edgeStore = db.createObjectStore("edges", { keyPath: "id", autoIncrement: true });
-			edgeStore.createIndex("from", "from", { unique : false });
-			edgeStore.createIndex("to", "to", { unique : false });
+			// Create the schema for storing walks between rooms
+			let walkStore = db.createObjectStore("walks", { keyPath: "id", autoIncrement: true });
+			walkStore.createIndex("from", "from", { unique : false });
+			walkStore.createIndex("to", "to", { unique : false });
 			
 			roomStore.transaction.onabort = (event) => {
 				reject(event);
@@ -225,7 +225,7 @@ function DatabaseService() {
 		let schemaCreate = me.createSchema(db, oldVersion, newVersion);
 		let roomRetreive = me.getJson(me.files.rooms);
 		let buildingRetreive = me.getJson(me.files.buildings);
-		let edgeRetreive = me.getJson(me.files.edges);
+		let walkRetreive = me.getJson(me.files.walks);
 
 		let roomPopulate = Promise.all([schemaCreate, roomRetreive]).then((values) => {
 			let db = values[0];
@@ -251,18 +251,18 @@ function DatabaseService() {
 			return db;
 		});
 		
-		let edgePopulate = Promise.all([schemaCreate, edgeRetreive]).then((values) => {
+		let walkPopulate = Promise.all([schemaCreate, walkRetreive]).then((values) => {
 			let db = values[0];
-			let edgedata = values[1];
-			let edgeStoreTransaction = db.transaction(["edges"], "readwrite");
-			let edgeStore = edgeStoreTransaction.objectStore("edges");
+			let walkdata = values[1];
+			let walkStoreTransaction = db.transaction(["walks"], "readwrite");
+			let walkStore = walkStoreTransaction.objectStore("walks");
 
-			edgedata.edges.forEach((edge, index) => {
-				/*let request =*/ edgeStore.add(edge);
+			walkdata.walks.forEach((walk, index) => {
+				/*let request =*/ walkStore.add(walk);
 			});
 		});
 
-		return Promise.all([roomPopulate, buildingPopulate, edgePopulate]).then((values) => { return values[0]; });
+		return Promise.all([roomPopulate, buildingPopulate, walkPopulate]).then((values) => { return values[0]; });
 		//return Promise.all([roomPopulate]).then((values) => { return values[0]; });
 	};
 

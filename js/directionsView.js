@@ -32,9 +32,11 @@ function DirectionsView(isTouch, roomService, navigateView) {
 		let roomId = navigateView.selectedRoomId;
 		
 		return roomService.getRoom(roomId).then((room) => {
+			// Set the destination fields
 			me.destinationTexts.forEach((element, index) => {
 				element.innerHTML = room.legalName;
 			});
+			return room;
 		})
 		.catch(console.error);
 	};
