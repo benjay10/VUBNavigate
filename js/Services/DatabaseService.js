@@ -197,6 +197,7 @@ function DatabaseService() {
 				// General error on the database or a transaction
 				console.error("Performing an action on the database resulted in an error.", event);
 			};
+			return db;
 		})
 		.catch((error) => {
 			console.error("Database creation error! Try clearing browser history with the HTML5 storage in particular, and try again.", error);
@@ -294,8 +295,10 @@ function DatabaseService() {
 		//window.IDBTransaction = window.IDBTransaction || window.webkitIDBTransaction || window.msIDBTransaction || {READ_WRITE: "readwrite"};
 		//window.IDBKeyRange = window.IDBKeyRange || window.webkitIDBKeyRange || window.msIDBKeyRange;
 
+		let me = this;
+
 		return new Promise((resolve, reject) => {
-			this.startDatabase();
+			me.startDatabase().then((db) => resolve(db));
 		});
 	};
 

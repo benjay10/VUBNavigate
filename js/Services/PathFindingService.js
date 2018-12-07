@@ -5,13 +5,10 @@ function PathFindingService(roomService) {
 	this.graph = null;
 	let me = this;
 
-
-
 	this.findPath = function (from, to) {
 		console.log(me);
 		return me.graph.findShortestPath(from, to);
 	};
-
 
 	this.buildGraph = function() {
 		console.log("pathfinding creation started");
@@ -34,20 +31,13 @@ function PathFindingService(roomService) {
 			me.graph = new Graph(map);
 			console.log(map);
 			console.log("pathfinding creation success");
-
 		});
-		
 	};
-
-
 
 	this.init = function () {
-
 		return new Promise((resolve, reject) => {
 			me.buildGraph();
-			
 		});
-		
 	};
-	
 }
+
