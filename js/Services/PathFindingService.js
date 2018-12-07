@@ -6,18 +6,15 @@ function PathFindingService(roomService) {
 	let me = this;
 
 	this.findPath = function (from, to) {
-		console.log(me);
 		return me.graph.findShortestPath(from, to);
 	};
 
 	this.buildGraph = function() {
-		console.log("pathfinding creation started");
-		console.log(roomService);
+
 		roomService.getAllWalksForGraph().then((edges) => {
 			let map = {};
 
-			for (var i = 0; i < edges.length; i++) {
-				let edge = edges[i];
+			edges.forEach((edge) => {
 				let from = edge.from;
 				let to = edge.to;
 				let weight = edge.weight;
@@ -26,11 +23,10 @@ function PathFindingService(roomService) {
 			    	map[edge.from] = {};
 
 			    map[from][to] = weight;
-			}
+			});
 
 			me.graph = new Graph(map);
-			console.log(map);
-			console.log("pathfinding creation success");
+
 		});
 	};
 
