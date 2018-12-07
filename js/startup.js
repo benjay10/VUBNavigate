@@ -9,7 +9,8 @@ var vubn = {
 	},
 	services: {
 		rooms: null,
-		database: null
+		database: null, 
+		pathfinding: null,
 	},
 	environment: 0,
 	drawerToggler: null,
@@ -42,6 +43,9 @@ window.addEventListener("load", (event) => {
 		
 		vubn.services.rooms = new RoomService2(dbService);
 		vubn.services.rooms.init();
+
+		vubn.services.pathfinding = new PathFindingService(vubn.services.rooms);
+		vubn.services.pathfinding.init();
 		
 		return vubn;
 

@@ -127,11 +127,11 @@ function DatabaseService() {
 		let me = this;
 		return new Promise((resolve, reject) => {
 			let walks = [];
-			
+			console.log(me.database);
 			let transaction = me.database.transaction(["walks"], "readonly");
 			let walkstore = transaction.objectStore("walks");
 			let request = walkstore.getAll();
-
+			console.log(walkstore);
 			request.onerror = (error) => reject(error);
 			request.onsuccess = (event) => {
 				if (event.target.result && event.target.result.length > 0) {
@@ -185,6 +185,7 @@ function DatabaseService() {
 			});
 		})
 		.then((db) => {
+			console.log(db);
 			me.database = db;
 			console.log("Database creation success");
 			return db;
