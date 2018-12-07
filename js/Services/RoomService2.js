@@ -27,6 +27,13 @@ function RoomService2(databaseService) {
 		return databaseService.getBuilding(buildingName);
 	};
 
+	this.getAllWalks = function () {
+		return databaseService.getWalks().then(this.parseWalks);
+	};
+	this.getAllWalksForGraph = function () {
+		return databaseService.getWalks().then(this.parseWalksForGraph);
+	};
+
 	// Parsing
 	
 	this.parseRoom = function (roomResult) {
@@ -50,6 +57,59 @@ function RoomService2(databaseService) {
 				rooms.push(temproom);
 			});
 			resolve(rooms);
+		});
+	};
+
+	this.parseWalks = function (walkResults) {
+		return new Promise((resolve, reject) => {
+			let walks = [];
+
+			walkResults.forEach((walk, index) => {
+				let tempwalk = new Walk();
+				tempwalk.id = walk.id;
+				tempwalk.from = (walk.from || 0);
+				tempwalk.to = (walk.to || 0);
+				tempwalk.type = (walk.type || "");
+				tempwalk.info = (walk.info || "");
+				walks.push(tempwalk);
+			});
+
+			resolve(walks);
+		});
+	};
+
+	this.parseWalksForGraph = function (walkResults) {
+		return new Promise((resolve, reject) => {
+			let walks = [];
+
+			walkResults.forEach((walk, index) => {
+				let cost = 0;
+				switch (walk.type) {
+					case "corridor":
+						cost = 1;
+						break;
+					case "stairs":
+						cost = 4;
+						break;
+					case "outside path":
+						cost = 5;
+						break;
+					case "lift":
+						cost = 3;
+						break;
+					default:
+						cost = 1;
+						break;
+				}
+				let tempwalk = {
+					to: (walk.to || 0),
+					from: (walk.from || 0),
+					weight: cost
+				};
+				walks.push(tempwalk);
+			});
+
+			resolve(walks);
 		});
 	};
 

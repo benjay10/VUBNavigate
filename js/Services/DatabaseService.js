@@ -123,6 +123,26 @@ function DatabaseService() {
 		});
 	};
 	
+	this.getWalks = function () {
+		let me = this;
+		return new Promise((resolve, reject) => {
+			let walks = [];
+			
+			let transaction = me.database.transaction(["walks"], "readonly");
+			let walkstore = transaction.objectStore("walks");
+			let request = walkstore.getAll();
+
+			request.onerror = (error) => reject(error);
+			request.onsuccess = (event) => {
+				if (event.target.result && event.target.result.length > 0) {
+					resolve(event.target.result);
+				} else {
+					reject("No walks found in the database. Something must be wrong then.");
+				}
+			};
+		});
+	};
+	
 	// Extra methods
 	
 	this.getJson = function(url) {

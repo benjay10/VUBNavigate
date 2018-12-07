@@ -12,3 +12,11 @@ function Room(id, uniformName, legalName, floor, building, type, info, outsideAv
 	this.type = type;
 	this.outsideAvailable = outsideAvailable;
 }
+
+function Walk(id, from, to, type, info) {
+	this.id = id;
+	this.from = from;
+	this.to = to;
+	this.type = type;
+	this.info = info;
+}
