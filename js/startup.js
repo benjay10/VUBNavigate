@@ -33,9 +33,7 @@ window.addEventListener("load", (event) => {
 		// Initialisation of the database service first
 
 		vubn.services.database = new DatabaseService();
-		vubn.services.database.init().then((db) => resolve(vubn.services.database));
-
-		//resolve(vubn.services.database);
+		vubn.services.database.init().then((db) => resolve(vubn.services.database)).catch(reject);
 
 	})).then((dbService) => {
 
