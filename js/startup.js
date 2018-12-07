@@ -9,7 +9,7 @@ var vubn = {
 	},
 	services: {
 		rooms: null,
-		database: null, 
+		database: null,
 		pathfinding: null,
 	},
 	environment: 0,
@@ -40,13 +40,16 @@ window.addEventListener("load", (event) => {
 	})).then((dbService) => {
 
 		// Initialisation of other, dependent services (better way of doing this?)
-		
+
 		vubn.services.rooms = new RoomService2(dbService);
 		vubn.services.rooms.init();
 
 		vubn.services.pathfinding = new PathFindingService(vubn.services.rooms);
 		vubn.services.pathfinding.init();
-		
+
+		vubn.services.location = new LocationService();
+		vubn.services.location.init();
+
 		return vubn;
 
 	}).then((notImportant) => {
@@ -76,4 +79,3 @@ window.addEventListener("load", (event) => {
 		vubn.directionsView.init();
 	});
 });
-
