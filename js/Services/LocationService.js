@@ -43,7 +43,7 @@ function LocationService() {
 
       function onQuietReady() {
         console.log("Quiet created");
-        var profilename = "audible";
+        var profilename = "ultrasonic-experimental";
         Quiet.receiver({
           profile: profilename,
           onReceive: onReceive,
