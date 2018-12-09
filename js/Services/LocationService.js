@@ -14,21 +14,20 @@ function LocationService() {
 
   this.receiver = null;
 
-  this.startLocalisation = function() {
+  this.getLocation = function() {
     //init quietjs here
-    var TextReceiver = (function() {
+    (function() {
       Quiet.init({
         profilesPrefix: "./assets/", //TODO: need to add profile
         memoryInitializerPrefix: "./assets/",
         libfecPrefix: "./assets/"
       });
 
-      var target;
-      var warningbox;
-
       function onReceive(recvPayload) {
         this.location = Quiet.ab2str(recvPayload);
         console.log("location is: ", this.location);
+        me.stopListening();
+        return location;
       };
 
       function onReceiverCreateFail(reason) {
@@ -41,7 +40,7 @@ function LocationService() {
 
       function onQuietReady() {
         var profilename = "ultrasonic-experimental";
-        this.receiver = Quiet.receiver({
+        me.receiver = Quiet.receiver({
           profile: profilename,
           onReceive: onReceive,
           onCreateFail: onReceiverCreateFail,
@@ -56,15 +55,17 @@ function LocationService() {
     })();
   };
 
-  this.getLocation = function() {
-    return location;
+  this.stopListening = function() {
+    this.receiver.destroy();
+    Quiet.disconnect();
   };
 
   // Init
   this.init = function() {
     return new Promise((resolve, reject) => {
-      this.startLocalisation();
+      this.getLocation();
     });
+    return;
   };
 
 }
