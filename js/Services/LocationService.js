@@ -24,12 +24,10 @@ function LocationService() {
       console.log("Iets");
 
       var target;
-      var content = new ArrayBuffer(0);
       var warningbox;
 
       function onReceive(recvPayload) {
-        content = Quiet.mergeab(content, recvPayload);
-        this.location = Quiet.ab2str(content);
+        this.location = Quiet.ab2str(recvPayload);
         console.log("location is: ", this.location);
       };
 
