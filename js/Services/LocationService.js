@@ -12,16 +12,16 @@ function LocationService() {
 
   this.location = null;
 
+  this.receiver = null;
+
   this.startLocalisation = function() {
     //init quietjs here
     var TextReceiver = (function() {
-      console.log("Start creation of Quiet");
       Quiet.init({
         profilesPrefix: "./assets/", //TODO: need to add profile
         memoryInitializerPrefix: "./assets/",
         libfecPrefix: "./assets/"
       });
-      console.log("Iets");
 
       var target;
       var warningbox;
@@ -40,9 +40,8 @@ function LocationService() {
       };
 
       function onQuietReady() {
-        console.log("Quiet created");
         var profilename = "ultrasonic-experimental";
-        Quiet.receiver({
+        this.receiver = Quiet.receiver({
           profile: profilename,
           onReceive: onReceive,
           onCreateFail: onReceiverCreateFail,
@@ -65,7 +64,6 @@ function LocationService() {
   this.init = function() {
     return new Promise((resolve, reject) => {
       this.startLocalisation();
-      console.log("Gedaan");
     });
   };
 
