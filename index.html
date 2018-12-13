@@ -11,6 +11,7 @@
 		<!--Stylesheets-->
 		<link rel="stylesheet" href="./css/MDL/material-indigo-orange.min.css" />
 		<!--<link rel="stylesheet" href="./css/MDL/material.min.css" />-->
+		<link rel="stylesheet" href="./css/lib/dialog-polyfill.css" />
 		<link rel="stylesheet" href="./css/fonts.css" />
 		<link rel="stylesheet" href="./css/mdlCorrections.css" />
 		<link rel="stylesheet" href="./css/structure.css" />
@@ -23,6 +24,7 @@
 		<script src="./js/MDL/material.min.js" async="async"></script>
 		<script src="./js/Quiet/Quiet.js" async="async"></script>
 		<script src="./js/Quiet/Quiet-emscripten.js" async="async"></script>
+		<script src="./js/lib/dialog-polyfill.js" async="async"></script>
 		<script src="./js/lib/Eventer.js" async="async"></script>
 		<script src="./js/lib/Animator.js" async="async"></script>
 		<script src="./js/lib/PageNavigation.js" async="asyns"></script>
@@ -40,6 +42,18 @@
 		<script src="./js/startup.js" async="async"></script>
 	</head>
 	<body>
+		<dialog id="vubn-navigate-stopnavigation-dialog" class="mdl-dialog">
+			<h2 class="mdl-dialog__title">Stop current navigation?</h2>
+			<div class="mdl-dialog__content">
+				<p>
+					Are you sure you want to stop the current navgation to <span class="vubn-navigate-destination">D.0.0.7</span> or continue with it?
+				</p>
+			</div>
+			<div class="mdl-dialog__actions">
+				<button id="vubn-navigate-stopnavigation-dialog-stop" type="button" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent vubn-subpage-navigate-link" data-href="#vubn-navigate-intro"><i class="material-icons">cancel</i> Stop</button>
+				<button id="vubn-navigate-stopnavigation-dialog-continue" type="button" class="mdl-button close mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">Continue</button>
+			</div>
+		</dialog>
 		<!-- Always shows a header, even in smaller screens. -->
 		<div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
 			<header class="mdl-layout__header">
@@ -360,7 +374,7 @@
 								Dit is wat je moet doen om er te geraken.
 							</div>
 							<div class="mdl-cell mdl-cell--12-col">
-								<button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent vubn-button-30-center vubn-navigate-stop-fixed vubn-navigate-stop vubn-subpage-navigate-link" data-href="#vubn-navigate-intro">
+								<button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent vubn-button-30-center vubn-navigate-stop-fixed vubn-navigate-stop">
 									<i class="material-icons">cancel</i> Stop navigation
 								</button>
 							</div>

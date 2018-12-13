@@ -33,3 +33,10 @@ html {
 .mdl-textfield__label i {
 	vertical-align: middle;
 }
+
+/* For the modal dialogs, the title is too large */
+
+.mdl-dialog__title {
+	font-size: 250%;
+	line-height: 120%;
+}

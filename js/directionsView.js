@@ -14,6 +14,9 @@ function DirectionsView(isTouch, roomService, navigateView) {
 	};
 
 	this.idDefinitions = {
+		stopNavigationDialog: "vubn-navigate-stopnavigation-dialog",
+		stopNavigationConfirm: "vubn-navigate-stopnavigation-dialog-stop",
+		stopNavigationDeny: "vubn-navigate-stopnavigation-dialog-continue"
 	};
 
 	this.clickEvent = (isTouch ? "touchend" : "click");
@@ -24,6 +27,9 @@ function DirectionsView(isTouch, roomService, navigateView) {
 	this.stopNavigationButtons = null;
 	this.myLocationTexts = null;
 	this.destinationTexts = null;
+	this.stopNavigationDialog = null;
+	this.stopNavigationConfirmButton = null;
+	this.stopNavigationDenyButton = null;
 	
 	// Methods
 	
@@ -41,9 +47,23 @@ function DirectionsView(isTouch, roomService, navigateView) {
 		.catch(console.error);
 	};
 
-	this.onStopNavigation = function (event) {
+	this.onStopNavigationRequest = function (event) {
 		event.stopPropagation();
-		alert("The navigation will stop");
+		// Open the dialog for a request to the user
+		me.stopNavigationDialog.showModal();
+	};
+
+	this.onStopNavigationDenied = function (event) {
+		event.stopPropagation();
+		// Just close the dialog -> do nothing special
+		me.stopNavigationDialog.close();
+	};
+
+	this.onStopNavigation = function (event) {
+		// The navigation really has to stop now
+		event.stopPropagation();
+		console.log("Navigation will stop");
+		me.stopNavigationDialog.close();
 	};
 
 	// Init
@@ -61,16 +81,29 @@ function DirectionsView(isTouch, roomService, navigateView) {
 			this.myLocationTexts = [].slice.call(this.myLocationTexts);
 			this.destinationTexts = document.getElementsByClassName(this.classDefinitions.destinationTexts);
 			this.destinationTexts = [].slice.call(this.destinationTexts);
+			this.stopNavigationDialog = document.getElementById(this.idDefinitions.stopNavigationDialog);
+			this.stopNavigationConfirmButton = document.getElementById(this.idDefinitions.stopNavigationConfirm);
+			this.stopNavigationDenyButton = document.getElementById(this.idDefinitions.stopNavigationDeny);
+			
+			// On some browsers, the dialog element is not supported. This polyfill provides a replacement.
+			if (! this.stopNavigationDialog.showModal) {
+				console.log("This browser has no native support for dialogs. We are using a polyfill to replace that functionality.")
+				console.log(dialogPolyfill);
+				dialogPolyfill.registerDialog(this.stopNavigationDialog);
+			}
 
 			// Add listeners
 			
 			this.stopNavigationButtons.forEach((button, index) => {
-				button.addEventListener(this.clickEvent, this.onStopNavigation);
+				button.addEventListener(this.clickEvent, this.onStopNavigationRequest);
 			});
 
 			this.startNavigationButtons.forEach((button, index) => {
 				button.addEventListener(this.clickEvent, this.onStartNavigation);
 			});
+			
+			this.stopNavigationDenyButton.addEventListener(this.clickEvent, this.onStopNavigationDenied);
+			this.stopNavigationConfirmButton.addEventListener(this.clickEvent, this.onStopNavigation);
 
 			resolve();
 		});
