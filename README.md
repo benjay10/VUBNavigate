@@ -8,5 +8,6 @@ This project uses the following libraries:
 
 *	[Material Design Lite](https://getmdl.io/) from Google
 *	[Quiet JS](https://github.com/quiet/quiet-js) for ultrasonic communication
+*	[Mozilla jsical](https://github.com/mozilla-comm/ical.js/) for parsing ics and vCards.
 *	[Cordova](https://cordova.apache.org/) for building a mobile app
 
