@@ -8,9 +8,11 @@ var vubn = {
 		MOBILE: 1
 	},
 	services: {
+		retreive: null,
 		rooms: null,
 		database: null,
 		pathfinding: null,
+		calendar: null
 	},
 	environment: 0,
 	drawerToggler: null,
@@ -18,7 +20,8 @@ var vubn = {
 	subpageNavigate: null,
 	useAnimations: false,
 	navigateView: null,
-	DirectionsView: null
+	directionsView: null,
+	settingsView: null
 }
 
 // All global modules should be created here in order
@@ -32,7 +35,10 @@ window.addEventListener("load", (event) => {
 
 		// Initialisation of the database service first
 
-		vubn.services.database = new DatabaseService();
+		vubn.services.retreive = new RetreiveService();
+		vubn.services.retreive.init();
+
+		vubn.services.database = new DatabaseService(vubn.services.retreive);
 		vubn.services.database.init().then((db) => resolve(vubn.services.database));
 
 		//resolve(vubn.services.database);
@@ -49,6 +55,9 @@ window.addEventListener("load", (event) => {
 
 		vubn.services.location = new LocationService();
 		vubn.services.location.init();
+
+		vubn.services.calendar = new CalendarService();
+		vubn.services.calendar.init();
 
 		return vubn;
 
@@ -77,5 +86,8 @@ window.addEventListener("load", (event) => {
 
 		vubn.directionsView = new DirectionsView(isTouch, vubn.services.rooms, vubn.navigateView);
 		vubn.directionsView.init();
+		
+		vubn.settingsView = new SettingsView(isTouch, undefined);
+		vubn.settingsView.init();
 	});
 });

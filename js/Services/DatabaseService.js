@@ -1,6 +1,6 @@
 "use strict";
 
-function DatabaseService() {
+function DatabaseService(retreiveService) {
 
 	// Fields
 	
@@ -143,31 +143,11 @@ function DatabaseService() {
 		});
 	};
 	
-	// Extra methods
-	
-	this.getJson = function(url) {
-		return new Promise((resolve, reject) => {
-			const xhr = new XMLHttpRequest();
-			xhr.open("GET", url, true);
-			xhr.responseType = "json";
-			xhr.timeout = 5000;
-			xhr.onreadystatechange = function () {
-				if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
-					resolve(xhr.response);
-				}
-				else if (xhr.readyState === XMLHttpRequest.DONE) {
-					reject(xhr.status);
-				}
-			};
-			xhr.send();
-		});
-	};
-	
 	// Database stuff
 	
 	this.startDatabase = function () {
 		let me = this;
-		return this.getJson(this.files.meta).then((meta) => {
+		return retreiveService.getJson(this.files.meta).then((meta) => {
 			return new Promise((resolve, reject) => {
 				console.log("Database creation started");
 				// dbrequest :: IDBOpenDBRequest (<- IDBRequest <- EventTarget)
@@ -211,6 +191,7 @@ function DatabaseService() {
 				db.deleteObjectStore("rooms");
 				db.deleteObjectStore("buildings");
 				db.deleteObjectStore("walks");
+				db.deleteObjectStore("settings");
 			}
 
 			// Create the new room schema
@@ -228,7 +209,16 @@ function DatabaseService() {
 			let walkStore = db.createObjectStore("walks", { keyPath: "id", autoIncrement: true });
 			walkStore.createIndex("from", "from", { unique : false });
 			walkStore.createIndex("to", "to", { unique : false });
+
+			// Create a schema for the settings, just a key value store
+			let settingsStore = db.createObjectStore("settings", { keyPath: "name" });
+			settingsStore.createIndex("name", "name", { unique: true });
 			
+			// Create a schema for the settings, just a key value store
+			let eventStore = db.createObjectStore("events", { keyPath: "id", autoIncrement: true });
+			settingsStore.createIndex("startDate", "startDate", { unique: false });
+			
+			// These on* apply to all the creations
 			roomStore.transaction.onabort = (event) => {
 				reject(event);
 			};
@@ -244,9 +234,9 @@ function DatabaseService() {
 	this.initialiseDatabase = function (db, oldVersion, newVersion) {
 		let me = this;
 		let schemaCreate = me.createSchema(db, oldVersion, newVersion);
-		let roomRetreive = me.getJson(me.files.rooms);
-		let buildingRetreive = me.getJson(me.files.buildings);
-		let walkRetreive = me.getJson(me.files.walks);
+		let roomRetreive = retreiveService.getJson(me.files.rooms);
+		let buildingRetreive = retreiveService.getJson(me.files.buildings);
+		let walkRetreive = retreiveService.getJson(me.files.walks);
 
 		let roomPopulate = Promise.all([schemaCreate, roomRetreive]).then((values) => {
 			let db = values[0];
@@ -281,6 +271,17 @@ function DatabaseService() {
 			walkdata.walks.forEach((walk, index) => {
 				/*let request =*/ walkStore.add(walk);
 			});
+			return db;
+		});
+
+		let settingsPopulate = schemaCreate.then(db => {
+			let data = { "name": "calLastUpdatedOn", "value": "-1" };
+			let settingsStoreTransaction = db.transaction(["settings"], "readwrite");
+			let settingsStore = settingsStoreTransaction.objectStore("settings");
+
+			settingsStore.add(data);
+
+			return db;
 		});
 
 		return Promise.all([roomPopulate, buildingPopulate, walkPopulate]).then((values) => { return values[0]; });
