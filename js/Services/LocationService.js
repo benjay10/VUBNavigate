@@ -12,25 +12,22 @@ function LocationService() {
 
   this.location = null;
 
-  this.startLocalisation = function() {
+  this.receiver = null;
+
+  this.getLocation = function() {
     //init quietjs here
-    var TextReceiver = (function() {
-      console.log("Start creation of Quiet");
+    (function() {
       Quiet.init({
         profilesPrefix: "./assets/", //TODO: need to add profile
         memoryInitializerPrefix: "./assets/",
         libfecPrefix: "./assets/"
       });
-      console.log("Iets");
-
-      var target;
-      var content = new ArrayBuffer(0);
-      var warningbox;
 
       function onReceive(recvPayload) {
-        content = Quiet.mergeab(content, recvPayload);
-        this.location = Quiet.ab2str(content);
+        this.location = Quiet.ab2str(recvPayload);
         console.log("location is: ", this.location);
+        me.stopListening();
+        return location;
       };
 
       function onReceiverCreateFail(reason) {
@@ -42,9 +39,8 @@ function LocationService() {
       };
 
       function onQuietReady() {
-        console.log("Quiet created");
-        var profilename = "audible";
-        Quiet.receiver({
+        var profilename = "ultrasonic-experimental";
+        me.receiver = Quiet.receiver({
           profile: profilename,
           onReceive: onReceive,
           onCreateFail: onReceiverCreateFail,
@@ -59,16 +55,17 @@ function LocationService() {
     })();
   };
 
-  this.getLocation = function() {
-    return location;
+  this.stopListening = function() {
+    this.receiver.destroy();
+    Quiet.disconnect();
   };
 
   // Init
   this.init = function() {
     return new Promise((resolve, reject) => {
-      this.startLocalisation();
-      console.log("Gedaan");
+      this.getLocation();
     });
+    return;
   };
 
 }
