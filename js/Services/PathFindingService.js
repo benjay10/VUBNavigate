@@ -9,6 +9,10 @@ function PathFindingService(roomService) {
 		return me.graph.findShortestPath(from, to);
 	};
 
+	this.getRoute = function (from, to) {
+		return me.graph.getPath(from, to);
+	}
+
 	this.buildGraph = function() {
 
 		roomService.getAllWalksForGraph().then((edges) => {
@@ -18,11 +22,13 @@ function PathFindingService(roomService) {
 				let from = edge.from;
 				let to = edge.to;
 				let weight = edge.weight;
+				let type = edge.type;
+				let info = edge.info;
 
 			    if (!(edge.from in map)) 
 			    	map[edge.from] = {};
 
-			    map[from][to] = weight;
+			    map[from][to] = {cost: weight, type:type, info:info};
 			});
 
 			me.graph = new Graph(map);
@@ -37,3 +43,5 @@ function PathFindingService(roomService) {
 	};
 }
 
+
+// {23: {22:1, 21: 2, 24:3}, 30: {} }

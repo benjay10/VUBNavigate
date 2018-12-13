@@ -104,7 +104,9 @@ function RoomService2(databaseService) {
 				let tempwalk = {
 					to: (walk.to || 0),
 					from: (walk.from || 0),
-					weight: cost
+					weight: cost, 
+					type: (walk.type || ""),
+					info: (walk.info || "")
 				};
 				walks.push(tempwalk);
 			});

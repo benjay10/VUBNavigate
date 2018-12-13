@@ -43,7 +43,8 @@ var Graph = (function (undefined) {
 
 			for (var vertex in adjacentNodes) {
 			    if (Object.prototype.hasOwnProperty.call(adjacentNodes, vertex)) {
-					var cost = adjacentNodes[vertex],
+					var neighbour = adjacentNodes[vertex]
+						cost = neighbour.cost,
 					    totalCost = cost + currentCost,
 					    vertexCost = costs[vertex];
 
@@ -117,6 +118,13 @@ var Graph = (function (undefined) {
 
 	var Graph = function (map) {
 		this.map = map;
+	}
+
+	Graph.prototype.getPath = function (start, end) {
+		var map = this.map;
+		var startnode = map[start];
+		var neighbour = startnode[end];
+		return neighbour;
 	}
 
 	Graph.prototype.findShortestPath = function (start, end) {
