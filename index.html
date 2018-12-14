@@ -27,8 +27,10 @@
 		<script src="./js/lib/Animator.js" async="async"></script>
 		<script src="./js/lib/PageNavigation.js" async="asyns"></script>
 		<script src="./js/lib/Templator.js" async="asyns"></script>
+		<script src="./js/MozillaICalJS/ical.min.js" async="asyns"></script>
 		<script src="./js/Model/Room.js" async="asyns"></script>
 		<script src="./js/Services/RetreiveService.js" async="asyns"></script>
+		<script src="./js/Services/SettingsService.js" async="asyns"></script>
 		<script src="./js/Services/RoomService.js" async="asyns"></script>
 		<script src="./js/Services/RoomService2.js" async="asyns"></script>
 		<script src="./js/Services/DatabaseService.js" async="asyns"></script>
@@ -394,11 +396,14 @@
 							<p>
 								Retreive a URL for your online calendar and paste it in the text field below.
 							</p>
+							<p>
+								Updating the calendar requires a working internet connection to retreive the calendar data. All further processing is done on this device.
+							</p>
 						</div>
 						<div class="mdl-cell mdl-cell--12-col">
 							<form action="#">
 								<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-									<input class="mdl-textfield__input" type="text" id="vubn-settings-calurl" />
+									<input class="mdl-textfield__input" type="url" id="vubn-settings-calurl" />
 									<label class="mdl-textfield__label" for="vubn-settings-calurl">
 										<i class="material-icons">event</i> Paste the url to your calendar here
 									</label>

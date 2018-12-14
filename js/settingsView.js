@@ -1,6 +1,6 @@
 "use strict";
 
-function SettingsView(isTouch, calendarService) {
+function SettingsView(isTouch, settingsService) {
 
 	// Fields and definitions
 	
@@ -20,8 +20,11 @@ function SettingsView(isTouch, calendarService) {
 	this.onUpdateCalendar = function (event) {
 		event.stopPropagation();
 		return new Promise((resolve, reject) => {
-			console.log(me.calendarUrlInput.value);
-			resolve();
+			// We should check the user's input for correctness, but yeah
+			// Put url in the settings database and request a full refresh of the calendar data
+			settingsService.registerCalendarUrl(me.calendarUrlInput.value).then((x) => {
+				settingsService.updateCalendar().then(resolve).catch(reject);
+			}).catch(reject);
 		});
 	};
 

@@ -12,7 +12,8 @@ var vubn = {
 		rooms: null,
 		database: null,
 		pathfinding: null,
-		calendar: null
+		calendar: null,
+		settings: null
 	},
 	environment: 0,
 	drawerToggler: null,
@@ -56,14 +57,17 @@ window.addEventListener("load", (event) => {
 		vubn.services.location = new LocationService();
 		vubn.services.location.init();
 
-		vubn.services.calendar = new CalendarService();
+		vubn.services.calendar = new CalendarService(dbService, vubn.services.retreive);
 		vubn.services.calendar.init();
+		
+		vubn.services.settings = new SettingsService(dbService, vubn.services.calendar);
+		vubn.services.settings.init();
 
 		return vubn;
 
 	}).then((notImportant) => {
 
-		// Initialisation of the viewmodels and UI code
+		// Initialisation of the viewmodels and mostly UI code
 
 		vubn.pageNavigation = new PageNavigation({}, isTouch);
 		vubn.pageNavigation.init();
@@ -87,7 +91,7 @@ window.addEventListener("load", (event) => {
 		vubn.directionsView = new DirectionsView(isTouch, vubn.services.rooms, vubn.navigateView);
 		vubn.directionsView.init();
 		
-		vubn.settingsView = new SettingsView(isTouch, undefined);
+		vubn.settingsView = new SettingsView(isTouch, vubn.services.settings);
 		vubn.settingsView.init();
 	});
 });

@@ -9,4 +9,5 @@ This project uses the following libraries:
 *	[Material Design Lite](https://getmdl.io/) from Google
 *	[Quiet JS](https://github.com/quiet/quiet-js) for ultrasonic communication
 *	[Cordova](https://cordova.apache.org/) for building a mobile app
+*	[Polyfill for Dialog](https://github.com/GoogleChrome/dialog-polyfill) for replacing dialog functionality
 

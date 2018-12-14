@@ -8,9 +8,11 @@ function DatabaseService(retreiveService) {
 		meta: "assets/databaseMeta.json",
 		buildings: "assets/buildings.json",
 		rooms: "assets/rooms2.json",
-		walks: "assets/walks.json"
+		walks: "assets/walks.json",
+		settings: "assets/settings.json"
 	}
 	this.database = null;
+	let me = this;
 
 	// Important API methods
 	
@@ -33,7 +35,6 @@ function DatabaseService(retreiveService) {
 	};
 
 	this.searchRooms = function(searchString) {
-		let me = this;
 		return new Promise((resolve, reject) => {
 			let results = [];
 			searchString = searchString.toLowerCase();
@@ -75,7 +76,6 @@ function DatabaseService(retreiveService) {
 	};
 
 	this.getBuilding = function(name) {
-		let me = this;
 		return new Promise((resolve, reject) => {
 			let transaction = me.database.transaction(["buildings"], "readonly");
 			let objectStore = transaction.objectStore("buildings");
@@ -93,7 +93,6 @@ function DatabaseService(retreiveService) {
 	};
 
 	this.getRoomsInBuildingFloor = function(buildingName, floorNumber) {
-		let me = this;
 		return new Promise((resolve, reject) => {
 			let results = [];
 			buildingName = buildingName.toUpperCase();
@@ -124,7 +123,6 @@ function DatabaseService(retreiveService) {
 	};
 	
 	this.getWalks = function () {
-		let me = this;
 		return new Promise((resolve, reject) => {
 			let walks = [];
 
@@ -139,6 +137,45 @@ function DatabaseService(retreiveService) {
 				} else {
 					reject("No walks found in the database. Something must be wrong then.");
 				}
+			};
+		});
+	};
+
+	this.getSetting = function (name) {
+		return new Promise((resolve, reject) => {
+			let transaction = me.database.transaction(["settings"], "readonly");
+			let settingsStore = transaction.objectStore("settings");
+			let settingsIndex = settingsStore.index("name");
+			let request = settingsIndex.get(name);
+
+			request.onerror = (error) => reject(error);
+			request.onsuccess = (event) => {
+				resolve(event.target.result.value);
+			};
+		});
+	};
+
+	this.setSetting = function (name, value) {
+		return new Promise((resolve, reject) => {
+			let transaction = me.database.transaction(["settings"], "readwrite");
+			let settingsStore = transaction.objectStore("settings");
+			let settingsIndex = settingsStore.index("name");
+			let request = settingsIndex.get(name);
+
+			request.onerror = (error) => {
+				// So the setting does not exist in the database yet -> add it
+				let data = { "name": name, "value": value };
+				let addRequest = settingsStore.add(data);
+				addRequest.onerror = (error) => reject(error);
+				addRequest.onsuccess = (event) => resolve(event);
+			};
+			request.onsuccess = (event) => {
+				let foundSetting = event.target.result;
+				// Update and put back
+				foundSetting.value = value;
+				let updateRequest = settingsStore.put(foundSetting);
+				updateRequest.onerror = (error) => reject(error);
+				updateRequest.onsuccess = (event) => resolve(event);
 			};
 		});
 	};
@@ -237,6 +274,7 @@ function DatabaseService(retreiveService) {
 		let roomRetreive = retreiveService.getJson(me.files.rooms);
 		let buildingRetreive = retreiveService.getJson(me.files.buildings);
 		let walkRetreive = retreiveService.getJson(me.files.walks);
+		let settingsRetreive = retreiveService.getJson(me.files.settings);
 
 		let roomPopulate = Promise.all([schemaCreate, roomRetreive]).then((values) => {
 			let db = values[0];
@@ -274,12 +312,15 @@ function DatabaseService(retreiveService) {
 			return db;
 		});
 
-		let settingsPopulate = schemaCreate.then(db => {
-			let data = { "name": "calLastUpdatedOn", "value": "-1" };
+		let settingsPopulate = Promise.all([schemaCreate, settingsRetreive]).then((values) => {
+			let db = values[0];
+			let settingsData = values[1];
 			let settingsStoreTransaction = db.transaction(["settings"], "readwrite");
 			let settingsStore = settingsStoreTransaction.objectStore("settings");
 
-			settingsStore.add(data);
+			settingsData.settings.forEach((setting, index) => {
+				settingsStore.add(setting);
+			});
 
 			return db;
 		});
