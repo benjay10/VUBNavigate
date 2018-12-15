@@ -25,7 +25,7 @@ function SettingsView(isTouch, settingsService) {
 			settingsService.registerCalendarUrl(me.calendarUrlInput.value).then((x) => {
 				settingsService.updateCalendar().then(resolve).catch(reject);
 			}).catch(reject);
-		});
+		}).catch(console.error);
 	};
 
 	// Init

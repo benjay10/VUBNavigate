@@ -2,12 +2,12 @@
 
 function CalendarService(databaseService, retreiveService) {
 
+	let me = this;
+
 	// Methods
 	
 	this.updateCalendar = function () {
-		return databaseService.getSetting("calUrl").then((url) => {
-			return retreiveService.getText(url);
-		}).then((calText) => {
+		return databaseService.getSetting("calUrl").then(retreiveService.getText).then((calText) => {
 			let jCalData = ICAL.parse(calText);
 			let calComponents = new ICAL.Component(jCalData);
 			let events = calComponents.getAllSubcomponents("vevent");
@@ -19,8 +19,7 @@ function CalendarService(databaseService, retreiveService) {
 				reducedEvents.push({
 					startDate: temp.startDate.toJSON(),
 					endDate: temp.endDate.toJSON(),
-					//startTime: temp.startDate.toString(),
-					//endTime: temp.endDate.toString(),
+					startDateString: temp.startDate.toICALString().split("T")[0],
 					summary: temp.summary,
 					description: temp.description,
 					location: temp.location
@@ -28,15 +27,23 @@ function CalendarService(databaseService, retreiveService) {
 			});
 			return reducedEvents;
 		}).then((events) => {
-			console.log(events);
+			databaseService.replaceAllEvents(events);
 		});
+	};
+
+	this.getEventsForToday = function () {
+		return databaseService.getEventsForDate(me.getTodayInIcalFormat());
 	};
 
 	// Help
 	
 	this.getTodayInIcalFormat = function () {
-		let date = new Date();
-		return date.getFullYear().toString() + date.getMonth().toString() + date.getDate().toString();
+		//let date = new Date();
+		let date = new Date(2018, 11, 3, 12, 0, 0, 0);
+		let year = ("0000" + date.getFullYear().toString()).slice(-4);
+		let month = ("00" + (date.getMonth() + 1).toString()).slice(-2);
+		let day = ("00" + date.getDate().toString()).slice(-2);
+		return year + month + day;
 	};
 	
 	this.init = function () {

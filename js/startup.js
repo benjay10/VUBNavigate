@@ -85,7 +85,7 @@ window.addEventListener("load", (event) => {
 		}, isTouch);
 		vubn.subpageNavigation.init();
 
-		vubn.navigateView = new NavigateView(isTouch, vubn.services.rooms);
+		vubn.navigateView = new NavigateView(isTouch, vubn.services.rooms, vubn.services.calendar);
 		vubn.navigateView.init();
 
 		vubn.directionsView = new DirectionsView(isTouch, vubn.services.rooms, vubn.navigateView);

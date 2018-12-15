@@ -327,11 +327,37 @@
 							</div>
 						</div>
 						<div class="mdl-grid">
-							<div class="mdl-cell mdl-cell--12-col">
+							<div class="mdl-cell mdl-cell--11-col mdl-cell--7-col-tablet mdl-cell--3-col-phone">
 								<span class="vubn-page-subtitle">Calendar</span>
 							</div>
+							<div class="mdl-cell mdl-cell--1-col mdl-cell--1-col-tablet mdl-cell--1-col-phone">
+								<button id="vubn-calendar-refresh" class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored fab-bottom-right">
+									<i class="material-icons">cached</i>
+								</button>
+							</div>
 							<div class="mdl-cell mdl-cell--12-col">
-								<p>Select a room based on your school calendar. These are your upcoming classes for today. Select the class you want to navigate to.</p>
+								<p>
+									Select a room based on your school calendar. These are your upcoming classes for today. Select the class you want to navigate to.
+								</p>
+							</div>
+							<div id="vubn-navigate-calendar-busyspinner" class="mdl-cell mdl-cell--12-col vubn-navigate-busyspinner hidden">
+								<div class="mdl-spinner mdl-js-spinner is-active"></div>
+							</div>
+							<div id="vubn-navigate-calendar-nothingfound" class="mdl-cell mdl-cell--12-col vubn-navigate-nothingfound hidden">
+								<i class="material-icons">sentiment_very_dissatisfied</i>
+								<span id="vubn-navigate-calendar-nothingfound-text"></span>
+							</div>
+							<div class="mdl-cell mdl-cell--12-col">
+								<div id="vubn-calendar-events">
+									<!-- Event Template -->
+									<a id="vubn-calendar-event-template" href="#" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--raised mdl-button--accent vubn-calendar-event">
+										<span class="vubn-calendar-event-title">Functional Programming</span><br />
+										<span class="vubn-calendar-event-starttime">14:00</span> - 
+										<span class="vubn-calendar-event-endtime">16:00</span><br />
+										<span class="vubn-calendar-event-location">D.0.0.7</span><br />
+										<!--<span class="vubn-calendar-event-description">This is a long description</span>-->
+									</a>
+								</div>
 							</div>
 							<div class="mdl-cell mdl-cell--12-col vubn-navigatebutton-container">
 								<button disabled="disabled" id="vubn-navigate-calendar-start-navigation" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored vubn-button-30-center vubn-subpage-navigate-link vubn-navigate-start" data-href="#vubn-navigate-navigate">
@@ -397,7 +423,7 @@
 								Retreive a URL for your online calendar and paste it in the text field below.
 							</p>
 							<p>
-								Updating the calendar requires a working internet connection to retreive the calendar data. All further processing is done on this device.
+								Updating the calendar requires a working internet connection to retreive the calendar data. All further processing is done on this device locally.
 							</p>
 						</div>
 						<div class="mdl-cell mdl-cell--12-col">

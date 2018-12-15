@@ -1,13 +1,15 @@
 "use strict";
 
 function RetreiveService() {
+
+	let me = this;
 	
 	this.getJson = function(url) {
-		return this.get(url, "json");
+		return me.get(url, "json");
 	};
 
 	this.getText = function(url) {
-		return this.get(url, "text");
+		return me.get(url, "text");
 	};
 
 	this.get = function(url, responseType) {

@@ -96,6 +96,37 @@
 }
 
 /******************************************************************************
+ *  Calendar
+ *****************************************************************************/
+
+.vubn-calendar-event {
+	height: inherit;
+	display: block;
+	text-align: left;
+	line-height: 150%;
+	margin-bottom: 1em;
+}
+
+.vubn-calendar-event-title {
+	display: inline-block;
+	font-weight: bold;
+	margin-top: 0.5em;
+}
+
+.vubn-calendar-event-starttime {
+	font-style: italic;
+}
+
+.vubn-calendar-event-endtime {
+	font-style: italic;
+}
+
+.vubn-calendar-event-location {
+	display: inline-block;
+	margin-bottom: 0.5em;
+}
+
+/******************************************************************************
  *  Navigate
  *****************************************************************************/
 

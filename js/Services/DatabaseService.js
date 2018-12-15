@@ -179,6 +179,63 @@ function DatabaseService(retreiveService) {
 			};
 		});
 	};
+
+	this.clearAllEvents = function () {
+		return new Promise((resolve, reject) => {
+			let transaction = me.database.transaction(["events"], "readwrite");
+			let eventStore = transaction.objectStore("events");
+			console.log("events will be cleared from the database");
+			let request = eventStore.clear();
+			request.onerror = (error) => reject(error);
+			request.onsuccess = (event) => resolve(event);
+		});
+	};
+
+	this.replaceAllEvents = function (events) {
+		return this.clearAllEvents().then((x) => {
+			return new Promise((resolve, reject) => {
+				let transaction = me.database.transaction(["events"], "readwrite");
+				let eventStore = transaction.objectStore("events");
+				let request = null;
+
+				events.forEach((e, index) => {
+					request = eventStore.add(e);
+				});
+				
+				// Trying to wait for the last add in the database
+
+				request.onerror = (error) => reject(error);
+				request.onsuccess = (event) => resolve(event);
+			});
+		});
+	};
+
+	this.getEventsForDate = function (date) {
+		return new Promise((resolve, reject) => {
+			let results = [];
+			
+			let transaction = me.database.transaction(["events"], "readonly");
+			let eventStore = transaction.objectStore("events");
+			let dateIndex = eventStore.index("startDateString");
+			let dateRange = IDBKeyRange.only(date);
+			let eventCursor = dateIndex.openCursor(dateRange);
+			eventCursor.onerror = (error) => reject(error);
+			eventCursor.onsuccess = (event) => {
+				let cursor = event.target.result;
+				if (cursor) {
+					let e = cursor.value;
+					results.push(e);
+					cursor.continue();
+				} else {
+					if (results.length > 1) {
+						resolve(results);
+					} else {
+						reject("No courses found for today");
+					}
+				}
+			};
+		});
+	};
 	
 	// Database stuff
 	
@@ -253,7 +310,7 @@ function DatabaseService(retreiveService) {
 			
 			// Create a schema for the settings, just a key value store
 			let eventStore = db.createObjectStore("events", { keyPath: "id", autoIncrement: true });
-			settingsStore.createIndex("startDate", "startDate", { unique: false });
+			eventStore.createIndex("startDateString", "startDateString", { unique: false });
 			
 			// These on* apply to all the creations
 			roomStore.transaction.onabort = (event) => {
