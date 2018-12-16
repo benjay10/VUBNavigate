@@ -292,7 +292,7 @@ function NavigateView(isTouch, roomService, calendarService) {
 	this.onRoomSearchButtonClick = function (event) {
 		event.stopPropagation();
 		me.selectedRoomId = parseInt(event.currentTarget.getAttribute(me.dataDefinitions.roomid));
-		let allRoomButtons = this.roomSearchButtonsContainer.childNodes;
+		let allRoomButtons = me.roomSearchButtonsContainer.childNodes;
 		allRoomButtons = [].slice.call(allRoomButtons);
 		me.doHighlight(event.currentTarget, allRoomButtons, me);
 		me.enableSearchStartNavigationButton();
@@ -322,6 +322,8 @@ function NavigateView(isTouch, roomService, calendarService) {
 		}).catch((error) => {
 			console.error(error);
 			me.showCalendarNothingFound(error);
+			me.disableCalendarStartNavigationButton();
+			me.hideCalendarSpinner();
 		});
 	};
 

@@ -9,7 +9,7 @@ function RetreiveService() {
 	};
 
 	this.getText = function(url) {
-		return me.get(url, "text");
+		return me.get(url, "text/plain");
 	};
 
 	this.get = function(url, responseType) {

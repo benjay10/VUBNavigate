@@ -230,7 +230,7 @@ function DatabaseService(retreiveService) {
 					if (results.length > 1) {
 						resolve(results);
 					} else {
-						reject("No courses found for today");
+						reject("No courses found for today. Check the settings to make sure you have a calendar imported.");
 					}
 				}
 			};
