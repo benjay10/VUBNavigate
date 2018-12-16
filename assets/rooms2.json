@@ -519,6 +519,106 @@
 			"type": "sluice",
 			"info": "Small room between Rotule 5 and building F on floor 10",
 			"outsideAvailable": []
+		},
+		{
+			"id": 53,
+			"legalName": "E.1.1",
+			"uniformName": "E.1.1",
+			"building": "E",
+			"floor": 1,
+			"type": "classroom",
+			"info": "Laptop room in building E",
+			"outsideAvailable": []
+		},
+		{
+			"id": 54,
+			"legalName": "E.1.2",
+			"uniformName": "E.1.2",
+			"building": "E",
+			"floor":1,
+			"type": "classroom",
+			"info": "Computer room",
+			"outsideAvailable": []
+		},
+		{
+			"id": 55,
+			"legalName": "E.1.3",
+			"uniformName": "E.1.3",
+			"building": "E",
+			"floor": 1,
+			"type": "classroom",
+			"info": "Computer room",
+			"outsideAvailable": []
+		},
+		{
+			"id": 56,
+			"legalName": "E.1.4",
+			"uniformName": "E.1.4",
+			"building": "E",
+			"floor": 1,
+			"type": "classroom",
+			"info": "Computer room",
+			"outsideAvailable": []
+		},
+		{
+			"id": 57,
+			"legalName": "E.1.5",
+			"uniformName": "E.1.5",
+			"building": "E",
+			"floor": 1,
+			"type": "classroom",
+			"info": "Computer room",
+			"outsideAvailable": []
+		},
+		{
+			"id": 58,
+			"legalName": "E.1.6",
+			"uniformName": "E.1.6",
+			"building": "E",
+			"floor": 1,
+			"type": "server room",
+			"info": "Server room of Infogroep",
+			"outsideAvailable": []
+		},
+		{
+			"id": 59,
+			"legalName": "E.1.7",
+			"uniformName": "E.1.7",
+			"building": "E",
+			"floor": 1,
+			"type": "classroom",
+			"info": "Computer room",
+			"outsideAvailable": []
+		},
+		{
+			"id": 60,
+			"legalName": "E.1.8",
+			"uniformName": "E.1.8",
+			"building": "E",
+			"floor": 1,
+			"type": "office",
+			"info": "Infogroep room",
+			"outsideAvailable": ["food dispenser", "drinks dispenser"]
+		},
+		{
+			"id": 61,
+			"legalName": "R4...",
+			"uniformName": "R4...",
+			"building": "E",
+			"floor": 1,
+			"type": "landing",
+			"info": "Rotule 4 landing",
+			"outsideAvailable": ["fire extinguisher", "fire alarm", "fire hose reel"]
+		},
+		{
+			"id": 62,
+			"legalName": "R4...",
+			"uniformName": "R4...",
+			"building": "E",
+			"floor": 1,
+			"type": "landing",
+			"info": "Toilets (men)",
+			"outsideAvailable": []
 		}
 	]
 }
