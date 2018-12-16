@@ -39,7 +39,8 @@ function NavigateView(isTouch, roomService, calendarService) {
 		calendarRefreshButton: "vubn-calendar-refresh",
 		searchStartNavigationButton: "vubn-navigate-search-start-navigation",
 		selectStartNavigationButton: "vubn-navigate-select-start-navigation",
-		calendarStartNavigationButton: "vubn-navigate-calendar-start-navigation"
+		calendarStartNavigationButton: "vubn-navigate-calendar-start-navigation",
+		calendarIntroButton: "vubn-intro-calendar"
 	};
 	this.dataDefinitions = {
 		building: "data-vubn-select-building",
@@ -80,6 +81,7 @@ function NavigateView(isTouch, roomService, calendarService) {
 	this.searchStartNavigationButton = null;
 	this.selectStartNavigationButton = null;
 	this.calendarStartNavigationButton = null;
+	this.calendarIntroButton = null;
 
 	// Methods
 	
@@ -309,7 +311,6 @@ function NavigateView(isTouch, roomService, calendarService) {
 			resolve();
 		}).then(calendarService.getEventsForToday)
 		.then((events) => {
-			console.log("Events", events);
 			let buttonMakers = [];
 			events.forEach((e, index) => {
 				buttonMakers.push(me.addCalendarResult(e));
@@ -328,30 +329,44 @@ function NavigateView(isTouch, roomService, calendarService) {
 		this.calendarEventsContainer.innerHTML = "";
 	};
 
-	this.addCalendarResult = function (event) {
-		console.log("Adding event button");
+	this.addCalendarResult = function (vevent) {
 		return me.calendarEventTemplator.getObject().then((eventButton) => {
-			let startHour = ("00" + event.startDate.hour).slice(-2);
-			let startMinute = ("00" + event.startDate.minute).slice(-2);
-			let endHour = ("00" + event.endDate.hour).slice(-2);
-			let endMinute = ("00" + event.endDate.minute).slice(-2);
-			eventButton.getElementsByClassName(me.classDefinitions.calendarTitle)[0].innerHTML = event.summary;
+			let startHour = ("00" + vevent.startDate.hour).slice(-2);
+			let startMinute = ("00" + vevent.startDate.minute).slice(-2);
+			let endHour = ("00" + vevent.endDate.hour).slice(-2);
+			let endMinute = ("00" + vevent.endDate.minute).slice(-2);
+			eventButton.getElementsByClassName(me.classDefinitions.calendarTitle)[0].innerHTML = vevent.summary;
 			eventButton.getElementsByClassName(me.classDefinitions.calendarStartTime)[0].innerHTML = startHour + ":" + startMinute;
 			eventButton.getElementsByClassName(me.classDefinitions.calendarEndTime)[0].innerHTML = endHour + ":" + endMinute;
-			eventButton.getElementsByClassName(me.classDefinitions.calendarLocation)[0].innerHTML = event.location;
-			//eventButton.getElementsByClassName(me.classDefinitions.calendarDescription)[0].innerHTML = event.description;
+			eventButton.getElementsByClassName(me.classDefinitions.calendarLocation)[0].innerHTML = vevent.location;
+			//eventButton.getElementsByClassName(me.classDefinitions.calendarDescription)[0].innerHTML = vevent.description;
+			
+			let roomName = vevent.location.split(" ")[0];
 
-			eventButton.addEventListener(me.clickEvent, me.onEventButtonClick);
-
-			me.calendarEventsContainer.appendChild(eventButton);
-			componentHandler.upgradeDom();
+			return roomService.searchRooms(roomName).then((results) => {
+				let id = results[0].id;
+				eventButton.setAttribute(me.dataDefinitions.roomid, id);
+				eventButton.addEventListener(me.clickEvent, me.onEventButtonClick);
+				me.calendarEventsContainer.appendChild(eventButton);
+				componentHandler.upgradeDom();
+			}).catch((NoResultsError) => {
+				// No search results, but for now, still add the button to the interface
+				eventButton.setAttribute(me.dataDefinitions.roomid, "");
+				eventButton.setAttribute("disabled", "disabled");
+				me.calendarEventsContainer.appendChild(eventButton);
+				componentHandler.upgradeDom();
+			});
 		});
 	};
 
 	this.onEventButtonClick = function (event) {
 		event.stopPropagation();
-		console.log("Klik op een event");
-		// TODO: highlighting of the selected event, searching for the location and setting the correct room id, making the GO button active, making sure that the navigation can start.
+		let roomid = event.currentTarget.getAttribute(me.dataDefinitions.roomid);
+		me.selectedRoomId = parseInt(roomid);
+		let allVevents = me.calendarEventsContainer.childNodes;
+		allVevents = [].slice.call(allVevents);
+		me.doHighlight(event.currentTarget, allVevents, me);
+		me.enableCalendarStartNavigationButton();
 	};
 
 	this.disableCalendarStartNavigationButton = function () {
@@ -412,6 +427,7 @@ function NavigateView(isTouch, roomService, calendarService) {
 
 			// Search for the refresh button
 			this.calendarRefreshButton = document.getElementById(this.idDefinitions.calendarRefreshButton);
+			this.calendarIntroButton = document.getElementById(this.idDefinitions.calendarIntroButton);
 			
 			// Add event listeners
 			this.buildingButtons.forEach((button, index) => {
@@ -422,6 +438,7 @@ function NavigateView(isTouch, roomService, calendarService) {
 			});
 			this.roomSearchInput.addEventListener("input", this.onRoomSearchInput);
 			this.calendarRefreshButton.addEventListener(this.clickEvent, this.onCalendarRefresh);
+			this.calendarIntroButton.addEventListener(this.clickEvent, this.onCalendarRefresh);
 
 			// Creates a templator and remove the template from the page
 			this.roomSelectTemplator = new Templator(this.idDefinitions.roomSelectButtonTemplate);

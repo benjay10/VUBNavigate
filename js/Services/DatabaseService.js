@@ -184,7 +184,7 @@ function DatabaseService(retreiveService) {
 		return new Promise((resolve, reject) => {
 			let transaction = me.database.transaction(["events"], "readwrite");
 			let eventStore = transaction.objectStore("events");
-			console.log("events will be cleared from the database");
+			console.log("Events will be cleared from the database, new events will be stored in place.");
 			let request = eventStore.clear();
 			request.onerror = (error) => reject(error);
 			request.onsuccess = (event) => resolve(event);
