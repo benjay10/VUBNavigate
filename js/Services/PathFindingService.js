@@ -6,11 +6,23 @@ function PathFindingService(roomService) {
 	let me = this;
 
 	this.findPath = function (from, to) {
-		return me.graph.findShortestPath(from, to);
+		let shortestPath = me.graph.findShortestPath(from, to);
+		return this.getDirectionSteps(shortestPath);
 	};
 
 	this.getRoute = function (from, to) {
 		return me.graph.getPath(from, to);
+	}
+
+	this.getDirectionSteps = function(shortestPath) {
+		var routeSegments = [];
+
+		var from = shortestPath.shift();
+		for (var to; to = shortestPath.shift();) {
+		    routeSegments.push(me.getRoute(from, to))
+		    from = to;
+		}
+		return routeSegments;
 	}
 
 	this.buildGraph = function() {
