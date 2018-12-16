@@ -8,9 +8,12 @@ var vubn = {
 		MOBILE: 1
 	},
 	services: {
+		retreive: null,
 		rooms: null,
 		database: null,
 		pathfinding: null,
+		calendar: null,
+		settings: null
 	},
 	environment: 0,
 	drawerToggler: null,
@@ -18,7 +21,8 @@ var vubn = {
 	subpageNavigate: null,
 	useAnimations: false,
 	navigateView: null,
-	DirectionsView: null
+	directionsView: null,
+	settingsView: null
 }
 
 // All global modules should be created here in order
@@ -32,8 +36,13 @@ window.addEventListener("load", (event) => {
 
 		// Initialisation of the database service first
 
-		vubn.services.database = new DatabaseService();
-		vubn.services.database.init().then((db) => resolve(vubn.services.database)).catch(reject);
+		vubn.services.retreive = new RetreiveService();
+		vubn.services.retreive.init();
+
+		vubn.services.database = new DatabaseService(vubn.services.retreive);
+		vubn.services.database.init().then((db) => resolve(vubn.services.database));
+
+		//resolve(vubn.services.database);
 
 	})).then((dbService) => {
 
@@ -48,11 +57,17 @@ window.addEventListener("load", (event) => {
 		vubn.services.location = new LocationService();
 		vubn.services.location.init();
 
+		vubn.services.calendar = new CalendarService(dbService, vubn.services.retreive);
+		vubn.services.calendar.init();
+		
+		vubn.services.settings = new SettingsService(dbService, vubn.services.calendar);
+		vubn.services.settings.init();
+
 		return vubn;
 
 	}).then((notImportant) => {
 
-		// Initialisation of the viewmodels and UI code
+		// Initialisation of the viewmodels and mostly UI code
 
 		vubn.pageNavigation = new PageNavigation({}, isTouch);
 		vubn.pageNavigation.init();
@@ -70,10 +85,13 @@ window.addEventListener("load", (event) => {
 		}, isTouch);
 		vubn.subpageNavigation.init();
 
-		vubn.navigateView = new NavigateView(isTouch, vubn.services.rooms);
+		vubn.navigateView = new NavigateView(isTouch, vubn.services.rooms, vubn.services.calendar);
 		vubn.navigateView.init();
 
 		vubn.directionsView = new DirectionsView(isTouch, vubn.services.rooms, vubn.navigateView);
 		vubn.directionsView.init();
+		
+		vubn.settingsView = new SettingsView(isTouch, vubn.services.settings);
+		vubn.settingsView.init();
 	});
 });

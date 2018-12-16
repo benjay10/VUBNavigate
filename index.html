@@ -6,6 +6,8 @@
 		<meta name="keywords" content="navigate, vub, webapp" />
 		<meta name="author" content="Group 7" />
 		<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1" />
+		<!--<meta http-equiv="Content-Security-Policy" content="connect-src *; default-src 'self'" />-->
+		<meta http-equiv="Content-Security-Policy" content="connect-src 'self' https://splus.cumulus.vub.ac.be http://splus.cumulus.vub.ac.be; default-src 'self'" />
 		<title>VUBNavigate</title>
 		<link rel="shortcut icon" type="image/x-icon" href="./img/favicon.png" />
 		<!--Stylesheets-->
@@ -29,16 +31,21 @@
 		<script src="./js/lib/Animator.js" async="async"></script>
 		<script src="./js/lib/PageNavigation.js" async="asyns"></script>
 		<script src="./js/lib/Templator.js" async="asyns"></script>
+		<script src="./js/MozillaICalJS/ical.min.js" async="asyns"></script>
 		<script src="./js/Model/Room.js" async="asyns"></script>
+		<script src="./js/Services/RetreiveService.js" async="asyns"></script>
+		<script src="./js/Services/SettingsService.js" async="asyns"></script>
 		<script src="./js/Services/RoomService.js" async="asyns"></script>
 		<script src="./js/Services/RoomService2.js" async="asyns"></script>
 		<script src="./js/Services/DatabaseService.js" async="asyns"></script>
 		<script src="./js/Services/graph.js" async="asyns"></script>
 		<script src="./js/Services/PathFindingService.js" async="asyns"></script>
 		<script src="./js/Services/LocationService.js" async="asyns"></script>
+		<script src="./js/Services/CalendarService.js" async="asyns"></script>
 		<script src="./js/drawerToggler.js" async="asyns"></script>
 		<script src="./js/navigateView.js" async="asyns"></script>
 		<script src="./js/directionsView.js" async="asyns"></script>
+		<script src="./js/settingsView.js" async="asyns"></script>
 		<script src="./js/startup.js" async="async"></script>
 	</head>
 	<body>
@@ -65,9 +72,9 @@
 					<div class="mdl-layout-spacer"></div>
 					<!-- Navigation. We hide it in small screens. -->
 					<nav class="mdl-navigation mdl-layout--large-screen-only">
-						<a class="mdl-navigation__link vubn-navigate-link" href="#localisation"><i class="material-icons">my_location</i> Localisation</a>
+						<!--<a class="mdl-navigation__link vubn-navigate-link" href="#localisation"><i class="material-icons">my_location</i> Localisation</a>-->
 						<a class="mdl-navigation__link vubn-navigate-link" href="#navigate"><i class="material-icons">navigation</i> Navigate</a>
-						<a class="mdl-navigation__link vubn-navigate-link" href="#discover"><i class="material-icons">explore</i> Discover</a>
+						<!--<a class="mdl-navigation__link vubn-navigate-link" href="#discover"><i class="material-icons">explore</i> Discover</a>-->
 						<a class="mdl-navigation__link vubn-navigate-link" href="#settings"><i class="material-icons">settings</i> Settings</a>
 						<a class="mdl-navigation__link vubn-navigate-link" href="#about"><i class="material-icons">feedback</i> About</a>
 					</nav>
@@ -76,9 +83,9 @@
 			<div class="mdl-layout__drawer">
 				<span class="mdl-layout-title"><img class="vubn-drawer-logo" src="./img/VUBNavigate.svg" alt="Logo" />VUB Navigate</span>
 				<nav class="mdl-navigation">
-					<a class="mdl-navigation__link vubn-navigate-link" href="#localisation"><i class="material-icons">my_location</i> Localisation</a>
+					<!--<a class="mdl-navigation__link vubn-navigate-link" href="#localisation"><i class="material-icons">my_location</i> Localisation</a>-->
 					<a class="mdl-navigation__link vubn-navigate-link" href="#navigate"><i class="material-icons">navigation</i> Navigate</a>
-					<a class="mdl-navigation__link vubn-navigate-link" href="#discover"><i class="material-icons">explore</i> Discover</a>
+					<!--<a class="mdl-navigation__link vubn-navigate-link" href="#discover"><i class="material-icons">explore</i> Discover</a>-->
 					<a class="mdl-navigation__link vubn-navigate-link" href="#settings"><i class="material-icons">settings</i> Settings</a>
 					<a class="mdl-navigation__link vubn-navigate-link" href="#about"><i class="material-icons">feedback</i> About</a>
 				</nav>
@@ -153,7 +160,7 @@
 								</button>
 							</div>
 							<div class="mdl-cell mdl-cell--12-col">
-								<button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent vubn-button-30-center intro-button vubn-subpage-navigate-link" data-href="#vubn-navigate-calendar">
+								<button id="vubn-intro-calendar" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent vubn-button-30-center intro-button vubn-subpage-navigate-link" data-href="#vubn-navigate-calendar">
 									<i class="material-icons">event</i>
 									Calendar
 								</button>
@@ -336,11 +343,37 @@
 							</div>
 						</div>
 						<div class="mdl-grid">
-							<div class="mdl-cell mdl-cell--12-col">
+							<div class="mdl-cell mdl-cell--11-col mdl-cell--7-col-tablet mdl-cell--3-col-phone">
 								<span class="vubn-page-subtitle">Calendar</span>
 							</div>
+							<div class="mdl-cell mdl-cell--1-col mdl-cell--1-col-tablet mdl-cell--1-col-phone">
+								<button id="vubn-calendar-refresh" class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored fab-bottom-right">
+									<i class="material-icons">cached</i>
+								</button>
+							</div>
 							<div class="mdl-cell mdl-cell--12-col">
-								<p>Select a room based on your school calendar. These are your upcoming classes for today. Select the class you want to navigate to.</p>
+								<p>
+									Select a room based on your school calendar. These are your upcoming classes for today. Select the class you want to navigate to.
+								</p>
+							</div>
+							<div id="vubn-navigate-calendar-busyspinner" class="mdl-cell mdl-cell--12-col vubn-navigate-busyspinner hidden">
+								<div class="mdl-spinner mdl-js-spinner is-active"></div>
+							</div>
+							<div id="vubn-navigate-calendar-nothingfound" class="mdl-cell mdl-cell--12-col vubn-navigate-nothingfound hidden">
+								<i class="material-icons">sentiment_very_dissatisfied</i>
+								<span id="vubn-navigate-calendar-nothingfound-text"></span>
+							</div>
+							<div class="mdl-cell mdl-cell--12-col">
+								<div id="vubn-calendar-events">
+									<!-- Event Template -->
+									<a id="vubn-calendar-event-template" href="#" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--raised mdl-button--accent vubn-calendar-event">
+										<span class="vubn-calendar-event-title">Functional Programming</span><br />
+										<span class="vubn-calendar-event-starttime">14:00</span> - 
+										<span class="vubn-calendar-event-endtime">16:00</span><br />
+										<span class="vubn-calendar-event-location">D.0.0.7</span><br />
+										<!--<span class="vubn-calendar-event-description">This is a long description</span>-->
+									</a>
+								</div>
 							</div>
 							<div class="mdl-cell mdl-cell--12-col vubn-navigatebutton-container">
 								<button disabled="disabled" id="vubn-navigate-calendar-start-navigation" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored vubn-button-30-center vubn-subpage-navigate-link vubn-navigate-start" data-href="#vubn-navigate-navigate">
@@ -392,6 +425,40 @@
 				Settings page
 			-->
 				<section class="vubn-page settings-page" id="settings">
+					<div class="mdl-grid">
+						<div class="mdl-cell mdl-cell--12-col">
+							<span class="vubn-page-title">Settings</span>
+						</div>
+					</div>
+					<div class="mdl-grid">
+						<div class="mdl-cell mdl-cell--12-col">
+							<h4>Calendar</h4>
+						</div>
+						<div class="mdl-cell mdl-cell--12-col">
+							<p>
+								Retreive a URL for your online calendar and paste it in the text field below.
+							</p>
+							<p>
+								Updating the calendar requires a working internet connection to retreive the calendar data. All further processing is done on this device locally.
+							</p>
+						</div>
+						<div class="mdl-cell mdl-cell--12-col">
+							<form action="#">
+								<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+									<input class="mdl-textfield__input" type="url" id="vubn-settings-calurl" />
+									<label class="mdl-textfield__label" for="vubn-settings-calurl">
+										<i class="material-icons">event</i> Paste the url to your calendar here
+									</label>
+								</div>
+							</form>
+						</div>
+						<div class="mdl-cell mdl-cell--12-col">
+							<button id="vubn-settings-updatecalendar" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent vubn-button-30-center">
+								<i class="material-icons">update</i> Update calendar
+							</button>
+						</div>
+					</div>
+					<!--
 					<p>Page: settings</p>
 					<p>This page shows which modules are working (Wi-Fi, Sound, ...) and provide some basic settings for:</p>
 					<ul>
@@ -403,6 +470,7 @@
 						<li>Use animations? pff</li>
 						<li>...</li>
 					</ul>
+					-->
 				</section>
 			<!--
 				About page
@@ -417,7 +485,7 @@
 						</div>
 						<div class="mdl-cell mdl-cell--12-col">
 							<p>
-								This app was developed as an asignment for &ldquo;Next Generation User Interfaces&rdquo;. The goal is to make a user friendly app with a new type of user interaction, in this case indirect interaction with the environment using sound and Wi-Fi signals. It uses the <a href="https://getmdl.io/index.html">Google Material Design Lite</a> framework for the lay-out and <a href="https://github.com/quiet/quiet-js">Quiet.js</a> for ultrasonic communication. It was built with <a href="https://cordova.apache.org/">Cordova</a> for browser and Android.
+								This app was developed as an asignment for &ldquo;Next Generation User Interfaces&rdquo;. The goal is to make a user friendly app with a new type of user interaction, in this case indirect interaction with the environment using sound and Wi-Fi signals. It uses the <a href="https://getmdl.io/index.html">Google Material Design Lite</a> framework for the lay-out, <a href="https://github.com/quiet/quiet-js">Quiet.js</a> for ultrasonic communication and <a href="https://github.com/mozilla-comm/ical.js/">Mozilla's ical.js</a> for parsing your calendar completely offline. It was built with <a href="https://cordova.apache.org/">Cordova</a> for browser and Android.
 							</p>
 							<p>
 								Help us make the app better! Report issues to <a href="https://github.com/benjay10/VUBNavigate/issues">the Github Issues page</a>.

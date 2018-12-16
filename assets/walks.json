@@ -170,12 +170,12 @@
 		},
 		{
 			"from": 43,
-			"to": 48,
+			"to": 46,
 			"type": "corridor",
 			"info": ""
 		},
 		{
-			"from": 48,
+			"from": 46,
 			"to": 57,
 			"type": "corridor",
 			"info": ""
@@ -332,12 +332,12 @@
 		},
 		{
 			"from": 45,
-			"to": 49,
+			"to": 47,
 			"type": "corridor",
 			"info": ""
 		},
 		{
-			"from": 49,
+			"from": 47,
 			"to": 57,
 			"type": "corridor",
 			"info": ""
@@ -365,6 +365,66 @@
 			"to": 56,
 			"type": "corridor",
 			"info": "Access to lifts"
+		},
+		{
+			"from": 69,
+			"to": 58,
+			"type": "corridor",
+			"info": ""
+		},
+		{
+			"from": 58,
+			"to": 59,
+			"type": "corridor",
+			"info": ""
+		},
+		{
+			"from": 59,
+			"to": 60,
+			"type": "corridor",
+			"info": ""
+		},
+		{
+			"from": 60,
+			"to": 61,
+			"type": "corridor",
+			"info": ""
+		},
+		{
+			"from": 62,
+			"to": 63,
+			"type": "corridor",
+			"info": ""
+		},
+		{
+			"from": 63,
+			"to": 64,
+			"type": "corridor",
+			"info": ""
+		},
+		{
+			"from": 64,
+			"to": 65,
+			"type": "corridor",
+			"info": ""
+		},
+		{
+			"from": 66,
+			"to": 67,
+			"type": "corridor",
+			"info": "Access to toilets (male)"
+		},
+		{
+			"from": 66,
+			"to": 68,
+			"type": "corridor",
+			"info": "Access to lifts"
+		},
+		{
+			"from": 66,
+			"to": 69,
+			"type": "corridor",
+			"info": "Entrance to E.1"
 		}
 	]
 }

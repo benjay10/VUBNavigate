@@ -37,3 +37,17 @@
 		...
 	]
 }
+
+{
+	"events": [
+		{
+			"startDate": { "day": 2, "month": 10, ... },
+			"endDate": { "day": 2, "month": 10, ... },
+			"startDateString": "20181004",
+			"summary": "A short text for summary of the event",
+			"description": "A long text fully describing the event",
+			"location": "D.2.06 (Etterbeek - 40 pl.)"
+		},
+		...
+	]
+}

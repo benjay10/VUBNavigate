@@ -10,4 +10,5 @@ This project uses the following libraries:
 *	[Quiet JS](https://github.com/quiet/quiet-js) for ultrasonic communication
 *	[Mozilla jsical](https://github.com/mozilla-comm/ical.js/) for parsing ics and vCards.
 *	[Cordova](https://cordova.apache.org/) for building a mobile app
+*	[Polyfill for Dialog](https://github.com/GoogleChrome/dialog-polyfill) for replacing dialog functionality
 

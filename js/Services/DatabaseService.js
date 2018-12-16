@@ -1,6 +1,6 @@
 "use strict";
 
-function DatabaseService() {
+function DatabaseService(retreiveService) {
 
 	// Fields
 	
@@ -8,9 +8,11 @@ function DatabaseService() {
 		meta: "assets/databaseMeta.json",
 		buildings: "assets/buildings.json",
 		rooms: "assets/rooms2.json",
-		walks: "assets/walks.json"
+		walks: "assets/walks.json",
+		settings: "assets/settings.json"
 	}
 	this.database = null;
+	let me = this;
 
 	// Important API methods
 	
@@ -33,7 +35,6 @@ function DatabaseService() {
 	};
 
 	this.searchRooms = function(searchString) {
-		let me = this;
 		return new Promise((resolve, reject) => {
 			let results = [];
 			searchString = searchString.toLowerCase();
@@ -75,7 +76,6 @@ function DatabaseService() {
 	};
 
 	this.getBuilding = function(name) {
-		let me = this;
 		return new Promise((resolve, reject) => {
 			let transaction = me.database.transaction(["buildings"], "readonly");
 			let objectStore = transaction.objectStore("buildings");
@@ -93,7 +93,6 @@ function DatabaseService() {
 	};
 
 	this.getRoomsInBuildingFloor = function(buildingName, floorNumber) {
-		let me = this;
 		return new Promise((resolve, reject) => {
 			let results = [];
 			buildingName = buildingName.toUpperCase();
@@ -124,7 +123,6 @@ function DatabaseService() {
 	};
 	
 	this.getWalks = function () {
-		let me = this;
 		return new Promise((resolve, reject) => {
 			let walks = [];
 
@@ -142,24 +140,100 @@ function DatabaseService() {
 			};
 		});
 	};
-	
-	// Extra methods
-	
-	this.getJson = function(url) {
+
+	this.getSetting = function (name) {
 		return new Promise((resolve, reject) => {
-			const xhr = new XMLHttpRequest();
-			xhr.open("GET", url, true);
-			xhr.responseType = "json";
-			xhr.timeout = 5000;
-			xhr.onreadystatechange = function () {
-				if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
-					resolve(xhr.response);
-				}
-				else if (xhr.readyState === XMLHttpRequest.DONE) {
-					reject(xhr.status);
+			let transaction = me.database.transaction(["settings"], "readonly");
+			let settingsStore = transaction.objectStore("settings");
+			let settingsIndex = settingsStore.index("name");
+			let request = settingsIndex.get(name);
+
+			request.onerror = (error) => reject(error);
+			request.onsuccess = (event) => {
+				resolve(event.target.result.value);
+			};
+		});
+	};
+
+	this.setSetting = function (name, value) {
+		return new Promise((resolve, reject) => {
+			let transaction = me.database.transaction(["settings"], "readwrite");
+			let settingsStore = transaction.objectStore("settings");
+			let settingsIndex = settingsStore.index("name");
+			let request = settingsIndex.get(name);
+
+			request.onerror = (error) => {
+				// So the setting does not exist in the database yet -> add it
+				let data = { "name": name, "value": value };
+				let addRequest = settingsStore.add(data);
+				addRequest.onerror = (error) => reject(error);
+				addRequest.onsuccess = (event) => resolve(event);
+			};
+			request.onsuccess = (event) => {
+				let foundSetting = event.target.result;
+				// Update and put back
+				foundSetting.value = value;
+				let updateRequest = settingsStore.put(foundSetting);
+				updateRequest.onerror = (error) => reject(error);
+				updateRequest.onsuccess = (event) => resolve(event);
+			};
+		});
+	};
+
+	this.clearAllEvents = function () {
+		return new Promise((resolve, reject) => {
+			let transaction = me.database.transaction(["events"], "readwrite");
+			let eventStore = transaction.objectStore("events");
+			console.log("Events will be cleared from the database, new events will be stored in place.");
+			let request = eventStore.clear();
+			request.onerror = (error) => reject(error);
+			request.onsuccess = (event) => resolve(event);
+		});
+	};
+
+	this.replaceAllEvents = function (events) {
+		return this.clearAllEvents().then((x) => {
+			return new Promise((resolve, reject) => {
+				let transaction = me.database.transaction(["events"], "readwrite");
+				let eventStore = transaction.objectStore("events");
+				let request = null;
+
+				events.forEach((e, index) => {
+					request = eventStore.add(e);
+				});
+				
+				// Trying to wait for the last add in the database
+
+				request.onerror = (error) => reject(error);
+				request.onsuccess = (event) => resolve(event);
+			});
+		});
+	};
+
+	this.getEventsForDate = function (date) {
+		return new Promise((resolve, reject) => {
+			let results = [];
+			
+			let transaction = me.database.transaction(["events"], "readonly");
+			let eventStore = transaction.objectStore("events");
+			let dateIndex = eventStore.index("startDateString");
+			let dateRange = IDBKeyRange.only(date);
+			let eventCursor = dateIndex.openCursor(dateRange);
+			eventCursor.onerror = (error) => reject(error);
+			eventCursor.onsuccess = (event) => {
+				let cursor = event.target.result;
+				if (cursor) {
+					let e = cursor.value;
+					results.push(e);
+					cursor.continue();
+				} else {
+					if (results.length > 1) {
+						resolve(results);
+					} else {
+						reject("No courses found for today. Check the settings to make sure you have a calendar imported.");
+					}
 				}
 			};
-			xhr.send();
 		});
 	};
 	
@@ -167,7 +241,7 @@ function DatabaseService() {
 	
 	this.startDatabase = function () {
 		let me = this;
-		return this.getJson(this.files.meta).then((meta) => {
+		return retreiveService.getJson(this.files.meta).then((meta) => {
 			return new Promise((resolve, reject) => {
 				console.log("Database creation started");
 				// dbrequest :: IDBOpenDBRequest (<- IDBRequest <- EventTarget)
@@ -211,6 +285,7 @@ function DatabaseService() {
 				db.deleteObjectStore("rooms");
 				db.deleteObjectStore("buildings");
 				db.deleteObjectStore("walks");
+				db.deleteObjectStore("settings");
 			}
 
 			// Create the new room schema
@@ -228,7 +303,16 @@ function DatabaseService() {
 			let walkStore = db.createObjectStore("walks", { keyPath: "id", autoIncrement: true });
 			walkStore.createIndex("from", "from", { unique : false });
 			walkStore.createIndex("to", "to", { unique : false });
+
+			// Create a schema for the settings, just a key value store
+			let settingsStore = db.createObjectStore("settings", { keyPath: "name" });
+			settingsStore.createIndex("name", "name", { unique: true });
 			
+			// Create a schema for the settings, just a key value store
+			let eventStore = db.createObjectStore("events", { keyPath: "id", autoIncrement: true });
+			eventStore.createIndex("startDateString", "startDateString", { unique: false });
+			
+			// These on* apply to all the creations
 			roomStore.transaction.onabort = (event) => {
 				reject(event);
 			};
@@ -244,9 +328,10 @@ function DatabaseService() {
 	this.initialiseDatabase = function (db, oldVersion, newVersion) {
 		let me = this;
 		let schemaCreate = me.createSchema(db, oldVersion, newVersion);
-		let roomRetreive = me.getJson(me.files.rooms);
-		let buildingRetreive = me.getJson(me.files.buildings);
-		let walkRetreive = me.getJson(me.files.walks);
+		let roomRetreive = retreiveService.getJson(me.files.rooms);
+		let buildingRetreive = retreiveService.getJson(me.files.buildings);
+		let walkRetreive = retreiveService.getJson(me.files.walks);
+		let settingsRetreive = retreiveService.getJson(me.files.settings);
 
 		let roomPopulate = Promise.all([schemaCreate, roomRetreive]).then((values) => {
 			let db = values[0];
@@ -281,6 +366,20 @@ function DatabaseService() {
 			walkdata.walks.forEach((walk, index) => {
 				/*let request =*/ walkStore.add(walk);
 			});
+			return db;
+		});
+
+		let settingsPopulate = Promise.all([schemaCreate, settingsRetreive]).then((values) => {
+			let db = values[0];
+			let settingsData = values[1];
+			let settingsStoreTransaction = db.transaction(["settings"], "readwrite");
+			let settingsStore = settingsStoreTransaction.objectStore("settings");
+
+			settingsData.settings.forEach((setting, index) => {
+				settingsStore.add(setting);
+			});
+
+			return db;
 		});
 
 		return Promise.all([roomPopulate, buildingPopulate, walkPopulate]).then((values) => { return values[0]; });
