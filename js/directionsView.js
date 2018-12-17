@@ -16,7 +16,9 @@ function DirectionsView(isTouch, roomService, navigateView, pathFindingService, 
   this.idDefinitions = {
     stopNavigationDialog: "vubn-navigate-stopnavigation-dialog",
     stopNavigationConfirm: "vubn-navigate-stopnavigation-dialog-stop",
-    stopNavigationDeny: "vubn-navigate-stopnavigation-dialog-continue"
+    stopNavigationDeny: "vubn-navigate-stopnavigation-dialog-continue",
+    navigationSteps: "vubn-navigate-steps",
+    navigationSpinner: "vubn-navigate-spinner"
   };
 
   this.clickEvent = (isTouch ? "touchend" : "click");
@@ -30,6 +32,8 @@ function DirectionsView(isTouch, roomService, navigateView, pathFindingService, 
   this.stopNavigationDialog = null;
   this.stopNavigationConfirmButton = null;
   this.stopNavigationDenyButton = null;
+  this.navigationStepsText = null;
+  this.navigationSpinner = null;
 
   // Methods
 
@@ -45,10 +49,18 @@ function DirectionsView(isTouch, roomService, navigateView, pathFindingService, 
         return room;
       })
       .then((room) => {
+      	
         locationService.getLocation()
           .then((location) => {
-						var steps = pathFindingService.findPath(parseInt(location), room.id).then((segments) => {
-              // NEED TO DISPLAY IN VIEW
+          	var steps = pathFindingService.findPath(16, room.id).then((segments) => {
+
+              var html = "<ol class='demo-list-item mdl-list'>";
+              segments.forEach((sgmnt) => {
+              	html += "<li class='mdl-list__item'><span class='mdl-list__item-primary-content'>"+sgmnt+"</span></li>";
+              });
+              html += "</ol>";
+              me.navigationSpinner.classList.add("hidden");
+              me.navigationStepsText.innerHTML = html;
               console.log(segments);
             });
           });
@@ -94,6 +106,9 @@ function DirectionsView(isTouch, roomService, navigateView, pathFindingService, 
       this.stopNavigationDialog = document.getElementById(this.idDefinitions.stopNavigationDialog);
       this.stopNavigationConfirmButton = document.getElementById(this.idDefinitions.stopNavigationConfirm);
       this.stopNavigationDenyButton = document.getElementById(this.idDefinitions.stopNavigationDeny);
+      this.stopNavigationDenyButton = document.getElementById(this.idDefinitions.stopNavigationDeny);
+      this.navigationStepsText = document.getElementById(this.idDefinitions.navigationSteps);
+      this.navigationSpinner = document.getElementById(this.idDefinitions.navigationSpinner);
 
       // On some browsers, the dialog element is not supported. This polyfill provides a replacement.
       if (!this.stopNavigationDialog.showModal) {
