@@ -16,14 +16,56 @@ function PathFindingService(roomService) {
 
 	this.getDirectionSteps = function(shortestPath) {
 		var routeSegments = [];
+		var promises = [];
 
 		var from = shortestPath.shift();
 		for (var to; to = shortestPath.shift();) {
-		    routeSegments.push(me.getRoute(from, to))
+			var room = roomService.getRoom(parseInt(to))
+			promises.push(room);
+
+			var route = this.getRoute(from, to);
+			routeSegments.push(route)
+		    
 		    from = to;
 		}
-		return routeSegments;
+
+		return Promise.all(promises).then(function(rooms) {
+
+			var texts = [];
+			routeSegments.forEach(function(route, index) {
+				var text = "";
+
+				switch(route.type) {
+				  case "corridor":
+				    text = "Loop in de gang voorbij ";
+				    break;
+				  case "lift":
+				    text = "Neem de lift";
+				    break;
+				  default:
+				    text = "";
+				}
+
+				switch(rooms[index].type) {
+				  case "office":
+				    text += "bureau "+rooms[index].legalName;
+				    break;
+				  case "lift":
+				    text += rooms[index].legalName;
+				    break;
+				  default:
+				    text += "";
+				}
+				texts.push(text);
+			});
+
+			return texts;
+		});
 	}
+
+	this.getHumanNavigation = function(routeSegments) {
+
+	};
 
 	this.buildGraph = function() {
 

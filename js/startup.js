@@ -88,7 +88,7 @@ window.addEventListener("load", (event) => {
 		vubn.navigateView = new NavigateView(isTouch, vubn.services.rooms, vubn.services.calendar);
 		vubn.navigateView.init();
 
-		vubn.directionsView = new DirectionsView(isTouch, vubn.services.rooms, vubn.navigateView);
+		vubn.directionsView = new DirectionsView(isTouch, vubn.services.rooms, vubn.navigateView, vubn.services.pathfinding);
 		vubn.directionsView.init();
 		
 		vubn.settingsView = new SettingsView(isTouch, vubn.services.settings);

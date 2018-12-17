@@ -1,6 +1,6 @@
 "use strict";
 
-function DirectionsView(isTouch, roomService, navigateView) {
+function DirectionsView(isTouch, roomService, navigateView, pathFindingService) {
 
 	// Fields and definitions
 	
@@ -43,6 +43,13 @@ function DirectionsView(isTouch, roomService, navigateView) {
 				element.innerHTML = room.legalName;
 			});
 			return room;
+		})
+		.then((room) => {
+			var steps = pathFindingService.findPath(16 , room.id).then((segments) => {
+				// NEED TO DISPLAY IN VIEW
+				console.log(segments);
+			});
+			
 		})
 		.catch(console.error);
 	};
