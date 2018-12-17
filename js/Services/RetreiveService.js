@@ -3,7 +3,7 @@
 function RetreiveService() {
 
 	let me = this;
-	
+
 	this.getJson = function(url) {
 		return me.get(url, "json");
 	};
