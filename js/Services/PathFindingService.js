@@ -35,12 +35,13 @@ function PathFindingService(roomService) {
 			routeSegments.forEach(function(route, index) {
 				var text = "";
 
+				if(rooms[index].id != from) {
 				switch(route.type) {
 				  case "corridor":
-				    text = "Loop in de gang voorbij ";
+				    text = "Walk through the corridor ";
 				    break;
 				  case "lift":
-				    text = "Neem de lift";
+				    text = "Take the elevator";
 				    break;
 				  default:
 				    text = "";
@@ -48,13 +49,48 @@ function PathFindingService(roomService) {
 
 				switch(rooms[index].type) {
 				  case "office":
-				    text += "bureau "+rooms[index].legalName;
+				    text += "passing office "+rooms[index].legalName;
 				    break;
 				  case "lift":
 				    text += rooms[index].legalName;
 				    break;
+				  case "landing":
+				    text += rooms[index].legalName;
+				    break;
+				  case "classroom":
+				    text += "passing classroom "+rooms[index].legalName;
+				    break;
+				  case "maintenance":
+				    text += "passing maintenance room "+rooms[index].legalName;
+				    break;
 				  default:
-				    text += "";
+				    text += rooms[index].type;
+				}
+
+				if(rooms[index].outsideAvailable.length > 0) {
+					text += ". You should be able to see the following: "+rooms[index].outsideAvailable.join(", ")+".";
+				}
+				} else {
+					text += "You will now arrive at your destination, ";
+					switch(rooms[index].type) {
+					  case "office":
+					    text += "office "+rooms[index].legalName;
+					    break;
+					  case "lift":
+					    text += rooms[index].legalName;
+					    break;
+					  case "landing":
+					    text += rooms[index].legalName;
+					    break;
+					  case "classroom":
+					    text += "classroom "+rooms[index].legalName;
+					    break;
+					  case "maintenance":
+					    text += "maintenance room "+rooms[index].legalName;
+					    break;
+					  default:
+					    text += rooms[index].type;
+					}
 				}
 				texts.push(text);
 			});
