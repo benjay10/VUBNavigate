@@ -49,10 +49,10 @@ function DirectionsView(isTouch, roomService, navigateView, pathFindingService, 
         return room;
       })
       .then((room) => {
-      	
+
         locationService.getLocation()
           .then((location) => {
-          	var steps = pathFindingService.findPath(16, room.id).then((segments) => {
+          	var steps = pathFindingService.findPath(parseInt(location), room.id).then((segments) => {
 
               var html = "<ol class='demo-list-item mdl-list'>";
               segments.forEach((sgmnt) => {
