@@ -3,7 +3,7 @@
 function DatabaseService(retreiveService) {
 
 	// Fields
-	
+
 	this.files = {
 		meta: "assets/databaseMeta.json",
 		buildings: "assets/buildings.json",
@@ -15,7 +15,7 @@ function DatabaseService(retreiveService) {
 	let me = this;
 
 	// Important API methods
-	
+
 	this.getRoom = function(roomId) {
 		let me = this;
 		return new Promise((resolve, reject) => {
@@ -23,7 +23,7 @@ function DatabaseService(retreiveService) {
 			let objectStore = transaction.objectStore("rooms");
 			let request = objectStore.get(roomId);
 			request.onerror = (event) => reject(event);
-			request.onsuccess = (event) => { 
+			request.onsuccess = (event) => {
 				// Still need to make a distinction here, because even if the object is not found, the request is succesful
 				if (event.target.result) {
 					resolve(event.target.result);
@@ -81,7 +81,7 @@ function DatabaseService(retreiveService) {
 			let objectStore = transaction.objectStore("buildings");
 			let request = objectStore.get(name.toUpperCase());
 			request.onerror = (event) => reject(event);
-			request.onsuccess = (event) => { 
+			request.onsuccess = (event) => {
 				// Still need to make a distinction here, because even if the object is not found, the request is succesful
 				if (event.target.result) {
 					resolve(event.target.result);
@@ -121,7 +121,7 @@ function DatabaseService(retreiveService) {
 			};
 		});
 	};
-	
+
 	this.getWalks = function () {
 		return new Promise((resolve, reject) => {
 			let walks = [];
@@ -201,7 +201,7 @@ function DatabaseService(retreiveService) {
 				events.forEach((e, index) => {
 					request = eventStore.add(e);
 				});
-				
+
 				// Trying to wait for the last add in the database
 
 				request.onerror = (error) => reject(error);
@@ -213,7 +213,7 @@ function DatabaseService(retreiveService) {
 	this.getEventsForDate = function (date) {
 		return new Promise((resolve, reject) => {
 			let results = [];
-			
+
 			let transaction = me.database.transaction(["events"], "readonly");
 			let eventStore = transaction.objectStore("events");
 			let dateIndex = eventStore.index("startDateString");
@@ -236,9 +236,9 @@ function DatabaseService(retreiveService) {
 			};
 		});
 	};
-	
+
 	// Database stuff
-	
+
 	this.startDatabase = function () {
 		let me = this;
 		return retreiveService.getJson(this.files.meta).then((meta) => {
@@ -295,7 +295,8 @@ function DatabaseService(retreiveService) {
 			roomStore.createIndex("building", "building", { unique: false });
 			roomStore.createIndex("floor", "floor", { unique: false });
 			roomStore.createIndex("type", "type", { unique: false });
-			
+			roomStore.createIndex("wind_dir", "wind_dir", { unique: false });
+
 			// Create the new building schema
 			let buildingStore = db.createObjectStore("buildings", { keyPath: "name" });
 
@@ -307,11 +308,11 @@ function DatabaseService(retreiveService) {
 			// Create a schema for the settings, just a key value store
 			let settingsStore = db.createObjectStore("settings", { keyPath: "name" });
 			settingsStore.createIndex("name", "name", { unique: true });
-			
+
 			// Create a schema for the settings, just a key value store
 			let eventStore = db.createObjectStore("events", { keyPath: "id", autoIncrement: true });
 			eventStore.createIndex("startDateString", "startDateString", { unique: false });
-			
+
 			// These on* apply to all the creations
 			roomStore.transaction.onabort = (event) => {
 				reject(event);
@@ -356,7 +357,7 @@ function DatabaseService(retreiveService) {
 			});
 			return db;
 		});
-		
+
 		let walkPopulate = Promise.all([schemaCreate, walkRetreive]).then((values) => {
 			let db = values[0];
 			let walkdata = values[1];
@@ -387,7 +388,7 @@ function DatabaseService(retreiveService) {
 	};
 
 	// Init
-	
+
 	this.init = function () {
 		//window.indexedDB = window.indexedDB || window.mozIndexedDB || window.webkitIndexedDB || window.msIndexedDB;
 		//window.IDBTransaction = window.IDBTransaction || window.webkitIDBTransaction || window.msIDBTransaction || {READ_WRITE: "readwrite"};
@@ -401,4 +402,3 @@ function DatabaseService(retreiveService) {
 	};
 
 }
-

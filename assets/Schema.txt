@@ -8,7 +8,8 @@
 			"floor": 10,	// :: String
 			"type": "maintenance""office""stairs""toilets""classroom""lift""landing""sluice""server room""printer room""dining room""laboratory""study room""library""meeting room",	// :: String
 			"info": "",	// :: String
-			"outsideAvailable": ["fire extinguisher", "water fountain", "food dispenser", "drinks dispenser", "fire alarm", "fire exit", "fire hose reel", "..."]	// :: [ String ]
+			"outsideAvailable": ["fire extinguisher", "water fountain", "food dispenser", "drinks dispenser", "fire alarm", "fire exit", "fire hose reel", "..."],	// :: [ String ]
+			"wind_dir": ["N", "E", "S", "W"] //::String
 		},
 		...
 	]

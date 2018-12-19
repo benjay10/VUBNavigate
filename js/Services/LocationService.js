@@ -11,6 +11,8 @@ function LocationService() {
   let me = this;
 
   this.location = null;
+  this.dir1 = null;
+  this.dir2 = null;
 
   this.receiver = null;
 
@@ -25,8 +27,12 @@ function LocationService() {
         });
 
         function onReceive(recvPayload) {
-          this.location = Quiet.ab2str(recvPayload);
+          var location_dir = (Quiet.ab2str(recvPayload)).split(",");
+          this.location = location_dir[0];
+          this.dir1 = (location_dir[1] || null);
+          this.dir2 = (location_dir[2] || null);
           console.log("location is: ", this.location);
+          console.log("DIR is: ", this.dir1);
           me.stopListening();
           resolve(this.location);
         };
@@ -62,6 +68,9 @@ function LocationService() {
     this.receiver.destroy();
   };
 
+  this.getDir = function(){
+    return this.dir1;
+  };
   // Init
   this.init = function() {
     //return new Promise((resolve, reject) => {

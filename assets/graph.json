@@ -10,31 +10,35 @@
     "6.5": {}
   },
 
-  "corridors": {
+  "positioning": {
     "10FMU": {
       "rooms_left": ["10F711", "10F716", "10F719", "10F722", "10F724", "10F728", "10F731", "10F733", "10F736", "10F738"],
       "rooms_right": ["10F717", "10F720", "10F726", "10F729", "10F734"],
-      "building_level": "10F"
+      "building": "F",
+      "floor": 10
 
     },
 
     "10FMD": {
       "rooms_left": ["10F717", "10F720", "10F729", "10F734"],
       "rooms_right": ["10F715", "10F718", "10F721", "10F723", "10F725", "10F727", "10F730", "10F732", "10F735", "10F737"],
-      "building_level": "10F"
+      "building": "F",
+      "floor": 10
     },
 
     "10FML": {
       "rooms_left": ["10F704", "10F706", "10F710", "10F712", "10F713"],
       "rooms_right": ["10F702", "10F703", "10F705", "10F707", "10F709"],
-      "building_level": "10F"
+      "building": "F",
+      "floor": 10
 
     },
 
     "10FMR": {
       "rooms_left": ["10F740", "10F742", "10F744", "10F746"],
       "rooms_right": ["10F741", "10F743", "10F745", "10F747", "10F749"],
-      "building_level": "10F"
+      "building": "F",
+      "floor": 10
     },
 
     "5FML": {

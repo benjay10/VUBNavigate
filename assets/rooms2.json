@@ -8,7 +8,8 @@
 			"floor": 10,
 			"type": "maintenance",
 			"info": "",
-			"outsideAvailable": ["fire extinguisher", "fire alarm"]
+			"outsideAvailable": ["fire extinguisher", "fire alarm"],
+			"wind_dir": "W"
 		},
 		{
 			"id": 2,
@@ -18,7 +19,8 @@
 			"floor": 10,
 			"type": "maintenance",
 			"info": "",
-			"outsideAvailable": []
+			"outsideAvailable": [],
+			"wind_dir": "W"
 		},
 		{
 			"id": 3,
@@ -28,7 +30,8 @@
 			"floor": 10,
 			"type": "office",
 			"info": "",
-			"outsideAvailable": ["fire extinguisher", "fire hose reel"]
+			"outsideAvailable": ["fire extinguisher", "fire hose reel"],
+			"wind_dir": "W"
 		},
 		{
 			"id": 4,
@@ -38,7 +41,8 @@
 			"floor": 10,
 			"type": "office",
 			"info": "",
-			"outsideAvailable": []
+			"outsideAvailable": [],
+			"wind_dir": "W"
 		},
 		{
 			"id": 5,
@@ -48,7 +52,8 @@
 			"floor": 10,
 			"type": "office",
 			"info": "",
-			"outsideAvailable": []
+			"outsideAvailable": [],
+			"wind_dir": "W"
 		},
 		{
 			"id": 6,
@@ -58,7 +63,8 @@
 			"floor": 10,
 			"type": "office",
 			"info": "",
-			"outsideAvailable": []
+			"outsideAvailable": [],
+			"wind_dir": "W"
 		},
 		{
 			"id": 7,
@@ -68,7 +74,8 @@
 			"floor": 10,
 			"type": "office",
 			"info": "",
-			"outsideAvailable": []
+			"outsideAvailable": [],
+			"wind_dir": "W"
 		},
 		{
 			"id": 8,
@@ -78,7 +85,8 @@
 			"floor": 10,
 			"type": "office",
 			"info": "",
-			"outsideAvailable": []
+			"outsideAvailable": [],
+			"wind_dir": "W"
 		},
 		{
 			"id": 9,
@@ -88,7 +96,8 @@
 			"floor": 10,
 			"type": "office",
 			"info": "",
-			"outsideAvailable": []
+			"outsideAvailable": [],
+			"wind_dir": "W"
 		},
 		{
 			"id": 10,
@@ -98,7 +107,8 @@
 			"floor": 10,
 			"type": "maintenance",
 			"info": "",
-			"outsideAvailable": []
+			"outsideAvailable": [],
+			"wind_dir": "W"
 		},
 		{
 			"id": 11,
@@ -108,7 +118,8 @@
 			"floor": 10,
 			"type": "maintenance",
 			"info": "",
-			"outsideAvailable": []
+			"outsideAvailable": [],
+			"wind_dir": "W"
 		},
 		{
 			"id": 12,
@@ -118,7 +129,8 @@
 			"floor": 10,
 			"type": "maintenance",
 			"info": "",
-			"outsideAvailable": []
+			"outsideAvailable": [],
+			"wind_dir": "W"
 		},
 		{
 			"id": 13,
@@ -128,7 +140,8 @@
 			"floor": 10,
 			"type": "maintenance",
 			"info": "",
-			"outsideAvailable": []
+			"outsideAvailable": [],
+			"wind_dir": "W"
 		},
 		{
 			"id": 14,
@@ -138,7 +151,8 @@
 			"floor": 10,
 			"type": "maintenance",
 			"info": "",
-			"outsideAvailable": []
+			"outsideAvailable": [],
+			"wind_dir": "W"
 		},
 		{
 			"id": 15,
@@ -148,7 +162,8 @@
 			"floor": 10,
 			"type": "office",
 			"info": "",
-			"outsideAvailable": []
+			"outsideAvailable": [],
+			"wind_dir": "N"
 		},
 		{
 			"id": 16,
@@ -158,7 +173,8 @@
 			"floor": 10,
 			"type": "server room",
 			"info": "",
-			"outsideAvailable": []
+			"outsideAvailable": [],
+			"wind_dir": "N,S"
 		},
 		{
 			"id": 17,
@@ -168,7 +184,8 @@
 			"floor": 10,
 			"type": "office",
 			"info": "",
-			"outsideAvailable": []
+			"outsideAvailable": [],
+			"wind_dir": "S"
 		},
 		{
 			"id": 18,
@@ -178,7 +195,8 @@
 			"floor": 10,
 			"type": "office",
 			"info": "",
-			"outsideAvailable": []
+			"outsideAvailable": [],
+			"wind_dir": "N"
 		},
 		{
 			"id": 19,
@@ -188,7 +206,8 @@
 			"floor": 10,
 			"type": "classroom",
 			"info": "",
-			"outsideAvailable": []
+			"outsideAvailable": [],
+			"wind_dir": "N,S"
 		},
 		{
 			"id": 20,
@@ -198,7 +217,8 @@
 			"floor": 10,
 			"type": "office",
 			"info": "",
-			"outsideAvailable": ["fire extinguisher", "fire alarm"]
+			"outsideAvailable": ["fire extinguisher", "fire alarm"],
+			"wind_dir": "S"
 		},
 		{
 			"id": 21,
@@ -208,7 +228,8 @@
 			"floor": 10,
 			"type": "office",
 			"info": "",
-			"outsideAvailable": []
+			"outsideAvailable": [],
+			"wind_dir": "N"
 		},
 		{
 			"id": 22,
@@ -218,7 +239,8 @@
 			"floor": 10,
 			"type": "office",
 			"info": "",
-			"outsideAvailable": []
+			"outsideAvailable": [],
+			"wind_dir": "S"
 		},
 		{
 			"id": 23,
@@ -228,7 +250,8 @@
 			"floor": 10,
 			"type": "office",
 			"info": "",
-			"outsideAvailable": []
+			"outsideAvailable": [],
+			"wind_dir": "N"
 		},
 		{
 			"id": 24,
@@ -238,7 +261,8 @@
 			"floor": 10,
 			"type": "office",
 			"info": "",
-			"outsideAvailable": ["fire extiguisher", "fire alarm"]
+			"outsideAvailable": ["fire extiguisher", "fire alarm"],
+			"wind_dir": "S"
 		},
 		{
 			"id": 25,
@@ -248,7 +272,8 @@
 			"floor": 10,
 			"type": "maintenance",
 			"info": "",
-			"outsideAvailable": ["fire extiguisher", "fire hose reel", "fire alarm"]
+			"outsideAvailable": ["fire extiguisher", "fire hose reel", "fire alarm"],
+			"wind_dir": "N"
 		},
 		{
 			"id": 26,
@@ -258,7 +283,8 @@
 			"floor": 10,
 			"type": "maintenance",
 			"info": "",
-			"outsideAvailable": []
+			"outsideAvailable": [],
+			"wind_dir": "S"
 		},
 		{
 			"id": 27,
@@ -268,7 +294,8 @@
 			"floor": 10,
 			"type": "office",
 			"info": "",
-			"outsideAvailable": []
+			"outsideAvailable": [],
+			"wind_dir": "N"
 		},
 		{
 			"id": 28,
@@ -278,7 +305,8 @@
 			"floor": 10,
 			"type": "dining room",
 			"info": "",
-			"outsideAvailable": []
+			"outsideAvailable": [],
+			"wind_dir": "N, S"
 		},
 		{
 			"id": 29,
@@ -288,7 +316,8 @@
 			"floor": 10,
 			"type": "office",
 			"info": "",
-			"outsideAvailable": []
+			"outsideAvailable": [],
+			"wind_dir": "S"
 		},
 		{
 			"id": 30,
@@ -298,7 +327,8 @@
 			"floor": 10,
 			"type": "office",
 			"info": "",
-			"outsideAvailable": []
+			"outsideAvailable": [],
+			"wind_dir": "N"
 		},
 		{
 			"id": 31,
@@ -308,7 +338,8 @@
 			"floor": 10,
 			"type": "office",
 			"info": "",
-			"outsideAvailable": []
+			"outsideAvailable": [],
+			"wind_dir": "S"
 		},
 		{
 			"id": 32,
@@ -318,7 +349,8 @@
 			"floor": 10,
 			"type": "office",
 			"info": "",
-			"outsideAvailable": []
+			"outsideAvailable": [],
+			"wind_dir": "N"
 		},
 		{
 			"id": 33,
@@ -328,7 +360,8 @@
 			"floor": 10,
 			"type": "library",
 			"info": "",
-			"outsideAvailable": []
+			"outsideAvailable": [],
+			"wind_dir": "N, S"
 		},
 		{
 			"id": 34,
@@ -338,7 +371,8 @@
 			"floor": 10,
 			"type": "office",
 			"info": "",
-			"outsideAvailable": []
+			"outsideAvailable": [],
+			"wind_dir": "S"
 		},
 		{
 			"id": 35,
@@ -348,7 +382,8 @@
 			"floor": 10,
 			"type": "office",
 			"info": "",
-			"outsideAvailable": []
+			"outsideAvailable": [],
+			"wind_dir": "N"
 		},
 		{
 			"id": 36,
@@ -358,7 +393,8 @@
 			"floor": 10,
 			"type": "office",
 			"info": "",
-			"outsideAvailable": []
+			"outsideAvailable": [],
+			"wind_dir": "S"
 		},
 		{
 			"id": 37,
@@ -368,7 +404,8 @@
 			"floor": 10,
 			"type": "office",
 			"info": "",
-			"outsideAvailable": []
+			"outsideAvailable": [],
+			"wind_dir": "E"
 		},
 		{
 			"id": 38,
@@ -378,7 +415,8 @@
 			"floor": 10,
 			"type": "office",
 			"info": "",
-			"outsideAvailable": []
+			"outsideAvailable": [],
+			"wind_dir": "E"
 		},
 		{
 			"id": 39,
@@ -388,7 +426,8 @@
 			"floor": 10,
 			"type": "office",
 			"info": "",
-			"outsideAvailable": []
+			"outsideAvailable": [],
+			"wind_dir": "E"
 		},
 		{
 			"id": 40,
@@ -398,7 +437,8 @@
 			"floor": 10,
 			"type": "office",
 			"info": "",
-			"outsideAvailable": []
+			"outsideAvailable": [],
+			"wind_dir": "E"
 		},
 		{
 			"id": 41,
@@ -408,7 +448,8 @@
 			"floor": 10,
 			"type": "office",
 			"info": "",
-			"outsideAvailable": []
+			"outsideAvailable": [],
+			"wind_dir": "E"
 		},
 		{
 			"id": 42,
@@ -418,7 +459,8 @@
 			"floor": 10,
 			"type": "office",
 			"info": "",
-			"outsideAvailable": []
+			"outsideAvailable": [],
+			"wind_dir": "E"
 		},
 		{
 			"id": 43,
@@ -428,7 +470,8 @@
 			"floor": 10,
 			"type": "office",
 			"info": "",
-			"outsideAvailable": []
+			"outsideAvailable": [],
+			"wind_dir": "E"
 		},
 		{
 			"id": 44,
@@ -438,7 +481,8 @@
 			"floor": 10,
 			"type": "office",
 			"info": "",
-			"outsideAvailable": []
+			"outsideAvailable": [],
+			"wind_dir": "E"
 		},
 		{
 			"id": 45,
@@ -448,7 +492,8 @@
 			"floor": 10,
 			"type": "office",
 			"info": "",
-			"outsideAvailable": ["fire extinguisher", "fire hose reel"]
+			"outsideAvailable": ["fire extinguisher", "fire hose reel"],
+			"wind_dir": "E"
 		},
 		{
 			"id": 46,
@@ -458,7 +503,8 @@
 			"floor": 10,
 			"type": "printer room",
 			"info": "",
-			"outsideAvailable": []
+			"outsideAvailable": [],
+			"wind_dir": "E"
 		},
 		{
 			"id": 47,
@@ -468,7 +514,8 @@
 			"floor": 10,
 			"type": "study room",
 			"info": "",
-			"outsideAvailable": ["fire extinguisher", "fire alarm"]
+			"outsideAvailable": ["fire extinguisher", "fire alarm"],
+			"wind_dir": "E"
 		},
 		{
 			"id": 48,
@@ -478,7 +525,8 @@
 			"floor": 10,
 			"type": "landing",
 			"info": "Rotule 5 landing",
-			"outsideAvailable": ["fire extinguisher", "fire alarm", "fire hose reel"]
+			"outsideAvailable": ["fire extinguisher", "fire alarm", "fire hose reel"],
+			"wind_dir": "W"
 		},
 		{
 			"id": 49,
@@ -488,7 +536,8 @@
 			"floor": 10,
 			"type": "landing",
 			"info": "Toilets (men)",
-			"outsideAvailable": []
+			"outsideAvailable": [],
+			"wind_dir": "W"
 		},
 		{
 			"id": 50,
@@ -498,7 +547,8 @@
 			"floor": 10,
 			"type": "landing",
 			"info": "Toilets (female)",
-			"outsideAvailable": []
+			"outsideAvailable": [],
+			"wind_dir": "W"
 		},
 		{
 			"id": 51,
@@ -508,7 +558,8 @@
 			"floor": 10,
 			"type": "lift",
 			"info": "Lifts",
-			"outsideAvailable": []
+			"outsideAvailable": [],
+			"wind_dir": "W"
 		},
 		{
 			"id": 52,
@@ -518,7 +569,8 @@
 			"floor": 10,
 			"type": "sluice",
 			"info": "Small room between Rotule 5 and building F on floor 10",
-			"outsideAvailable": []
+			"outsideAvailable": [],
+			"wind_dir": "W"
 		},
 		{
 			"id": 53,
@@ -528,7 +580,8 @@
 			"floor": 10,
 			"type": "landing",
 			"info": "Rotule 4 landing",
-			"outsideAvailable": ["fire alarm", "fire hose reel"]
+			"outsideAvailable": ["fire alarm", "fire hose reel"],
+			"wind_dir": "E"
 		},
 		{
 			"id": 54,
@@ -538,7 +591,8 @@
 			"floor": 10,
 			"type": "landing",
 			"info": "Toilets (female)",
-			"outsideAvailable": []
+			"outsideAvailable": [],
+			"wind_dir": "E"
 		},
 		{
 			"id": 55,
@@ -548,7 +602,8 @@
 			"floor": 10,
 			"type": "landing",
 			"info": "Toilets (male)",
-			"outsideAvailable": []
+			"outsideAvailable": [],
+			"wind_dir": "E"
 		},
 		{
 			"id": 56,
@@ -558,7 +613,8 @@
 			"floor": 10,
 			"type": "lifts",
 			"info": "Lifts",
-			"outsideAvailable": []
+			"outsideAvailable": [],
+			"wind_dir": "E"
 		},
 		{
 			"id": 57,
@@ -568,7 +624,8 @@
 			"floor": 10,
 			"type": "sluice",
 			"info": "Small room between Rotule 4 and building F on floor 10",
-			"outsideAvailable": []
+			"outsideAvailable": [],
+			"wind_dir": "E"
 		},
 		{
 			"id": 58,

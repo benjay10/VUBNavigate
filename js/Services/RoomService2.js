@@ -3,11 +3,11 @@
 function RoomService2(databaseService) {
 
 	// Fields
-	
+
 	let me = this;
-	
+
 	// Methods
-	
+
 	// This adapted method return safely parsed room, no field is left undefined (this is possible in the DB)
 	this.searchRooms = function (searchString, maxResultCount = 10) {
 		//return databaseService.searchRooms(searchString);
@@ -35,11 +35,11 @@ function RoomService2(databaseService) {
 	};
 
 	// Parsing
-	
+
 	this.parseRoom = function (roomResult) {
 		return me.parseRooms([roomResult]).then((rooms) => rooms[0]);
 	};
-	
+
 	this.parseRooms = function (roomResults) {
 		return new Promise((resolve, reject) => {
 			let rooms = [];
@@ -54,6 +54,7 @@ function RoomService2(databaseService) {
 				temproom.outsideAvailable = (room.outsideAvailable || []);
 				temproom.type = (room.type || "");
 				temproom.info = (room.info || "");
+				temproom.wind_dir = (room.wind_dir || "");
 				rooms.push(temproom);
 			});
 			resolve(rooms);
@@ -104,7 +105,7 @@ function RoomService2(databaseService) {
 				let tempwalk = {
 					to: (walk.to || 0),
 					from: (walk.from || 0),
-					weight: cost, 
+					weight: cost,
 					type: (walk.type || ""),
 					info: (walk.info || "")
 				};
@@ -116,7 +117,7 @@ function RoomService2(databaseService) {
 	};
 
 	// Init
-	
+
 	this.init = function () {
 		return; //Nothing to do, so skipping this function
 		return new Promise((resolve, reject) => {
@@ -124,4 +125,3 @@ function RoomService2(databaseService) {
 		});
 	};
 }
-
