@@ -12,16 +12,16 @@ function LocationService() {
 	let me = this;
 
 	this.location = null;
-  this.dir = null;
+	this.dir = null;
 	this.receiver = null;
 	this.onLocationFoundEventer = null;
 
 	// Methods
 
 	this.onReceive = function (recvPayload) {
-    var input = Quiet.ab2str(recvPayload).split(",");
+		var input = Quiet.ab2str(recvPayload).split(",");
 		me.location = input[0];
-    me.dir = input[1];
+		me.dir = input[1];
 		console.log("Location id is: ", me.location);
 		// So this is the most important step. When a location is found, notify all listeners with the location.
 		me.onLocationFoundEventer.fire(me.location);
@@ -65,9 +65,9 @@ function LocationService() {
 		this.receiver.destroy();
 	};
 
-  this.getDir = function(){
-    return this.dir;
-  };
+	this.getDir = function(){
+		return this.dir;
+	};
 
 	// Init
 

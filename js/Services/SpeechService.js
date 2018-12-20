@@ -78,11 +78,6 @@ function SpeechService(roomService) {
 						if (priorityVoices.length >= 1) {
 								me.selectedVoice = priorityVoices[0];
 						}
-
-						//console.log("All voices", me.voices);
-						//console.log("English voices", englishVoices);
-						//console.log("Brittish voices", britVoices);
-						//console.log("American voices", amerVoices);
 				});
 		};
 }

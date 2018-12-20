@@ -82,7 +82,7 @@ function DirectionsView(isTouch, roomService, navigateView, pathFindingService, 
 				// Speak the current location
 				speaker = speechService.speakCurrentLocation(curRoom);
 				
-				// Set the found current location in the fields
+				// Set the found current location in the fields on the view
 				me.myLocationTexts.forEach((domObj, index) => {
 					domObj.innerHTML = curRoom.legalName;
 				});
@@ -92,7 +92,9 @@ function DirectionsView(isTouch, roomService, navigateView, pathFindingService, 
 			}).then(() => { return pathFindingService.findPath(locationId, me.selectedRoomId); }).then((segments) => {
 				let adders = [];
 				if (segments.length > 0) {
+					// Add all the steps to the view
 					segments.forEach((s, index) => { adders.push(me.addStep(s)); });
+					// Speak the first step, after the previous speech
 					speaker.then(() => { speechService.speakStep(segments[0]); });
 				}
 				return Promise.all(adders);
@@ -207,3 +209,4 @@ function DirectionsView(isTouch, roomService, navigateView, pathFindingService, 
 		});
 	};
 }
+
