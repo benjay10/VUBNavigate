@@ -11,4 +11,5 @@ This project uses the following libraries:
 *	[Mozilla jsical](https://github.com/mozilla-comm/ical.js/) for parsing ics and vCards.
 *	[Cordova](https://cordova.apache.org/) for building a mobile app
 *	[Polyfill for Dialog](https://github.com/GoogleChrome/dialog-polyfill) for replacing dialog functionality
+*	[Dijkstra algorithm in JavaScript](https://github.com/andrewhayward/dijkstra) for calculating the shortest path
 

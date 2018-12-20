@@ -7,7 +7,7 @@ function DatabaseService(retreiveService) {
 	this.files = {
 		meta: "assets/databaseMeta.json",
 		buildings: "assets/buildings.json",
-		rooms: "assets/rooms2.json",
+		rooms: "assets/rooms.json",
 		walks: "assets/walks.json",
 		settings: "assets/settings.json"
 	}

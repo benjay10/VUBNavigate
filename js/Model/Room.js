@@ -1,6 +1,7 @@
 "use strict";
 
 // Is not necessary. Easier to use the ad-hoc object coming from the datastore than to create objects out of this for every result.
+// Is used to parse the object from the database now, to make sure all fields exist, but could be filled with a null value instead of having undefined fields.
 
 function Room(id, uniformName, legalName, floor, building, type, info, outsideAvailable) {
 	this.id = id;

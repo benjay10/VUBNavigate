@@ -35,7 +35,7 @@ function PathFindingService(roomService) {
 			routeSegments.forEach(function(route, index) {
 				var text = "";
 
-				if(rooms[index].id != from) {
+			if(rooms[index].id != from) {
 				switch(route.type) {
 					case "corridor":
 						text = "Walk through the corridor ";
@@ -70,7 +70,7 @@ function PathFindingService(roomService) {
 				if(rooms[index].outsideAvailable.length > 0) {
 					text += ". You should be able to see the following: "+rooms[index].outsideAvailable.join(", ")+".";
 				}
-				} else {
+			} else {
 					text += "You will now arrive at your destination, ";
 					switch(rooms[index].type) {
 						case "office":
@@ -133,5 +133,5 @@ function PathFindingService(roomService) {
 	};
 }
 
-
 // {23: {22:1, 21: 2, 24:3}, 30: {} }
+

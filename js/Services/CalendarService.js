@@ -38,8 +38,8 @@ function CalendarService(databaseService, retreiveService) {
 	// Help
 	
 	this.getTodayInIcalFormat = function () {
-		//let date = new Date();
-		let date = new Date(2018, 11, 3, 12, 0, 0, 0);
+		let date = new Date();
+		//let date = new Date(2018, 11, 3, 12, 0, 0, 0);
 		let year = ("0000" + date.getFullYear().toString()).slice(-4);
 		let month = ("00" + (date.getMonth() + 1).toString()).slice(-2);
 		let day = ("00" + date.getDate().toString()).slice(-2);
