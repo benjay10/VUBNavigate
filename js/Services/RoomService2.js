@@ -15,12 +15,12 @@ function RoomService2(databaseService) {
 	};
 
 	this.getRoom = function (roomId) {
-		return databaseService.getRoom(roomId).then(this.parseRoom);
+		return databaseService.getRoom(roomId).then(me.parseRoom);
 	};
 
 	this.getRoomsInBuildingFloor = function (building, floor) {
 		//return databaseService.getRoomsInBuildingFloor(building, floor);
-		return databaseService.getRoomsInBuildingFloor(building, floor).then(this.parseRooms);
+		return databaseService.getRoomsInBuildingFloor(building, floor).then(me.parseRooms);
 	};
 
 	this.getBuilding = function (buildingName) {

@@ -57,11 +57,11 @@
 	"building_level":{
 		"5F":{
 			"floor":5,
-      "rotule":[5]
+			"rotule":[5]
 		},
 		"10F":{
 			"floor":10,
-      "rotule":[4,5]
+			"rotule":[4,5]
 		},
 	}
 }

@@ -3,7 +3,7 @@ var Graph = (function (undefined) {
 	var extractKeys = function (obj) {
 		var keys = [], key;
 		for (key in obj) {
-		    Object.prototype.hasOwnProperty.call(obj,key) && keys.push(key);
+			Object.prototype.hasOwnProperty.call(obj,key) && keys.push(key);
 		}
 		return keys;
 	}
@@ -16,9 +16,9 @@ var Graph = (function (undefined) {
 		infinity = infinity || Infinity;
 
 		var costs = {},
-		    open = {'0': [start]},
-		    predecessors = {},
-		    keys;
+			open = {'0': [start]},
+			predecessors = {},
+			keys;
 
 		var addToOpen = function (cost, vertex) {
 			var key = "" + cost;
@@ -34,19 +34,19 @@ var Graph = (function (undefined) {
 			keys.sort(sorter);
 
 			var key = keys[0],
-			    bucket = open[key],
-			    node = bucket.shift(),
-			    currentCost = parseFloat(key),
-			    adjacentNodes = map[node] || {};
+				bucket = open[key],
+				node = bucket.shift(),
+				currentCost = parseFloat(key),
+				adjacentNodes = map[node] || {};
 
 			if (!bucket.length) delete open[key];
 
 			for (var vertex in adjacentNodes) {
-			    if (Object.prototype.hasOwnProperty.call(adjacentNodes, vertex)) {
+				if (Object.prototype.hasOwnProperty.call(adjacentNodes, vertex)) {
 					var neighbour = adjacentNodes[vertex]
 						cost = neighbour.cost,
-					    totalCost = cost + currentCost,
-					    vertexCost = costs[vertex];
+						totalCost = cost + currentCost,
+						vertexCost = costs[vertex];
 
 					if ((vertexCost === undefined) || (vertexCost > totalCost)) {
 						costs[vertex] = totalCost;
@@ -67,7 +67,7 @@ var Graph = (function (undefined) {
 
 	var extractShortest = function (predecessors, end) {
 		var nodes = [],
-		    u = end;
+			u = end;
 
 		while (u !== undefined) {
 			nodes.push(u);
@@ -80,10 +80,10 @@ var Graph = (function (undefined) {
 
 	var findShortestPath = function (map, nodes) {
 		var start = nodes.shift(),
-		    end,
-		    predecessors,
-		    path = [],
-		    shortest;
+			end,
+			predecessors,
+			path = [],
+			shortest;
 
 		while (nodes.length) {
 			end = nodes.shift();

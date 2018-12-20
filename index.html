@@ -24,9 +24,9 @@
 		<link rel="stylesheet" href="./css/about.css" />
 		<!--Scripts-->
 		<script src="./js/MDL/material.min.js" async="async"></script>
-		<script src="./js/Quiet/Quiet.js" async="async"></script>
+		<script src="./js/Quiet/Quiet.min.js" async="async"></script>
 		<script src="./js/Quiet/Quiet-emscripten.js" async="async"></script>
-		<script src="./js/lib/dialog-polyfill.js" async="async"></script>
+		<script src="./js/lib/dialog-polyfill.min.js" async="async"></script>
 		<script src="./js/lib/Eventer.js" async="async"></script>
 		<script src="./js/lib/Animator.js" async="async"></script>
 		<script src="./js/lib/PageNavigation.js" async="asyns"></script>
@@ -90,7 +90,7 @@
 					<a class="mdl-navigation__link vubn-navigate-link" href="#about"><i class="material-icons">feedback</i> About</a>
 				</nav>
 				<div class="mdl-grid">
-					<div class="mdl-cell mdl-cell--12-col vubn-navigate-sidebar-card-container">
+					<div id="vubn-navigate-sidebar-card-container" class="mdl-cell mdl-cell--12-col vubn-navigate-sidebar-card-container hidden">
 						<div class="mdl-card mdl-shadow--2dp vubn-navigate-sidebar-card">
 							<div class="mdl-card__title">
 								<h2 class="mdl-card__title-text">Navigating&hellip;</h2>
@@ -107,11 +107,6 @@
 								<button class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-button--colored mdl-js-ripple-effect vubn-navigate-stop">
 									<i class="material-icons">close</i>
 								</button>
-								<!--
-								<button class="mdl-button mdl-js-button mdl-button--icon mdl-button--accented">
-									<i class="material-icons">cancel</i>
-								</button>
-								-->
 							</div>
 						</div>
 					</div>
@@ -395,7 +390,7 @@
 						</div>
 						<div class="mdl-grid">
 							<div class="mdl-cell mdl-cell--6-col mdl-cell--4-col-tablet mdl-cell--2-col-phone vubn-navigate-header-icons">
-								<i class="material-icons">my_location</i> <span class="vubn-navigate-mylocation">My location</span>
+								<i class="material-icons">my_location</i> <span class="vubn-navigate-mylocation">Searching&hellip;</span>
 							</div>
 							<div class="mdl-cell mdl-cell--6-col mdl-cell--4-col-tablet mdl-cell--2-col-phone text-right vubn-navigate-header-icons">
 								<i class="material-icons">navigation</i> <span class="vubn-navigate-destination">Destination</span>
@@ -404,7 +399,14 @@
 								<div class="mdl-spinner mdl-js-spinner is-active"></div>
 							</div>
 							<div id="vubn-navigate-steps" class="mdl-cell mdl-cell--12-col">
-								
+								<ul id="vubn-navigate-steps-container" class="mdl-list">
+									<li id="vubn-navigate-step-template" class="mdl-list__item">
+										<span class="mdl-list__item-primary-content">
+											<i class="material-icons mdl-list__item-icon">directions_walk</i>
+											<span class="vubn-navigate-direction-text">Do this</span>
+										</span>
+									</li>
+								</ul>
 							</div>
 							<div class="mdl-cell mdl-cell--12-col">
 								<button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent vubn-button-30-center vubn-navigate-stop-fixed vubn-navigate-stop">

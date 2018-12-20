@@ -2,135 +2,177 @@
 
 function DirectionsView(isTouch, roomService, navigateView, pathFindingService, locationService) {
 
-  // Fields and definitions
+	// Fields and definitions
 
-  let me = this;
+	let me = this;
 
-  this.classDefinitions = {
-    startNavigationButtons: "vubn-navigate-start",
-    stopNavigationButtons: "vubn-navigate-stop",
-    myLocationTexts: "vubn-navigate-mylocation",
-    destinationTexts: "vubn-navigate-destination"
-  };
+	this.classDefinitions = {
+		hidden: "hidden",
+		startNavigationButtons: "vubn-navigate-start",
+		stopNavigationButtons: "vubn-navigate-stop",
+		myLocationTexts: "vubn-navigate-mylocation",
+		destinationTexts: "vubn-navigate-destination",
+		directionText: "vubn-navigate-direction-text"
+	};
 
-  this.idDefinitions = {
-    stopNavigationDialog: "vubn-navigate-stopnavigation-dialog",
-    stopNavigationConfirm: "vubn-navigate-stopnavigation-dialog-stop",
-    stopNavigationDeny: "vubn-navigate-stopnavigation-dialog-continue",
-    navigationSteps: "vubn-navigate-steps",
-    navigationSpinner: "vubn-navigate-spinner"
-  };
+	this.idDefinitions = {
+		stopNavigationDialog: "vubn-navigate-stopnavigation-dialog",
+		stopNavigationConfirm: "vubn-navigate-stopnavigation-dialog-stop",
+		stopNavigationDeny: "vubn-navigate-stopnavigation-dialog-continue",
+		navigationSpinner: "vubn-navigate-spinner",
+		sideBarCard: "vubn-navigate-sidebar-card-container",
+		stepsContainer: "vubn-navigate-steps-container",
+		stepTemplate: "vubn-navigate-step-template",
+	};
 
-  this.clickEvent = (isTouch ? "touchend" : "click");
+	this.clickEvent = (isTouch ? "touchend" : "click");
 
-  // Dom Object
+	// Dom Object
 
-  this.startNavigationButtons = null;
-  this.stopNavigationButtons = null;
-  this.myLocationTexts = null;
-  this.destinationTexts = null;
-  this.stopNavigationDialog = null;
-  this.stopNavigationConfirmButton = null;
-  this.stopNavigationDenyButton = null;
-  this.navigationStepsText = null;
-  this.navigationSpinner = null;
+	this.startNavigationButtons = null;
+	this.stopNavigationButtons = null;
+	this.myLocationTexts = null;
+	this.destinationTexts = null;
+	this.stopNavigationDialog = null;
+	this.stopNavigationConfirmButton = null;
+	this.stopNavigationDenyButton = null;
+	this.navigationStepsText = null;
+	this.navigationSpinner = null;
+	this.sideBarCard = null;
+	this.stepTemplate = null;
+	this.stepsContainer = null;
 
-  // Methods
+	// Methods
 
-  this.onStartNavigation = function(event) {
-    event.stopPropagation();
-    let roomId = navigateView.selectedRoomId;
+	this.onStartNavigation = function(event) {
+		event.stopPropagation();
+		let roomId = navigateView.selectedRoomId;
 
-    return roomService.getRoom(roomId).then((room) => {
-        // Set the destination fields
-        me.destinationTexts.forEach((element, index) => {
-          element.innerHTML = room.legalName;
-        });
-        return room;
-      })
-      .then((room) => {
+		return new Promise((resolve, reject) => {
+			me.showSpinner();
+			resolve(roomId);
+		}).then(roomService.getRoom).then((room) => {
+			// Set the destination fields
+			me.destinationTexts.forEach((element, index) => {
+				element.innerHTML = room.legalName;
+			});
+			// Show card in the side bar
+			me.showSideBarCard();
+			return room;
+		}).then((room) => {
+			return new Promise((resolve, reject) => {
+				locationService.getLocation().then((location) => { resolve({"location": parseInt(location), "room": room}); });
+			});
+		}).then((args) => {
+			// Set the found current location in the fields
+			roomService.getRoom(args.location).then((currentRoom) => {
+				me.myLocationTexts.forEach((domObj, index) => {
+					domObj.innerHTML = currentRoom.legalName;
+				});
+			});
+			return pathFindingService.findPath(args.location, args.room.id);
+		}).then((segments) => {
+			let adders = [];
+			//segments.forEach(me.addStep);
+			segments.forEach((s, index) => { adders.push(me.addStep(s)); });
+			return Promise.all(adders);
+		}).then((x) => {
+			me.hideSpinner();
+		})
+		.catch(console.error);
+	};
 
-        locationService.getLocation()
-          .then((location) => {
-          	var steps = pathFindingService.findPath(parseInt(location), room.id).then((segments) => {
+	this.onStopNavigationRequest = function(event) {
+		event.stopPropagation();
+		// Open the dialog for a request to the user
+		me.stopNavigationDialog.showModal();
+	};
 
-              var html = "<ol class='demo-list-item mdl-list'>";
-              segments.forEach((sgmnt) => {
-              	html += "<li class='mdl-list__item'><span class='mdl-list__item-primary-content'>"+sgmnt+"</span></li>";
-              });
-              html += "</ol>";
-              me.navigationSpinner.classList.add("hidden");
-              me.navigationStepsText.innerHTML = html;
-              console.log(segments);
-            });
-          });
+	this.onStopNavigationDenied = function(event) {
+		event.stopPropagation();
+		// Just close the dialog -> do nothing special
+		me.stopNavigationDialog.close();
+	};
 
-      })
-      .catch(console.error);
-  };
+	this.onStopNavigation = function(event) {
+		// The navigation really has to stop now
+		event.stopPropagation();
+		// Also hide the card in the side bar
+		me.hideSideBarCard();
+		me.stopNavigationDialog.close();
+	};
 
-  this.onStopNavigationRequest = function(event) {
-    event.stopPropagation();
-    // Open the dialog for a request to the user
-    me.stopNavigationDialog.showModal();
-  };
+	// Helpers
+	
+	this.addStep = function (text) {
+		return me.stepTemplate.getObject().then((domObj) => {
+			let textWrapper = domObj.getElementsByClassName(me.classDefinitions.directionText)[0];
+			textWrapper.innerHTML = text;
+			me.stepsContainer.appendChild(domObj);
+		});
+	};
+	
+	this.showSideBarCard = function () {
+		me.sideBarCard.classList.remove(me.classDefinitions.hidden);
+	};
+	this.hideSideBarCard = function () {
+		me.sideBarCard.classList.add(me.classDefinitions.hidden);
+	};
 
-  this.onStopNavigationDenied = function(event) {
-    event.stopPropagation();
-    // Just close the dialog -> do nothing special
-    me.stopNavigationDialog.close();
-  };
+	this.showSpinner = function () {
+		me.navigationSpinner.classList.remove(me.classDefinitions.hidden);
+	};
+	this.hideSpinner = function () {
+		me.navigationSpinner.classList.add(me.classDefinitions.hidden);
+	};
 
-  this.onStopNavigation = function(event) {
-    // The navigation really has to stop now
-    event.stopPropagation();
-    console.log("Navigation will stop");
-    me.stopNavigationDialog.close();
-  };
+	// Init
 
-  // Init
+	this.init = function() {
+		return new Promise((resolve, reject) => {
 
-  this.init = function() {
-    return new Promise((resolve, reject) => {
+			// Search
 
-      // Search
+			this.stopNavigationButtons = document.getElementsByClassName(this.classDefinitions.stopNavigationButtons);
+			this.stopNavigationButtons = [].slice.call(this.stopNavigationButtons);
+			this.startNavigationButtons = document.getElementsByClassName(this.classDefinitions.startNavigationButtons);
+			this.startNavigationButtons = [].slice.call(this.startNavigationButtons);
+			this.myLocationTexts = document.getElementsByClassName(this.classDefinitions.myLocationTexts);
+			this.myLocationTexts = [].slice.call(this.myLocationTexts);
+			this.destinationTexts = document.getElementsByClassName(this.classDefinitions.destinationTexts);
+			this.destinationTexts = [].slice.call(this.destinationTexts);
+			this.stopNavigationDialog = document.getElementById(this.idDefinitions.stopNavigationDialog);
+			this.stopNavigationConfirmButton = document.getElementById(this.idDefinitions.stopNavigationConfirm);
+			this.stopNavigationDenyButton = document.getElementById(this.idDefinitions.stopNavigationDeny);
+			this.stopNavigationDenyButton = document.getElementById(this.idDefinitions.stopNavigationDeny);
+			this.navigationSpinner = document.getElementById(this.idDefinitions.navigationSpinner);
+			this.sideBarCard = document.getElementById(this.idDefinitions.sideBarCard);
+			this.stepsContainer = document.getElementById(this.idDefinitions.stepsContainer);
 
-      this.stopNavigationButtons = document.getElementsByClassName(this.classDefinitions.stopNavigationButtons);
-      this.stopNavigationButtons = [].slice.call(this.stopNavigationButtons);
-      this.startNavigationButtons = document.getElementsByClassName(this.classDefinitions.startNavigationButtons);
-      this.startNavigationButtons = [].slice.call(this.startNavigationButtons);
-      this.myLocationTexts = document.getElementsByClassName(this.classDefinitions.myLocationTexts);
-      this.myLocationTexts = [].slice.call(this.myLocationTexts);
-      this.destinationTexts = document.getElementsByClassName(this.classDefinitions.destinationTexts);
-      this.destinationTexts = [].slice.call(this.destinationTexts);
-      this.stopNavigationDialog = document.getElementById(this.idDefinitions.stopNavigationDialog);
-      this.stopNavigationConfirmButton = document.getElementById(this.idDefinitions.stopNavigationConfirm);
-      this.stopNavigationDenyButton = document.getElementById(this.idDefinitions.stopNavigationDeny);
-      this.stopNavigationDenyButton = document.getElementById(this.idDefinitions.stopNavigationDeny);
-      this.navigationStepsText = document.getElementById(this.idDefinitions.navigationSteps);
-      this.navigationSpinner = document.getElementById(this.idDefinitions.navigationSpinner);
+			// On some browsers, the dialog element is not supported. This polyfill provides a replacement.
+			if (!this.stopNavigationDialog.showModal) {
+				console.log("This browser has no native support for dialogs. We are using a polyfill to replace that functionality.")
+				dialogPolyfill.registerDialog(this.stopNavigationDialog);
+			}
 
-      // On some browsers, the dialog element is not supported. This polyfill provides a replacement.
-      if (!this.stopNavigationDialog.showModal) {
-        console.log("This browser has no native support for dialogs. We are using a polyfill to replace that functionality.")
-        console.log(dialogPolyfill);
-        dialogPolyfill.registerDialog(this.stopNavigationDialog);
-      }
+			// Add listeners
 
-      // Add listeners
+			this.stopNavigationButtons.forEach((button, index) => {
+				button.addEventListener(this.clickEvent, this.onStopNavigationRequest);
+			});
 
-      this.stopNavigationButtons.forEach((button, index) => {
-        button.addEventListener(this.clickEvent, this.onStopNavigationRequest);
-      });
+			this.startNavigationButtons.forEach((button, index) => {
+				button.addEventListener(this.clickEvent, this.onStartNavigation);
+			});
 
-      this.startNavigationButtons.forEach((button, index) => {
-        button.addEventListener(this.clickEvent, this.onStartNavigation);
-      });
+			this.stopNavigationDenyButton.addEventListener(this.clickEvent, this.onStopNavigationDenied);
+			this.stopNavigationConfirmButton.addEventListener(this.clickEvent, this.onStopNavigation);
 
-      this.stopNavigationDenyButton.addEventListener(this.clickEvent, this.onStopNavigationDenied);
-      this.stopNavigationConfirmButton.addEventListener(this.clickEvent, this.onStopNavigation);
+			// Make the templates
+			
+			this.stepTemplate = new Templator(this.idDefinitions.stepTemplate);
 
-      resolve();
-    });
-  };
+			resolve();
+		});
+	};
 }
