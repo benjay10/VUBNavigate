@@ -41,7 +41,7 @@ function DatabaseService(retreiveService) {
 			let predicate = (room) => {
 				return (
 					((room.legalName && room.legalName.toLowerCase().includes(searchString)) ||
-					(room.uniformName && room.uniformName.toLowerCase().includes(searchString))) //&&  // Uncomment the following for a more natural search
+					(room.uniformName && room.uniformName.toLowerCase().includes(searchString))) //&& // Uncomment the following for a more natural search
 					//(room.type && (room.type.includes("classroom") ||
 					//			   room.type.includes("office") ||
 					//			   room.type.includes("study room") ||

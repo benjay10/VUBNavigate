@@ -25,8 +25,8 @@ function PathFindingService(roomService) {
 
 			var route = this.getRoute(from, to);
 			routeSegments.push(route)
-		    
-		    from = to;
+
+			from = to;
 		}
 
 		return Promise.all(promises).then(function(rooms) {
@@ -37,34 +37,34 @@ function PathFindingService(roomService) {
 
 				if(rooms[index].id != from) {
 				switch(route.type) {
-				  case "corridor":
-				    text = "Walk through the corridor ";
-				    break;
-				  case "lift":
-				    text = "Take the elevator";
-				    break;
-				  default:
-				    text = "";
+					case "corridor":
+						text = "Walk through the corridor ";
+						break;
+					case "lift":
+						text = "Take the elevator";
+						break;
+					default:
+						text = "";
 				}
 
 				switch(rooms[index].type) {
-				  case "office":
-				    text += "passing office "+rooms[index].legalName;
-				    break;
-				  case "lift":
-				    text += rooms[index].legalName;
-				    break;
-				  case "landing":
-				    text += rooms[index].legalName;
-				    break;
-				  case "classroom":
-				    text += "passing classroom "+rooms[index].legalName;
-				    break;
-				  case "maintenance":
-				    text += "passing maintenance room "+rooms[index].legalName;
-				    break;
-				  default:
-				    text += rooms[index].type;
+					case "office":
+						text += "passing office "+rooms[index].legalName;
+						break;
+					case "lift":
+						text += rooms[index].legalName;
+						break;
+					case "landing":
+						text += rooms[index].legalName;
+						break;
+					case "classroom":
+						text += "passing classroom "+rooms[index].legalName;
+						break;
+					case "maintenance":
+						text += "passing maintenance room "+rooms[index].legalName;
+						break;
+					default:
+						text += rooms[index].type;
 				}
 
 				if(rooms[index].outsideAvailable.length > 0) {
@@ -73,23 +73,23 @@ function PathFindingService(roomService) {
 				} else {
 					text += "You will now arrive at your destination, ";
 					switch(rooms[index].type) {
-					  case "office":
-					    text += "office "+rooms[index].legalName;
-					    break;
-					  case "lift":
-					    text += rooms[index].legalName;
-					    break;
-					  case "landing":
-					    text += rooms[index].legalName;
-					    break;
-					  case "classroom":
-					    text += "classroom "+rooms[index].legalName;
-					    break;
-					  case "maintenance":
-					    text += "maintenance room "+rooms[index].legalName;
-					    break;
-					  default:
-					    text += rooms[index].type;
+						case "office":
+							text += "office "+rooms[index].legalName;
+							break;
+						case "lift":
+							text += rooms[index].legalName;
+							break;
+						case "landing":
+							text += rooms[index].legalName;
+							break;
+						case "classroom":
+							text += "classroom "+rooms[index].legalName;
+							break;
+						case "maintenance":
+							text += "maintenance room "+rooms[index].legalName;
+							break;
+						default:
+							text += rooms[index].type;
 					}
 				}
 				texts.push(text);
@@ -115,10 +115,10 @@ function PathFindingService(roomService) {
 				let type = edge.type;
 				let info = edge.info;
 
-			    if (!(edge.from in map)) 
-			    	map[edge.from] = {};
+					if (!(edge.from in map)) 
+						map[edge.from] = {};
 
-			    map[from][to] = {cost: weight, type:type, info:info};
+					map[from][to] = {cost: weight, type:type, info:info};
 			});
 
 			me.graph = new Graph(map);

@@ -1,10 +1,10 @@
 /* Material icons */
 
 @font-face {
-  font-family: 'Material Icons';
-  font-style: normal;
-  font-weight: 400;
-  src: url("../font/MaterialIcons.woff2") format('woff2');
+	font-family: 'Material Icons';
+	font-style: normal;
+	font-weight: 400;
+	src: url("../font/MaterialIcons.woff2") format('woff2');
 }
 
 /* Roboto */
