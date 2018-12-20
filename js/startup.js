@@ -13,7 +13,8 @@ var vubn = {
 		database: null,
 		pathfinding: null,
 		calendar: null,
-		settings: null
+		settings: null,
+		speech: null
 	},
 	environment: 0,
 	drawerToggler: null,
@@ -48,7 +49,7 @@ window.addEventListener("load", (event) => {
 
 		// Initialisation of other, dependent services (better way of doing this?)
 
-		vubn.services.rooms = new RoomService2(dbService);
+		vubn.services.rooms = new RoomService(dbService);
 		vubn.services.rooms.init();
 
 		vubn.services.pathfinding = new PathFindingService(vubn.services.rooms);
@@ -63,6 +64,9 @@ window.addEventListener("load", (event) => {
 		vubn.services.settings = new SettingsService(dbService, vubn.services.calendar);
 		vubn.services.settings.init();
 
+		vubn.services.speech = new SpeechService(dbService);
+		vubn.services.speech.init();
+		
 		return vubn;
 
 	}).then((notImportant) => {
@@ -88,7 +92,7 @@ window.addEventListener("load", (event) => {
 		vubn.navigateView = new NavigateView(isTouch, vubn.services.rooms, vubn.services.calendar);
 		vubn.navigateView.init();
 
-		vubn.directionsView = new DirectionsView(isTouch, vubn.services.rooms, vubn.navigateView, vubn.services.pathfinding, vubn.services.location);
+		vubn.directionsView = new DirectionsView(isTouch, vubn.services.rooms, vubn.navigateView, vubn.services.pathfinding, vubn.services.location, vubn.services.speech);
 		vubn.directionsView.init();
 
 		vubn.settingsView = new SettingsView(isTouch, vubn.services.settings);

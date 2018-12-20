@@ -1,6 +1,6 @@
 "use strict";
 
-function RoomService2(databaseService) {
+function RoomService(databaseService) {
 
 	// Fields
 	
@@ -118,10 +118,9 @@ function RoomService2(databaseService) {
 	// Init
 	
 	this.init = function () {
-		return; //Nothing to do, so skipping this function
-		return new Promise((resolve, reject) => {
+		//return new Promise((resolve, reject) => {
 
-		});
+		//});
 	};
 }
 

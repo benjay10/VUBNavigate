@@ -1,6 +1,6 @@
 "use strict";
 
-function DirectionsView(isTouch, roomService, navigateView, pathFindingService, locationService) {
+function DirectionsView(isTouch, roomService, navigateView, pathFindingService, locationService, speechService) {
 
 	// Fields and definitions
 
@@ -65,39 +65,6 @@ function DirectionsView(isTouch, roomService, navigateView, pathFindingService, 
 			locationService.startLocation();
 			locationService.onLocationFoundEventer.addEvent(me.onLocationFound);
 		});
-
-		//return new Promise((resolve, reject) => {
-		//	me.showSpinner();
-		//	resolve(roomId);
-		//}).then(roomService.getRoom).then((room) => {
-		//	// Set the destination fields
-		//	me.destinationTexts.forEach((element, index) => {
-		//		element.innerHTML = room.legalName;
-		//	});
-		//	// Show card in the side bar
-		//	me.showSideBarCard();
-		//	return room;
-		//}).then((room) => {
-		//	return new Promise((resolve, reject) => {
-		//		locationService.getLocation().then((location) => { resolve({"location": parseInt(location), "room": room}); });
-		//	});
-		//}).then((args) => {
-		//	// Set the found current location in the fields
-		//	roomService.getRoom(args.location).then((currentRoom) => {
-		//		me.myLocationTexts.forEach((domObj, index) => {
-		//			domObj.innerHTML = currentRoom.legalName;
-		//		});
-		//	});
-		//	return pathFindingService.findPath(args.location, args.room.id);
-		//}).then((segments) => {
-		//	let adders = [];
-		//	//segments.forEach(me.addStep);
-		//	segments.forEach((s, index) => { adders.push(me.addStep(s)); });
-		//	return Promise.all(adders);
-		//}).then((x) => {
-		//	me.hideSpinner();
-		//})
-		//.catch(console.error);
 	};
 
 	this.onLocationFound = function (locationId) {
@@ -109,22 +76,25 @@ function DirectionsView(isTouch, roomService, navigateView, pathFindingService, 
 		if (me.currentLocationId !== locationId) {
 			
 			me.currentLocationId = locationId;
+			let speaker = null;
 
-			// Set the found current location in the fields
-			roomService.getRoom(locationId).then((currentRoom) => {
+			roomService.getRoom(locationId).then((curRoom) => {
+				// Speak the current location
+				speaker = speechService.speakCurrentLocation(curRoom);
+				
+				// Set the found current location in the fields
 				me.myLocationTexts.forEach((domObj, index) => {
-					domObj.innerHTML = currentRoom.legalName;
+					domObj.innerHTML = curRoom.legalName;
 				});
-			}).catch(console.error);
-			
-			return new Promise((resolve, reject) => {
+			}).then(() => {
 				me.showSpinner();
 				me.removeSteps();
-				resolve();
-			}).then(() => { return pathFindingService.findPath(locationId, me.selectedRoomId); })
-			.then((segments) => {
+			}).then(() => { return pathFindingService.findPath(locationId, me.selectedRoomId); }).then((segments) => {
 				let adders = [];
-				segments.forEach((s, index) => { adders.push(me.addStep(s)); });
+				if (segments.length > 0) {
+					segments.forEach((s, index) => { adders.push(me.addStep(s)); });
+					speaker.then(() => { speechService.speakStep(segments[0]); });
+				}
 				return Promise.all(adders);
 			}).then((x) => {
 				me.hideSpinner();
