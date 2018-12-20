@@ -107,11 +107,6 @@
 								<button class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-button--colored mdl-js-ripple-effect vubn-navigate-stop">
 									<i class="material-icons">close</i>
 								</button>
-								<!--
-								<button class="mdl-button mdl-js-button mdl-button--icon mdl-button--accented">
-									<i class="material-icons">cancel</i>
-								</button>
-								-->
 							</div>
 						</div>
 					</div>
@@ -395,7 +390,7 @@
 						</div>
 						<div class="mdl-grid">
 							<div class="mdl-cell mdl-cell--6-col mdl-cell--4-col-tablet mdl-cell--2-col-phone vubn-navigate-header-icons">
-								<i class="material-icons">my_location</i> <span class="vubn-navigate-mylocation">My location</span>
+								<i class="material-icons">my_location</i> <span class="vubn-navigate-mylocation">Searching&hellip;</span>
 							</div>
 							<div class="mdl-cell mdl-cell--6-col mdl-cell--4-col-tablet mdl-cell--2-col-phone text-right vubn-navigate-header-icons">
 								<i class="material-icons">navigation</i> <span class="vubn-navigate-destination">Destination</span>
@@ -404,7 +399,14 @@
 								<div class="mdl-spinner mdl-js-spinner is-active"></div>
 							</div>
 							<div id="vubn-navigate-steps" class="mdl-cell mdl-cell--12-col">
-								
+								<ul id="vubn-navigate-steps-container" class="mdl-list">
+									<li id="vubn-navigate-step-template" class="mdl-list__item">
+										<span class="mdl-list__item-primary-content">
+											<i class="material-icons mdl-list__item-icon">directions_walk</i>
+											<span class="vubn-navigate-direction-text">Do this</span>
+										</span>
+									</li>
+								</ul>
 							</div>
 							<div class="mdl-cell mdl-cell--12-col">
 								<button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent vubn-button-30-center vubn-navigate-stop-fixed vubn-navigate-stop">

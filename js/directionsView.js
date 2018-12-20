@@ -11,16 +11,18 @@ function DirectionsView(isTouch, roomService, navigateView, pathFindingService, 
 		startNavigationButtons: "vubn-navigate-start",
 		stopNavigationButtons: "vubn-navigate-stop",
 		myLocationTexts: "vubn-navigate-mylocation",
-		destinationTexts: "vubn-navigate-destination"
+		destinationTexts: "vubn-navigate-destination",
+		directionText: "vubn-navigate-direction-text"
 	};
 
 	this.idDefinitions = {
 		stopNavigationDialog: "vubn-navigate-stopnavigation-dialog",
 		stopNavigationConfirm: "vubn-navigate-stopnavigation-dialog-stop",
 		stopNavigationDeny: "vubn-navigate-stopnavigation-dialog-continue",
-		navigationSteps: "vubn-navigate-steps",
 		navigationSpinner: "vubn-navigate-spinner",
-		sideBarCard: "vubn-navigate-sidebar-card-container"
+		sideBarCard: "vubn-navigate-sidebar-card-container",
+		stepsContainer: "vubn-navigate-steps-container",
+		stepTemplate: "vubn-navigate-step-template",
 	};
 
 	this.clickEvent = (isTouch ? "touchend" : "click");
@@ -37,6 +39,8 @@ function DirectionsView(isTouch, roomService, navigateView, pathFindingService, 
 	this.navigationStepsText = null;
 	this.navigationSpinner = null;
 	this.sideBarCard = null;
+	this.stepTemplate = null;
+	this.stepsContainer = null;
 
 	// Methods
 
@@ -55,19 +59,23 @@ function DirectionsView(isTouch, roomService, navigateView, pathFindingService, 
 			// Show card in the side bar
 			me.showSideBarCard();
 			return room;
-		}).then((x) => {
-			return locationService.getLocation();
-		}).then((location) => {
-			return pathFindingService.findPath(parseInt(location), room.id);
-		}).then((segments) => {
-			// TODO: use templates
-			let html = "<ol class='demo-list-item mdl-list'>";
-			segments.forEach((sgmnt) => {
-				html += "<li class='mdl-list__item'><span class='mdl-list__item-primary-content'>" + sgmnt + "</span></li>";
+		}).then((room) => {
+			return new Promise((resolve, reject) => {
+				locationService.getLocation().then((location) => { resolve({"location": parseInt(location), "room": room}); });
 			});
-			html += "</ol>";
-			me.navigationStepsText.innerHTML = html;
-			return null;
+		}).then((args) => {
+			// Set the found current location in the fields
+			roomService.getRoom(args.location).then((currentRoom) => {
+				me.myLocationTexts.forEach((domObj, index) => {
+					domObj.innerHTML = currentRoom.legalName;
+				});
+			});
+			return pathFindingService.findPath(args.location, args.room.id);
+		}).then((segments) => {
+			let adders = [];
+			//segments.forEach(me.addStep);
+			segments.forEach((s, index) => { adders.push(me.addStep(s)); });
+			return Promise.all(adders);
 		}).then((x) => {
 			me.hideSpinner();
 		})
@@ -89,13 +97,20 @@ function DirectionsView(isTouch, roomService, navigateView, pathFindingService, 
 	this.onStopNavigation = function(event) {
 		// The navigation really has to stop now
 		event.stopPropagation();
-		console.log("Navigation will stop");
 		// Also hide the card in the side bar
 		me.hideSideBarCard();
 		me.stopNavigationDialog.close();
 	};
 
 	// Helpers
+	
+	this.addStep = function (text) {
+		return me.stepTemplate.getObject().then((domObj) => {
+			let textWrapper = domObj.getElementsByClassName(me.classDefinitions.directionText)[0];
+			textWrapper.innerHTML = text;
+			me.stepsContainer.appendChild(domObj);
+		});
+	};
 	
 	this.showSideBarCard = function () {
 		me.sideBarCard.classList.remove(me.classDefinitions.hidden);
@@ -130,9 +145,9 @@ function DirectionsView(isTouch, roomService, navigateView, pathFindingService, 
 			this.stopNavigationConfirmButton = document.getElementById(this.idDefinitions.stopNavigationConfirm);
 			this.stopNavigationDenyButton = document.getElementById(this.idDefinitions.stopNavigationDeny);
 			this.stopNavigationDenyButton = document.getElementById(this.idDefinitions.stopNavigationDeny);
-			this.navigationStepsText = document.getElementById(this.idDefinitions.navigationSteps);
 			this.navigationSpinner = document.getElementById(this.idDefinitions.navigationSpinner);
 			this.sideBarCard = document.getElementById(this.idDefinitions.sideBarCard);
+			this.stepsContainer = document.getElementById(this.idDefinitions.stepsContainer);
 
 			// On some browsers, the dialog element is not supported. This polyfill provides a replacement.
 			if (!this.stopNavigationDialog.showModal) {
@@ -152,6 +167,10 @@ function DirectionsView(isTouch, roomService, navigateView, pathFindingService, 
 
 			this.stopNavigationDenyButton.addEventListener(this.clickEvent, this.onStopNavigationDenied);
 			this.stopNavigationConfirmButton.addEventListener(this.clickEvent, this.onStopNavigation);
+
+			// Make the templates
+			
+			this.stepTemplate = new Templator(this.idDefinitions.stepTemplate);
 
 			resolve();
 		});

@@ -160,3 +160,11 @@
 .vubn-navigate-mylocation, .vubn-navigate-destination {
 	font-weight: bold;
 }
+
+/******************************************************************************
+ *  Directions
+ *****************************************************************************/
+
+.vubn-navigate-direction-text {
+		line-height: 150%;
+}
