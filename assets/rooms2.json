@@ -108,7 +108,7 @@
 			"type": "maintenance",
 			"info": "",
 			"outsideAvailable": [],
-			"wind_dir": "W"
+			"wind_dir": "N"
 		},
 		{
 			"id": 11,
@@ -152,7 +152,7 @@
 			"type": "maintenance",
 			"info": "",
 			"outsideAvailable": [],
-			"wind_dir": "W"
+			"wind_dir": "Z"
 		},
 		{
 			"id": 15,
