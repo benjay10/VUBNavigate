@@ -51,7 +51,7 @@ function LocationService() {
 				};
 
 				function onQuietFail(reason) {
-					console.log("quiet failed to initialize: " + reason);
+					console.log("Quiet failed to initialize: " + reason);
 				};
 				Quiet.addReadyCallback(onQuietReady, onQuietFail);
 			})();
@@ -69,5 +69,5 @@ function LocationService() {
 		//});
 		return;
 	};
-
 }
+
