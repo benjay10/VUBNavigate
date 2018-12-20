@@ -33,7 +33,9 @@
 		{
 			"name": "F",	// :: String
 			"minFloor": -1,	// :: Integer
-			"maxFloor": 10	// :: Integer
+			"maxFloor": 10,	// :: Integer
+			"type": "normal""rotule",	// :: String
+			"connectedBuildings": [ "E", "F" ]	// :: [String] (internal foreign keys)
 		},
 		...
 	]

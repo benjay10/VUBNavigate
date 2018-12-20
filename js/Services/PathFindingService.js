@@ -95,17 +95,17 @@ function PathFindingService(roomService, locationService) {
 			routeSegments.forEach(function(route, index) {
 				var text = "";
 
-				if (rooms[index].id != from) {
-					switch (route.type) {
-						case "corridor":
-							text = "Walk through the corridor ";
-							break;
-						case "lift":
-							text = "Take the elevator";
-							break;
-						default:
-							text = "";
-					}
+			if(rooms[index].id != from) {
+				switch(route.type) {
+					case "corridor":
+						text = "Walk through the corridor ";
+						break;
+					case "lift":
+						text = "Take the elevator";
+						break;
+					default:
+						text = "";
+				}
 
 					switch (rooms[index].type) {
 						case "office":
@@ -215,6 +215,5 @@ function PathFindingService(roomService, locationService) {
 		});
 	};
 }
-
 
 // {23: {22:1, 21: 2, 24:3}, 30: {} }

@@ -1,6 +1,6 @@
 "use strict";
 
-function DirectionsView(isTouch, roomService, navigateView, pathFindingService, locationService) {
+function DirectionsView(isTouch, roomService, navigateView, pathFindingService, locationService, speechService) {
 
 	// Fields and definitions
 
@@ -26,6 +26,8 @@ function DirectionsView(isTouch, roomService, navigateView, pathFindingService, 
 	};
 
 	this.clickEvent = (isTouch ? "touchend" : "click");
+	this.selectedRoomId = null;
+	this.currentLocationId = null;
 
 	// Dom Object
 
@@ -46,11 +48,11 @@ function DirectionsView(isTouch, roomService, navigateView, pathFindingService, 
 
 	this.onStartNavigation = function(event) {
 		event.stopPropagation();
-		let roomId = navigateView.selectedRoomId;
+		me.selectedRoomId = navigateView.selectedRoomId;
 
 		return new Promise((resolve, reject) => {
 			me.showSpinner();
-			resolve(roomId);
+			resolve(me.selectedRoomId);
 		}).then(roomService.getRoom).then((room) => {
 			// Set the destination fields
 			me.destinationTexts.forEach((element, index) => {
@@ -60,26 +62,46 @@ function DirectionsView(isTouch, roomService, navigateView, pathFindingService, 
 			me.showSideBarCard();
 			return room;
 		}).then((room) => {
-			return new Promise((resolve, reject) => {
-				locationService.getLocation().then((location) => { resolve({"location": parseInt(location), "room": room}); });
-			});
-		}).then((args) => {
-			// Set the found current location in the fields
-			roomService.getRoom(args.location).then((currentRoom) => {
+			locationService.startLocation();
+			locationService.onLocationFoundEventer.addEvent(me.onLocationFound);
+		});
+	};
+
+	this.onLocationFound = function (locationId) {
+		// This method is executed in a Promise already
+		
+		locationId = parseInt(locationId);
+		
+		// Only necessary to do something if we have actually moved
+		if (me.currentLocationId !== locationId) {
+			
+			me.currentLocationId = locationId;
+			let speaker = null;
+
+			roomService.getRoom(locationId).then((curRoom) => {
+				// Speak the current location
+				speaker = speechService.speakCurrentLocation(curRoom);
+				
+				// Set the found current location in the fields
 				me.myLocationTexts.forEach((domObj, index) => {
-					domObj.innerHTML = currentRoom.legalName;
+					domObj.innerHTML = curRoom.legalName;
 				});
-			});
-			return pathFindingService.findPath(args.location, args.room.id);
-		}).then((segments) => {
-			let adders = [];
-			//segments.forEach(me.addStep);
-			segments.forEach((s, index) => { adders.push(me.addStep(s)); });
-			return Promise.all(adders);
-		}).then((x) => {
-			me.hideSpinner();
-		})
-		.catch(console.error);
+			}).then(() => {
+				me.showSpinner();
+				me.removeSteps();
+			}).then(() => { return pathFindingService.findPath(locationId, me.selectedRoomId); }).then((segments) => {
+				let adders = [];
+				if (segments.length > 0) {
+					segments.forEach((s, index) => { adders.push(me.addStep(s)); });
+					speaker.then(() => { speechService.speakStep(segments[0]); });
+				}
+				return Promise.all(adders);
+			}).then((x) => {
+				me.hideSpinner();
+			}).catch(console.error);
+		} else {
+			console.log("Your location has not changed");
+		}
 	};
 
 	this.onStopNavigationRequest = function(event) {
@@ -97,8 +119,14 @@ function DirectionsView(isTouch, roomService, navigateView, pathFindingService, 
 	this.onStopNavigation = function(event) {
 		// The navigation really has to stop now
 		event.stopPropagation();
+		locationService.onLocationFoundEventer.removeEvent(me.onLocationFound);
 		// Also hide the card in the side bar
 		me.hideSideBarCard();
+		me.removeSteps();
+		me.myLocationTexts.forEach((domObj, index) => {
+			domObj.innerHTML = "Searching&hellip;";
+		});
+		me.currentLocationId = null;
 		me.stopNavigationDialog.close();
 	};
 
@@ -110,6 +138,9 @@ function DirectionsView(isTouch, roomService, navigateView, pathFindingService, 
 			textWrapper.innerHTML = text;
 			me.stepsContainer.appendChild(domObj);
 		});
+	};
+	this.removeSteps = function () {
+		me.stepsContainer.innerHTML = "";
 	};
 	
 	this.showSideBarCard = function () {

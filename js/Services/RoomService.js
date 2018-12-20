@@ -1,69 +1,126 @@
 "use strict";
 
-function RoomService() {
+function RoomService(databaseService) {
 
 	// Fields
-	
-	// Will this ever work when you can not wait for a response? You send a request and some time, a message receive event will come back, but how do you link the message to the original request?
-	this.dbWorker = null;
-	this.dbWorkerFile = "js/Services/VubnDB.js";
-	this.activeRequests = [];
-	this.activeRequestUid = 1;
 
+	let me = this;
+
+	// Methods
+
+	// This adapted method return safely parsed room, no field is left undefined (this is possible in the DB)
 	this.searchRooms = function (searchString, maxResultCount = 10) {
-		let me = this;
+		//return databaseService.searchRooms(searchString);
+		return databaseService.searchRooms(searchString).then(this.parseRooms);
+	};
+
+	this.getRoom = function (roomId) {
+		return databaseService.getRoom(roomId).then(me.parseRoom);
+	};
+
+	this.getRoomsInBuildingFloor = function (building, floor) {
+		//return databaseService.getRoomsInBuildingFloor(building, floor);
+		return databaseService.getRoomsInBuildingFloor(building, floor).then(me.parseRooms);
+	};
+
+	this.getBuilding = function (buildingName) {
+		return databaseService.getBuilding(buildingName);
+	};
+
+	this.getAllWalks = function () {
+		return databaseService.getWalks().then(this.parseWalks);
+	};
+	this.getAllWalksForGraph = function () {
+		return databaseService.getWalks().then(this.parseWalksForGraph);
+	};
+
+	// Parsing
+
+	this.parseRoom = function (roomResult) {
+		return me.parseRooms([roomResult]).then((rooms) => rooms[0]);
+	};
+
+	this.parseRooms = function (roomResults) {
 		return new Promise((resolve, reject) => {
 			let rooms = [];
-			for(let i = 0; i < maxResultCount; i++) {
-				rooms.push(new Room(i, searchString + i, searchString + i, 4, "R"));
-			}
+			roomResults.forEach((room, index) => {
+				let temproom = new Room();
+				temproom.id = room.id;
+				// Provide as much detail as possible to fill up as many fields as possible
+				temproom.legalName = (room.legalName || room.uniformName || "");
+				temproom.uniformName = (room.uniformName || room.legalName || "");
+				temproom.building = (room.building || "");
+				temproom.floor = (room.floor || 0);
+				temproom.outsideAvailable = (room.outsideAvailable || []);
+				temproom.type = (room.type || "");
+				temproom.info = (room.info || "");
+				temproom.wind_dir = (room.wind_dir || "");
+				rooms.push(temproom);
+			});
 			resolve(rooms);
 		});
 	};
 
-	this.testSearchSomething = function () {
+	this.parseWalks = function (walkResults) {
 		return new Promise((resolve, reject) => {
-			let newUid = ++this.activeRequestUid;
-			this.dbWorker.postMessage([newUid, "getSomething", "zoekstring"]);
-			this.activeRequests.push([newUid, (data) => resolve(data), (error) => reject(error)]);
+			let walks = [];
+
+			walkResults.forEach((walk, index) => {
+				let tempwalk = new Walk();
+				tempwalk.id = walk.id;
+				tempwalk.from = (walk.from || 0);
+				tempwalk.to = (walk.to || 0);
+				tempwalk.type = (walk.type || "");
+				tempwalk.info = (walk.info || "");
+				walks.push(tempwalk);
+			});
+
+			resolve(walks);
 		});
 	};
 
-	this.testResponse = function (event, me) {
+	this.parseWalksForGraph = function (walkResults) {
 		return new Promise((resolve, reject) => {
-			for (let i = 0; i < me.activeRequests.length; i++) {
-				if (me.activeRequests[i][0] === event.data[0]) {
-					me.activeRequests[i][1](event.data[1]);
-					me.activeRequests.splice(i, 1);
-					break;
-				}
-			}
-		});
-	};
+			let walks = [];
 
-	this.testError = function (event, me) {
-		return new Promise((resolve, reject) => {
-			for (let i = 0; i < me.activeRequests.length; i++) {
-				if (me.activeRequests[i][0] === event.data[0]) {
-					me.activeRequests[i][2](event.data[1]);
-					me.activeRequests.splice(i, 1);
-					break;
+			walkResults.forEach((walk, index) => {
+				let cost = 0;
+				switch (walk.type) {
+					case "corridor":
+						cost = 1;
+						break;
+					case "stairs":
+						cost = 4;
+						break;
+					case "outside path":
+						cost = 5;
+						break;
+					case "lift":
+						cost = 3;
+						break;
+					default:
+						cost = 1;
+						break;
 				}
-			}
+				let tempwalk = {
+					to: (walk.to || 0),
+					from: (walk.from || 0),
+					weight: cost,
+					type: (walk.type || ""),
+					info: (walk.info || "")
+				};
+				walks.push(tempwalk);
+			});
+
+			resolve(walks);
 		});
 	};
 
 	// Init
-	
-	this.init = function () {
-		return new Promise((resolve, reject) => {
-			this.dbWorker = new Worker(this.dbWorkerFile);
-			this.dbWorker.addEventListener("message", (event) => this.testResponse(event, this));
-			this.dbWorker.addEventListener("error", (event) => console.log(event));
 
-			// Start a test
-			this.testSearchSomething().then((data) => console.log(data));
-		});
+	this.init = function () {
+		//return new Promise((resolve, reject) => {
+
+		//});
 	};
 }
-

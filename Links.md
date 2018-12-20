@@ -12,7 +12,7 @@
 
 ## Local storage
 
-[Grote opslag voor gestructureerdde data](https://developer.mozilla.org/nl/docs/IndexedDB)  
+[Grote opslag voor gestructureerde data](https://developer.mozilla.org/nl/docs/IndexedDB)  
 [Opslag voor kleine data, niet zo snel](https://www.w3schools.com/html/html5_webstorage.asp)  
 [Iets over opslag in Cordova (beetje herhaling)](https://cordova.apache.org/docs/en/latest/cordova/storage/storage.html)
 
@@ -22,3 +22,5 @@
 [Material Icons Fonts](https://material.io/tools/icons/?style=baseline)  
 [Een mooie select voor MDL](http://creativeit.github.io/getmdl-select/)  
 [Dialog polyfill](https://github.com/GoogleChrome/dialog-polyfill)
+[Dijkstra shortest path](https://github.com/andrewhayward/dijkstra)
+
