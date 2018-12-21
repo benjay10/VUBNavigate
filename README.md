@@ -13,3 +13,8 @@ This project uses the following libraries:
 *	[Polyfill for Dialog](https://github.com/GoogleChrome/dialog-polyfill) for replacing dialog functionality
 *	[Dijkstra algorithm in JavaScript](https://github.com/andrewhayward/dijkstra) for calculating the shortest path
 
+and uses the following Web API's:
+
+*	[IndexedDB](https://developer.mozilla.org/en-US/docs/Web/API/IndexedDB_API) for the local database  
+*	[Speech Synthesis](https://developer.mozilla.org/en-US/docs/Web/API/Web_Speech_API) for saying directions out loud
+

@@ -33,7 +33,7 @@ html {
 }
 
 .vubn-page {
-	height: 300em;
+	/*height: 300em;*/
 	position: relative;
 	top: 0;
 	/* This option seems nice to have for better animation performance, but rather overkill and messes with the position: fixed; */
