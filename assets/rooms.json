@@ -746,6 +746,96 @@
 			"type": "sluice",
 			"info": "Small room between Rotule 4 and building E on floor 1",
 			"outsideAvailable": []
+		},
+		{
+			"id": 70,
+			"legalName": "R4.2.03",
+			"uniformName": "R4.2.03",
+			"building": "F",
+			"floor": 2,
+			"type": "landing",
+			"info": "Rotule 4 landing",
+			"outsideAvailable": ["fire extinguisher", "fire alarm", "fire hose reel"]
+		},
+		{
+			"id": 71,
+			"legalName": "R4.3.03",
+			"uniformName": "R4.3.03",
+			"building": "F",
+			"floor": 3,
+			"type": "landing",
+			"info": "Rotule 4 landing",
+			"outsideAvailable": ["fire extinguisher", "fire alarm", "fire hose reel"]
+		},
+		{
+			"id": 72,
+			"legalName": "R4.4.03",
+			"uniformName": "R4.4.03",
+			"building": "F",
+			"floor": 4,
+			"type": "landing",
+			"info": "Rotule 4 landing",
+			"outsideAvailable": ["fire extinguisher", "fire alarm", "fire hose reel"]
+		},
+		{
+			"id": 73,
+			"legalName": "R4.5.03",
+			"uniformName": "R4.5.03",
+			"building": "F",
+			"floor": 5,
+			"type": "landing",
+			"info": "Rotule 4 landing",
+			"outsideAvailable": ["fire extinguisher", "fire alarm", "fire hose reel"]
+		},
+		{
+			"id": 74,
+			"legalName": "R4.6.03",
+			"uniformName": "R4.6.03",
+			"building": "F",
+			"floor": 6,
+			"type": "landing",
+			"info": "Rotule 4 landing",
+			"outsideAvailable": ["fire extinguisher", "fire alarm", "fire hose reel"]
+		},
+		{
+			"id": 75,
+			"legalName": "R4.7.03",
+			"uniformName": "R4.7.03",
+			"building": "F",
+			"floor": 7,
+			"type": "landing",
+			"info": "Rotule 4 landing",
+			"outsideAvailable": ["fire extinguisher", "fire alarm", "fire hose reel"]
+		},
+		{
+			"id": 76,
+			"legalName": "R4.8.03",
+			"uniformName": "R4.8.03",
+			"building": "F",
+			"floor": 8,
+			"type": "landing",
+			"info": "Rotule 4 landing",
+			"outsideAvailable": ["fire extinguisher", "fire alarm", "fire hose reel"]
+		},
+		{
+			"id": 77,
+			"legalName": "R4.9.03",
+			"uniformName": "R4.9.03",
+			"building": "F",
+			"floor": 9,
+			"type": "landing",
+			"info": "Rotule 4 landing",
+			"outsideAvailable": ["fire extinguisher", "fire alarm", "fire hose reel"]
+		},
+		{
+			"id": 78,
+			"legalName": "R4.lift",
+			"uniformName": "R4.lift",
+			"building": "F",
+			"floor": 11,
+			"type": "lift",
+			"info": "",
+			"outsideAvailable": []
 		}
 	]
 }

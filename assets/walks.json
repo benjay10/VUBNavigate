@@ -391,6 +391,12 @@
 			"info": ""
 		},
 		{
+			"from": 61,
+			"to": 62,
+			"type": "corridor",
+			"info": ""
+		},
+		{
 			"from": 62,
 			"to": 63,
 			"type": "corridor",
@@ -425,6 +431,72 @@
 			"to": 69,
 			"type": "corridor",
 			"info": "Entrance to E.1"
+		},
+		{
+			"from": 66,
+			"to": 70,
+			"type": "stairs",
+			"info": ""
+		},
+		{
+			"from": 70,
+			"to": 71,
+			"type": "stairs",
+			"info": ""
+		},
+		{
+			"from": 71,
+			"to": 72,
+			"type": "stairs",
+			"info": ""
+		},
+		{
+			"from": 72,
+			"to": 73,
+			"type": "stairs",
+			"info": ""
+		},
+		{
+			"from": 73,
+			"to": 74,
+			"type": "stairs",
+			"info": ""
+		},
+		{
+			"from": 74,
+			"to": 75,
+			"type": "stairs",
+			"info": ""
+		},
+		{
+			"from": 75,
+			"to": 76,
+			"type": "stairs",
+			"info": ""
+		},
+		{
+			"from": 76,
+			"to": 77,
+			"type": "stairs",
+			"info": ""
+		},
+		{
+			"from": 77,
+			"to": 53,
+			"type": "stairs",
+			"info": ""
+		},
+		{
+			"from": 68,
+			"to": 78,
+			"type": "lift",
+			"info": ""
+		},
+		{
+			"from": 56,
+			"to": 78,
+			"type": "lift",
+			"info": ""
 		}
 	]
 }
