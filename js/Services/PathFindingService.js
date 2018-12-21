@@ -20,10 +20,10 @@ function PathFindingService(roomService, locationService) {
 		let text = "";
 		switch (current) {
 			case "N":
-				text = " Go left."
+				text = "Go left. "
 				break;
 			case "S":
-				text = " Go right."
+				text = "Go right. "
 				break;
 			//default:
 			//	text = " Keep straight."
@@ -35,10 +35,10 @@ function PathFindingService(roomService, locationService) {
 		let text = "";
 		switch (current) {
 			case "W":
-				text = " Go left."
+				text = "Go left. "
 				break;
 			case "E":
-				text = " Go right."
+				text = "Go right. "
 				break;
 			//default:
 			//	text = " Keep straight."
@@ -50,10 +50,10 @@ function PathFindingService(roomService, locationService) {
 		let text = "";
 		switch (current) {
 			case "E":
-				text = " Go left."
+				text = "Go left. "
 				break;
 			case "W":
-				text = " Go right."
+				text = "Go right. "
 				break;
 			//default:
 			//	text = " Keep straight."
@@ -65,10 +65,10 @@ function PathFindingService(roomService, locationService) {
 		let text = "";
 		switch (current) {
 			case "S":
-				text = " Go left."
+				text = "Go left. "
 				break;
 			case "N":
-				text = " Go right."
+				text = "Go right. "
 				break;
 			//default:
 			//	text = " Keep straight."
@@ -99,9 +99,29 @@ function PathFindingService(roomService, locationService) {
 				let text = "";
 
 				if(rooms[index].id != from) {
+
+					switch (rooms[index].wind_dir) {
+						case "N":
+							text += me.getChangeToNorth(current_dir);
+							current_dir = rooms[index].wind_dir;
+							break;
+						case "E":
+							text += me.getChangeToEast(current_dir);
+							current_dir = rooms[index].wind_dir;
+							break;
+						case "S":
+							text += me.getChangeToSouth(current_dir);
+							current_dir = rooms[index].wind_dir;
+							break;
+						case "W":
+							text += me.getChangeToWest(current_dir);
+							current_dir = rooms[index].wind_dir;
+							break;
+					}
+
 					switch(route.type) {
 						case "corridor":
-							text = "Walk through the corridor ";
+							text += "Walk through the corridor ";
 							break;
 						//case "lift":
 						//	text = "Take the elevator ";
@@ -132,25 +152,6 @@ function PathFindingService(roomService, locationService) {
 						default:
 							if (text.length > 0)
 								text += "to the " + rooms[index].type + ". ";
-					}
-
-					switch (rooms[index].wind_dir) {
-						case "N":
-							text += me.getChangeToNorth(current_dir);
-							current_dir = rooms[index].wind_dir;
-							break;
-						case "E":
-							text += me.getChangeToEast(current_dir);
-							current_dir = rooms[index].wind_dir;
-							break;
-						case "S":
-							text += me.getChangeToSouth(current_dir);
-							current_dir = rooms[index].wind_dir;
-							break;
-						case "W":
-							text += me.getChangeToWest(current_dir);
-							current_dir = rooms[index].wind_dir;
-							break;
 					}
 
 					if (rooms[index].outsideAvailable.length > 0) {
@@ -228,4 +229,3 @@ function PathFindingService(roomService, locationService) {
 }
 
 // {23: {22:1, 21: 2, 24:3}, 30: {} }
-
