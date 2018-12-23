@@ -15,6 +15,6 @@ This project uses the following libraries:
 
 and uses the following Web API's:
 
-*	[IndexedDB](https://developer.mozilla.org/en-US/docs/Web/API/IndexedDB_API) for the local database  
+*	[IndexedDB](https://developer.mozilla.org/en-US/docs/Web/API/IndexedDB_API) for the local database
 *	[Speech Synthesis](https://developer.mozilla.org/en-US/docs/Web/API/Web_Speech_API) for saying directions out loud
 
